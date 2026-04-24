@@ -34,12 +34,17 @@ export const Route = createRootRoute({
       { name: "google-site-verification", content: "YxS976ozqi0hObB1Tu5VmfSdnudaHTmh7kW9UrALeK0" },
       { title: "Neto Digital" },
       { name: "description", content: "NetoDigital — סוכנות שיווק דיגיטלי בוטיק לעסקים קטנים. קידום אורגני, פרסום ממומן, רשתות חברתיות ובניית אתרים. ליווי אישי ושקיפות מלאה." },
-      { name: "author", content: "Lovable" },
+      { name: "author", content: "NetoDigital" },
+      { name: "keywords", content: "שיווק דיגיטלי, קידום אתרים, SEO, גוגל אדס, פרסום ממומן, בניית אתרים, רשתות חברתיות, NetoDigital, נטו דיגיטל, סוכנות שיווק" },
+      { name: "geo.region", content: "IL" },
+      { name: "geo.placename", content: "Israel" },
       { property: "og:title", content: "Neto Digital" },
       { property: "og:description", content: "NetoDigital — סוכנות שיווק דיגיטלי בוטיק לעסקים קטנים. קידום אורגני, פרסום ממומן, רשתות חברתיות ובניית אתרים. ליווי אישי ושקיפות מלאה." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { property: "og:locale", content: "he_IL" },
+      { property: "og:site_name", content: "NetoDigital" },
+      { property: "og:url", content: "https://www.netodigital.net" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Neto Digital" },
       { name: "twitter:description", content: "NetoDigital — סוכנות שיווק דיגיטלי בוטיק לעסקים קטנים. קידום אורגני, פרסום ממומן, רשתות חברתיות ובניית אתרים. ליווי אישי ושקיפות מלאה." },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/4JLyKCJp4XXIKb4B8rpJZROrBD83/social-images/social-1777046935868-לוגו_רשמי_של_נטודיגיטל.webp" },
@@ -55,6 +60,44 @@ export const Route = createRootRoute({
         type: "image/png",
         href: "/favicon.png",
       },
+      {
+        rel: "canonical",
+        href: "https://www.netodigital.net",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ProfessionalService",
+          "name": "NetoDigital",
+          "alternateName": "נטו דיגיטל",
+          "description": "סוכנות שיווק דיגיטלי בוטיק לעסקים קטנים — קידום אורגני, פרסום ממומן, רשתות חברתיות ובניית אתרים.",
+          "url": "https://www.netodigital.net",
+          "telephone": "+972-52-598-1030",
+          "email": "netodigital.help@gmail.com",
+          "image": "https://storage.googleapis.com/gpt-engineer-file-uploads/4JLyKCJp4XXIKb4B8rpJZROrBD83/social-images/social-1777046935868-לוגו_רשמי_של_נטודיגיטל.webp",
+          "logo": "https://storage.googleapis.com/gpt-engineer-file-uploads/4JLyKCJp4XXIKb4B8rpJZROrBD83/social-images/social-1777046935868-לוגו_רשמי_של_נטודיגיטל.webp",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "IL"
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "Israel"
+          },
+          "priceRange": "₪₪",
+          "sameAs": [],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+972-52-598-1030",
+            "contactType": "customer service",
+            "email": "netodigital.help@gmail.com",
+            "availableLanguage": ["Hebrew", "English"]
+          }
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -64,7 +107,7 @@ export const Route = createRootRoute({
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="he" dir="rtl">
       <head>
         <HeadContent />
       </head>
