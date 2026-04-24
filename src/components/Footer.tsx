@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, Phone, MapPin } from "lucide-react";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo-icon.png";
 
 export function Footer() {
   return (
@@ -11,7 +11,7 @@ export function Footer() {
             <img
               src={logo}
               alt="NetoDigital"
-              className="h-10 w-10 rounded-xl object-cover"
+              className="h-10 w-10 object-contain"
             />
             <span className="text-xl font-bold">Neto<span className="text-gradient">Digital</span></span>
           </div>

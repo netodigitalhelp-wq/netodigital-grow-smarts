@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo-icon.png";
 
 const links = [
   { to: "/", label: "בית" },
@@ -16,7 +16,7 @@ export function Header() {
           <img
             src={logo}
             alt="NetoDigital - צמיחה לעסקים קטנים"
-            className="h-10 w-10 rounded-xl object-cover shadow-glow group-hover:scale-110 transition-smooth"
+            className="h-10 w-10 object-contain group-hover:scale-110 transition-smooth"
           />
           <span className="text-xl font-bold tracking-tight">
             Neto<span className="text-gradient">Digital</span>
