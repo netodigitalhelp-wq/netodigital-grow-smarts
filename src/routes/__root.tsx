@@ -29,6 +29,7 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "google-site-verification", content: "YxS976ozqi0hObB1Tu5VmfSdnudaHTmh7kW9UrALeK0" },
       { title: "Neto Digital" },
       { name: "description", content: "NetoDigital — סוכנות שיווק דיגיטלי בוטיק לעסקים קטנים. קידום אורגני, פרסום ממומן, רשתות חברתיות ובניית אתרים. ליווי אישי ושקיפות מלאה." },
       { name: "author", content: "Lovable" },
