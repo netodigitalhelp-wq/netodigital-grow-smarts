@@ -74,7 +74,7 @@ function Index() {
             </p>
             <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-primary/40 bg-primary/10 backdrop-blur text-sm font-semibold mb-10">
               <Rocket className="w-4 h-4 text-primary" />
-              <span>משיקים ב-2025 — 10 הלקוחות הראשונים מקבלים <span className="text-gradient">25% הנחה לחצי שנה</span></span>
+              <span>הצעת השקה — 10 הלקוחות הראשונים מקבלים <span className="text-gradient">25% הנחה לחצי שנה</span></span>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link to="/contact" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl gradient-primary text-primary-foreground font-semibold shadow-elegant hover:scale-105 transition-smooth">
