@@ -140,28 +140,42 @@ function Index() {
             <div className="relative">
               <div className="absolute inset-0 gradient-primary blur-3xl opacity-30 rounded-full" />
               <div className="relative grid grid-cols-2 gap-4">
-                <div className="p-6 rounded-2xl bg-background/80 border border-border animate-float">
-                  <Rocket className="w-8 h-8 text-primary mb-3" />
-                  <div className="text-2xl font-bold">+340%</div>
-                  <div className="text-sm text-muted-foreground">תנועה לאתר</div>
-                </div>
-                <div className="p-6 rounded-2xl bg-background/80 border border-border animate-float mt-8" style={{ animationDelay: "1s" }}>
-                  <Target className="w-8 h-8 text-accent mb-3" />
-                  <div className="text-2xl font-bold">-58%</div>
-                  <div className="text-sm text-muted-foreground">עלות ליד</div>
-                </div>
-                <div className="p-6 rounded-2xl bg-background/80 border border-border animate-float" style={{ animationDelay: "0.5s" }}>
-                  <TrendingUp className="w-8 h-8 text-primary mb-3" />
-                  <div className="text-2xl font-bold">x5.1</div>
-                  <div className="text-sm text-muted-foreground">המרות</div>
-                </div>
-                <div className="p-6 rounded-2xl bg-background/80 border border-border animate-float mt-8" style={{ animationDelay: "1.5s" }}>
-                  <BarChart3 className="w-8 h-8 text-accent mb-3" />
-                  <div className="text-2xl font-bold">98%</div>
-                  <div className="text-sm text-muted-foreground">שביעות רצון</div>
-                </div>
+                {promises.map((p, i) => (
+                  <div
+                    key={p.title}
+                    className={`p-6 rounded-2xl bg-background/80 border border-border animate-float ${i % 2 === 1 ? "mt-8" : ""}`}
+                    style={{ animationDelay: `${i * 0.5}s` }}
+                  >
+                    <p.icon className={`w-8 h-8 mb-3 ${i % 2 === 0 ? "text-primary" : "text-accent"}`} />
+                    <div className="text-base font-bold mb-1">{p.title}</div>
+                    <div className="text-xs text-muted-foreground leading-snug">{p.desc}</div>
+                  </div>
+                ))}
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section className="container mx-auto px-6 mb-24">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <div className="text-sm font-semibold text-primary mb-3">איך זה עובד</div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">תהליך פשוט, תוצאות מדידות</h2>
+            <p className="text-muted-foreground text-lg">4 שלבים ברורים מהשיחה הראשונה ועד הצמיחה.</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {process.map(({ icon: Icon, step, title, desc }) => (
+              <div key={step} className="relative p-7 rounded-2xl gradient-card border border-border/50 hover:border-primary/50 transition-smooth">
+                <div className="absolute top-4 left-4 text-5xl font-extrabold text-primary/10 leading-none select-none">{step}</div>
+                <div className="relative">
+                  <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center mb-5 shadow-glow">
+                    <Icon className="w-6 h-6 text-primary-foreground" />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">{title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
