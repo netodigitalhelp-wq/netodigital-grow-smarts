@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle2, HelpCircle } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/contact")({
@@ -15,6 +15,25 @@ export const Route = createFileRoute("/contact")({
   }),
   component: ContactPage,
 });
+
+const faqs = [
+  {
+    q: "אתם עסק חדש — למה שאסמוך עליכם?",
+    a: "NetoDigital כחברה הוקמה ב-2025, אבל הצוות שמאחוריה מביא איתו 8+ שנות ניסיון מצטבר מסוכנויות שיווק מובילות בישראל ומעבודה עצמאית עם עשרות עסקים. הקמנו את NetoDigital בדיוק כי ראינו פער בשוק — עסקים קטנים נופלים בין הכיסאות של הסוכנויות הגדולות. בנוסף, אנחנו עובדים ללא חוזי התחייבות — אתם נשארים איתנו רק כל עוד אתם מרוצים מהתוצאות.",
+  },
+  {
+    q: "מה התקציב המינימלי כדי לעבוד איתכם?",
+    a: "אנחנו מאמינים ששיווק דיגיטלי איכותי צריך להיות נגיש. חבילת ההתחלה שלנו מתחילה ב-2,500 ₪ לחודש ומיועדת לעסקים קטנים בתחילת הדרך. בשיחת ההיכרות החינמית נבין יחד מה מתאים לעסק שלכם — לא נמכור לכם מה שאתם לא צריכים. חשוב לדעת: לתקציב הניהול שלנו תוסיפו את תקציב המדיה (גוגל / מטא) — שמתחיל מ-1,500 ₪ לחודש עבור עסקים מקומיים.",
+  },
+  {
+    q: "מתי אראה תוצאות ראשונות?",
+    a: "זה משתנה לפי השירות: פרסום ממומן (Google Ads / Meta) — לידים ראשונים בדרך כלל תוך 7–14 יום מהשקת הקמפיין. רשתות חברתיות אורגניות — בנייה הדרגתית, שיפור מורגש תוך 60–90 יום. קידום אורגני (SEO) — תהליך ארוך טווח, תוצאות משמעותיות תוך 4–6 חודשים. חשוב: כל סוכנות שמבטיחה לכם 'עמוד 1 בגוגל תוך שבוע' — בורחים ממנה. אנחנו עובדים עם יעדים מציאותיים ומדידים.",
+  },
+  {
+    q: "מה ההבדל בינכם לבין סוכנות גדולה?",
+    a: "בסוכנות גדולה אתם בדרך כלל לקוח מספר 47 מתוך 200, מנוהלים ע\"י מתמחה, עם דוח אוטומטי שלא קוראים. אצלנו: אסטרטג בכיר מלווה אישית כל לקוח (לא מתמחה ולא נציג שירות). כמות לקוחות מוגבלת במכוון — כדי שנוכל לתת תשומת לב אמיתית. תקשורת ישירה בוואטסאפ — לא מערכת טיקטים. ללא חוזי שנה — אנחנו צריכים להוכיח את עצמנו כל חודש מחדש. אנחנו לא מתאימים לכולם — אם אתם מחפשים מכונה תאגידית, אנחנו לא הכתובת. אם אתם רוצים שותף לצמיחה — בואו נדבר.",
+  },
+];
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
@@ -157,6 +176,35 @@ function ContactPage() {
                 </>
               )}
             </form>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="container mx-auto px-6 pb-24">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 text-sm font-semibold text-primary mb-3">
+                <HelpCircle className="w-4 h-4" />
+                שאלות נפוצות
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">לפני שמתחילים, <span className="text-gradient">חשוב שתדעו</span></h2>
+              <p className="text-muted-foreground text-lg">התשובות לשאלות שאנחנו שומעים הכי הרבה.</p>
+            </div>
+            <div className="space-y-4">
+              {faqs.map((faq, i) => (
+                <details
+                  key={faq.q}
+                  className="group p-6 rounded-2xl gradient-card border border-border/50 hover:border-primary/40 transition-smooth"
+                  open={i === 0}
+                >
+                  <summary className="flex items-center justify-between gap-4 cursor-pointer list-none font-bold text-lg">
+                    <span>{faq.q}</span>
+                    <span className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xl flex-shrink-0 group-open:rotate-45 transition-transform">+</span>
+                  </summary>
+                  <p className="mt-4 text-muted-foreground leading-relaxed">{faq.a}</p>
+                </details>
+              ))}
+            </div>
           </div>
         </section>
       </main>

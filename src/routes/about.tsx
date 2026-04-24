@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Heart, Lightbulb, Shield, Users, ArrowLeft } from "lucide-react";
+import { Heart, Lightbulb, Shield, Users, ArrowLeft, Quote } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -29,11 +29,22 @@ function AboutPage() {
       <main className="flex-1">
         <section className="container mx-auto px-6 pt-20 pb-16 text-center max-w-3xl">
           <div className="text-sm font-semibold text-primary mb-3">הסיפור שלנו</div>
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">בונים <span className="text-gradient">עסקים קטנים</span> מאז 2017</h1>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">סוכנות <span className="text-gradient">חדשה</span>, ניסיון ותיק</h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            NetoDigital נוסדה מתוך תסכול. ראינו עסקים קטנים מצוינים שמשלמים לסוכנויות גדולות הון תועפות — ולא מקבלים תוצאות.
-            החלטנו לבנות סוכנות אחרת: שקופה, אישית ומבוססת תוצאות בלבד.
+            NetoDigital הוקמה ב-2025 על ידי צוות עם 8+ שנות ניסיון מצטבר בסוכנויות שיווק מובילות בישראל.
+            הקמנו את הסוכנות מתוך תסכול — ראינו עסקים קטנים נהדרים שמשלמים הון לסוכנויות גדולות, ומקבלים יחס של "לקוח 47 מתוך 200".
+            החלטנו לבנות משהו אחר.
           </p>
+        </section>
+
+        <section className="container mx-auto px-6 mb-20 max-w-3xl">
+          <div className="p-8 md:p-10 rounded-3xl gradient-card border border-primary/30 relative">
+            <Quote className="absolute top-6 right-6 w-10 h-10 text-primary/20" />
+            <p className="text-lg md:text-xl leading-relaxed text-foreground/90 italic">
+              "אחרי 8+ שנים בסוכנויות הגדולות בארץ, ראינו את אותה תופעה שוב ושוב — עסקים קטנים שמשלמים תקציבים גדולים, מקבלים נציג אחד מתוך 50 לקוחות, ובסוף נשארים בלי תוצאות. NetoDigital הוקמה בדיוק בשביל לפתור את זה — סוכנות בוטיק עם כמות לקוחות מוגבלת, אסטרטג בכיר על כל חשבון, ויחס של שותף לצמיחה."
+            </p>
+            <div className="mt-6 text-sm text-muted-foreground">— הצוות המייסד של NetoDigital</div>
+          </div>
         </section>
 
         <section className="container mx-auto px-6 mb-20">

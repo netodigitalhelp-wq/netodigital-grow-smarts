@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { ArrowLeft, TrendingUp, Search, Megaphone, BarChart3, Sparkles, Target, Rocket, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, TrendingUp, Search, Megaphone, BarChart3, Sparkles, Target, Rocket, CheckCircle2, Calendar, Award, Layers, Heart, MessageCircle, FileText, Zap } from "lucide-react";
 import heroImg from "@/assets/hero.jpg";
 
 export const Route = createFileRoute("/")({
@@ -29,10 +29,24 @@ const services = [
 ];
 
 const stats = [
-  { value: "+250", label: "עסקים מרוצים" },
-  { value: "98%", label: "שיעור שימור" },
-  { value: "x4.2", label: "ROI ממוצע" },
-  { value: "8 שנים", label: "ניסיון בשטח" },
+  { value: "2025", label: "שנת השקה" },
+  { value: "8+ שנים", label: "ניסיון מצטבר של הצוות" },
+  { value: "6", label: "תחומי שירות" },
+  { value: "100%", label: "מחויבות אישית" },
+];
+
+const process = [
+  { icon: MessageCircle, step: "01", title: "שיחת היכרות", desc: "30 דקות חינם — מבינים את העסק, היעדים והאתגרים שלכם." },
+  { icon: FileText, step: "02", title: "אסטרטגיה מותאמת", desc: "תוך שבוע — תוכנית כתובה עם יעדים מדידים ולוחות זמנים." },
+  { icon: Zap, step: "03", title: "השקה והרצה", desc: "תוך שבועיים — מקימים קמפיינים, נכסים ומערכות מעקב." },
+  { icon: TrendingUp, step: "04", title: "אופטימיזציה רציפה", desc: "דוחות חודשיים, פגישות תקופתיות והתאמות שוטפות." },
+];
+
+const promises = [
+  { icon: MessageCircle, title: "תקשורת תוך 24 שעות", desc: "תמיד. בלי טיקטים, בלי המתנות." },
+  { icon: FileText, title: "דוח חודשי שקוף", desc: "כל שקל מתועד, כל מדד מוצג." },
+  { icon: Heart, title: "ללא חוזי שנה", desc: "אם לא מרוצים, יוצאים. בלי קנסות." },
+  { icon: Award, title: "אסטרטג בכיר אחראי", desc: "לא מתמחה, לא נציג שירות." },
 ];
 
 function Index() {
@@ -58,6 +72,10 @@ function Index() {
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
               ב-NetoDigital אנחנו עוזרים לעסקים קטנים בישראל לצמוח באינטרנט — בעזרת אסטרטגיה חכמה, פרסום מדויק ותוצאות מדידות.
             </p>
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-primary/40 bg-primary/10 backdrop-blur text-sm font-semibold mb-10">
+              <Rocket className="w-4 h-4 text-primary" />
+              <span>משיקים ב-2025 — 10 הלקוחות הראשונים מקבלים <span className="text-gradient">25% הנחה לחצי שנה</span></span>
+            </div>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link to="/contact" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl gradient-primary text-primary-foreground font-semibold shadow-elegant hover:scale-105 transition-smooth">
                 נתחיל לעבוד יחד <ArrowLeft className="w-4 h-4" />
@@ -111,7 +129,7 @@ function Index() {
                 אנחנו מבינים שכל שקל בעסק קטן חשוב. לכן אנחנו עובדים בשקיפות מלאה, עם דוחות חודשיים ברורים ויעדים מדידים.
               </p>
               <ul className="space-y-3">
-                {["ליווי אישי וצמוד", "תוצאות תוך 60 יום", "ללא התחייבות לטווח ארוך", "צוות מומחים בישראל"].map((b) => (
+                {["ליווי אישי וצמוד", "יעדים מדידים מהיום הראשון", "ללא התחייבות לטווח ארוך", "צוות מומחים בישראל"].map((b) => (
                   <li key={b} className="flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
                     <span>{b}</span>
@@ -122,28 +140,42 @@ function Index() {
             <div className="relative">
               <div className="absolute inset-0 gradient-primary blur-3xl opacity-30 rounded-full" />
               <div className="relative grid grid-cols-2 gap-4">
-                <div className="p-6 rounded-2xl bg-background/80 border border-border animate-float">
-                  <Rocket className="w-8 h-8 text-primary mb-3" />
-                  <div className="text-2xl font-bold">+340%</div>
-                  <div className="text-sm text-muted-foreground">תנועה לאתר</div>
-                </div>
-                <div className="p-6 rounded-2xl bg-background/80 border border-border animate-float mt-8" style={{ animationDelay: "1s" }}>
-                  <Target className="w-8 h-8 text-accent mb-3" />
-                  <div className="text-2xl font-bold">-58%</div>
-                  <div className="text-sm text-muted-foreground">עלות ליד</div>
-                </div>
-                <div className="p-6 rounded-2xl bg-background/80 border border-border animate-float" style={{ animationDelay: "0.5s" }}>
-                  <TrendingUp className="w-8 h-8 text-primary mb-3" />
-                  <div className="text-2xl font-bold">x5.1</div>
-                  <div className="text-sm text-muted-foreground">המרות</div>
-                </div>
-                <div className="p-6 rounded-2xl bg-background/80 border border-border animate-float mt-8" style={{ animationDelay: "1.5s" }}>
-                  <BarChart3 className="w-8 h-8 text-accent mb-3" />
-                  <div className="text-2xl font-bold">98%</div>
-                  <div className="text-sm text-muted-foreground">שביעות רצון</div>
-                </div>
+                {promises.map((p, i) => (
+                  <div
+                    key={p.title}
+                    className={`p-6 rounded-2xl bg-background/80 border border-border animate-float ${i % 2 === 1 ? "mt-8" : ""}`}
+                    style={{ animationDelay: `${i * 0.5}s` }}
+                  >
+                    <p.icon className={`w-8 h-8 mb-3 ${i % 2 === 0 ? "text-primary" : "text-accent"}`} />
+                    <div className="text-base font-bold mb-1">{p.title}</div>
+                    <div className="text-xs text-muted-foreground leading-snug">{p.desc}</div>
+                  </div>
+                ))}
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section className="container mx-auto px-6 mb-24">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <div className="text-sm font-semibold text-primary mb-3">איך זה עובד</div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">תהליך פשוט, תוצאות מדידות</h2>
+            <p className="text-muted-foreground text-lg">4 שלבים ברורים מהשיחה הראשונה ועד הצמיחה.</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {process.map(({ icon: Icon, step, title, desc }) => (
+              <div key={step} className="relative p-7 rounded-2xl gradient-card border border-border/50 hover:border-primary/50 transition-smooth">
+                <div className="absolute top-4 left-4 text-5xl font-extrabold text-primary/10 leading-none select-none">{step}</div>
+                <div className="relative">
+                  <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center mb-5 shadow-glow">
+                    <Icon className="w-6 h-6 text-primary-foreground" />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">{title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
