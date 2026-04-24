@@ -3,7 +3,6 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ArrowLeft, TrendingUp, Search, Megaphone, BarChart3, Sparkles, Target, Rocket, CheckCircle2 } from "lucide-react";
 import heroImg from "@/assets/hero.jpg";
-import logoFull from "@/assets/logo-full.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -48,11 +47,6 @@ function Index() {
             <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
           </div>
           <div className="container mx-auto px-6 pt-24 pb-32 text-center max-w-5xl">
-            <img
-              src={logoFull}
-              alt="NetoDigital — צמיחה לעסקים קטנים"
-              className="w-48 md:w-64 mx-auto mb-8 drop-shadow-2xl"
-            />
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border/60 bg-card/40 backdrop-blur text-sm text-muted-foreground mb-8 animate-glow">
               <Sparkles className="w-4 h-4 text-primary" />
               סוכנות שיווק דיגיטלי לעסקים קטנים
