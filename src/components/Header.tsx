@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo-icon.png";
 
 const links = [
@@ -9,6 +11,7 @@ const links = [
 ] as const;
 
 export function Header() {
+  const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border/50">
       <div className="container mx-auto px-6 h-16 flex items-center justify-between">
@@ -41,7 +44,40 @@ export function Header() {
         >
           התחל עכשיו
         </Link>
+        <button
+          type="button"
+          aria-label={open ? "סגור תפריט" : "פתח תפריט"}
+          onClick={() => setOpen((v) => !v)}
+          className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-border/60 hover:bg-secondary/50 transition-smooth"
+        >
+          {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
       </div>
+      {open && (
+        <nav className="md:hidden border-t border-border/50 bg-background/95 backdrop-blur-xl">
+          <div className="container mx-auto px-6 py-4 flex flex-col gap-1">
+            {links.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                onClick={() => setOpen(false)}
+                className="px-4 py-3 text-base text-muted-foreground hover:text-foreground transition-smooth rounded-lg hover:bg-secondary/50"
+                activeProps={{ className: "px-4 py-3 text-base text-foreground rounded-lg bg-secondary/50" }}
+                activeOptions={{ exact: true }}
+              >
+                {l.label}
+              </Link>
+            ))}
+            <Link
+              to="/contact"
+              onClick={() => setOpen(false)}
+              className="mt-2 inline-flex items-center justify-center px-5 py-3 text-base font-semibold gradient-primary text-primary-foreground rounded-lg shadow-glow"
+            >
+              התחל עכשיו
+            </Link>
+          </div>
+        </nav>
+      )}
     </header>
   );
 }
