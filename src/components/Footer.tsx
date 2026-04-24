@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Zap, Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 export function Footer() {
   return (
@@ -7,9 +8,11 @@ export function Footer() {
       <div className="container mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
         <div className="md:col-span-2">
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center">
-              <Zap className="w-5 h-5 text-primary-foreground" />
-            </div>
+            <img
+              src={logo}
+              alt="NetoDigital"
+              className="h-10 w-10 rounded-xl object-cover"
+            />
             <span className="text-xl font-bold">Neto<span className="text-gradient">Digital</span></span>
           </div>
           <p className="text-muted-foreground text-sm max-w-md leading-relaxed">

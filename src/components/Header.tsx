@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Zap } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const links = [
   { to: "/", label: "בית" },
@@ -13,9 +13,11 @@ export function Header() {
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border/50">
       <div className="container mx-auto px-6 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center shadow-glow group-hover:scale-110 transition-smooth">
-            <Zap className="w-5 h-5 text-primary-foreground" />
-          </div>
+          <img
+            src={logo}
+            alt="NetoDigital - צמיחה לעסקים קטנים"
+            className="h-10 w-10 rounded-xl object-cover shadow-glow group-hover:scale-110 transition-smooth"
+          />
           <span className="text-xl font-bold tracking-tight">
             Neto<span className="text-gradient">Digital</span>
           </span>
