@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { ArrowLeft, TrendingUp, Search, Megaphone, BarChart3, Sparkles, Target, Rocket, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, TrendingUp, Search, Megaphone, BarChart3, Sparkles, Target, Rocket, CheckCircle2, Calendar, Award, Layers, Heart, MessageCircle, FileText, Zap } from "lucide-react";
 import heroImg from "@/assets/hero.jpg";
 
 export const Route = createFileRoute("/")({
@@ -29,10 +29,24 @@ const services = [
 ];
 
 const stats = [
-  { value: "+250", label: "עסקים מרוצים" },
-  { value: "98%", label: "שיעור שימור" },
-  { value: "x4.2", label: "ROI ממוצע" },
-  { value: "8 שנים", label: "ניסיון בשטח" },
+  { value: "2025", label: "שנת השקה" },
+  { value: "8+ שנים", label: "ניסיון מצטבר של הצוות" },
+  { value: "6", label: "תחומי שירות" },
+  { value: "100%", label: "מחויבות אישית" },
+];
+
+const process = [
+  { icon: MessageCircle, step: "01", title: "שיחת היכרות", desc: "30 דקות חינם — מבינים את העסק, היעדים והאתגרים שלכם." },
+  { icon: FileText, step: "02", title: "אסטרטגיה מותאמת", desc: "תוך שבוע — תוכנית כתובה עם יעדים מדידים ולוחות זמנים." },
+  { icon: Zap, step: "03", title: "השקה והרצה", desc: "תוך שבועיים — מקימים קמפיינים, נכסים ומערכות מעקב." },
+  { icon: TrendingUp, step: "04", title: "אופטימיזציה רציפה", desc: "דוחות חודשיים, פגישות תקופתיות והתאמות שוטפות." },
+];
+
+const promises = [
+  { icon: MessageCircle, title: "תקשורת תוך 24 שעות", desc: "תמיד. בלי טיקטים, בלי המתנות." },
+  { icon: FileText, title: "דוח חודשי שקוף", desc: "כל שקל מתועד, כל מדד מוצג." },
+  { icon: Heart, title: "ללא חוזי שנה", desc: "אם לא מרוצים, יוצאים. בלי קנסות." },
+  { icon: Award, title: "אסטרטג בכיר אחראי", desc: "לא מתמחה, לא נציג שירות." },
 ];
 
 function Index() {
@@ -58,6 +72,10 @@ function Index() {
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
               ב-NetoDigital אנחנו עוזרים לעסקים קטנים בישראל לצמוח באינטרנט — בעזרת אסטרטגיה חכמה, פרסום מדויק ותוצאות מדידות.
             </p>
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-primary/40 bg-primary/10 backdrop-blur text-sm font-semibold mb-10">
+              <Rocket className="w-4 h-4 text-primary" />
+              <span>משיקים ב-2025 — 10 הלקוחות הראשונים מקבלים <span className="text-gradient">25% הנחה לחצי שנה</span></span>
+            </div>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link to="/contact" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl gradient-primary text-primary-foreground font-semibold shadow-elegant hover:scale-105 transition-smooth">
                 נתחיל לעבוד יחד <ArrowLeft className="w-4 h-4" />
