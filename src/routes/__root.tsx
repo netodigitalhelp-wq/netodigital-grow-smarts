@@ -29,14 +29,18 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Neto Digital" },
+      { name: "description", content: "NetoDigital — סוכנות שיווק דיגיטלי בוטיק לעסקים קטנים. קידום אורגני, פרסום ממומן, רשתות חברתיות ובניית אתרים. ליווי אישי ושקיפות מלאה." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Neto Digital" },
+      { property: "og:description", content: "NetoDigital — סוכנות שיווק דיגיטלי בוטיק לעסקים קטנים. קידום אורגני, פרסום ממומן, רשתות חברתיות ובניית אתרים. ליווי אישי ושקיפות מלאה." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Neto Digital" },
+      { name: "twitter:description", content: "NetoDigital — סוכנות שיווק דיגיטלי בוטיק לעסקים קטנים. קידום אורגני, פרסום ממומן, רשתות חברתיות ובניית אתרים. ליווי אישי ושקיפות מלאה." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/4JLyKCJp4XXIKb4B8rpJZROrBD83/social-images/social-1777046935868-לוגו_רשמי_של_נטודיגיטל.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/4JLyKCJp4XXIKb4B8rpJZROrBD83/social-images/social-1777046935868-לוגו_רשמי_של_נטודיגיטל.webp" },
     ],
     links: [
       {
