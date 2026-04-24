@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/contact")({
@@ -18,6 +18,27 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    business: "",
+    message: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSent(true);
+  };
+
+  const handleReset = () => {
+    setFormData({ name: "", phone: "", email: "", business: "", message: "" });
+    setSent(false);
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -50,40 +71,85 @@ function ContactPage() {
             </div>
 
             <form
-              onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+              onSubmit={handleSubmit}
               className="lg:col-span-2 p-8 rounded-2xl gradient-card border border-border/50 space-y-4"
             >
               {sent ? (
-                <div className="text-center py-12">
-                  <div className="w-16 h-16 rounded-full gradient-primary mx-auto mb-4 flex items-center justify-center shadow-glow">
-                    <Send className="w-7 h-7 text-primary-foreground" />
+                <div className="text-center py-8">
+                  <div className="w-20 h-20 rounded-full gradient-primary mx-auto mb-5 flex items-center justify-center shadow-glow animate-in zoom-in duration-500">
+                    <CheckCircle2 className="w-10 h-10 text-primary-foreground" />
                   </div>
-                  <h3 className="text-2xl font-bold mb-2">תודה!</h3>
-                  <p className="text-muted-foreground">קיבלנו את הפנייה ונחזור אליך בהקדם.</p>
+                  <h3 className="text-3xl font-bold mb-3">
+                    תודה{formData.name ? `, ${formData.name}` : ""}! 🎉
+                  </h3>
+                  <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+                    קיבלנו את הפנייה שלך בהצלחה. הצוות שלנו יחזור אליך תוך 24 שעות לכתובת{" "}
+                    <span className="font-semibold text-foreground">{formData.email}</span>
+                    {formData.phone && (
+                      <> או לטלפון <span className="font-semibold text-foreground">{formData.phone}</span></>
+                    )}.
+                  </p>
+
+                  <div className="bg-background/50 rounded-xl p-5 text-right max-w-md mx-auto mb-6 border border-border/50">
+                    <div className="text-sm font-semibold mb-3 text-primary">סיכום הפנייה שלך:</div>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between gap-4">
+                        <span className="text-muted-foreground">שם:</span>
+                        <span className="font-medium">{formData.name}</span>
+                      </div>
+                      {formData.business && (
+                        <div className="flex justify-between gap-4">
+                          <span className="text-muted-foreground">עסק:</span>
+                          <span className="font-medium">{formData.business}</span>
+                        </div>
+                      )}
+                      <div className="flex justify-between gap-4">
+                        <span className="text-muted-foreground">אימייל:</span>
+                        <span className="font-medium">{formData.email}</span>
+                      </div>
+                      {formData.phone && (
+                        <div className="flex justify-between gap-4">
+                          <span className="text-muted-foreground">טלפון:</span>
+                          <span className="font-medium">{formData.phone}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <p className="text-sm text-muted-foreground mb-4">
+                    בינתיים, אתה מוזמן לעקוב אחרינו ברשתות החברתיות 💜
+                  </p>
+                  <button
+                    onClick={handleReset}
+                    type="button"
+                    className="text-sm text-primary hover:underline font-semibold"
+                  >
+                    שליחת פנייה נוספת
+                  </button>
                 </div>
               ) : (
                 <>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-medium mb-1.5 block">שם מלא</label>
-                      <input required className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-primary outline-none transition-smooth" placeholder="ישראל ישראלי" />
+                      <input required name="name" value={formData.name} onChange={handleChange} className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-primary outline-none transition-smooth" placeholder="ישראל ישראלי" />
                     </div>
                     <div>
                       <label className="text-sm font-medium mb-1.5 block">טלפון</label>
-                      <input required type="tel" className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-primary outline-none transition-smooth" placeholder="050-1234567" />
+                      <input required type="tel" name="phone" value={formData.phone} onChange={handleChange} className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-primary outline-none transition-smooth" placeholder="050-1234567" />
                     </div>
                   </div>
                   <div>
                     <label className="text-sm font-medium mb-1.5 block">אימייל</label>
-                    <input required type="email" className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-primary outline-none transition-smooth" placeholder="you@example.com" />
+                    <input required type="email" name="email" value={formData.email} onChange={handleChange} className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-primary outline-none transition-smooth" placeholder="you@example.com" />
                   </div>
                   <div>
                     <label className="text-sm font-medium mb-1.5 block">שם העסק</label>
-                    <input className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-primary outline-none transition-smooth" placeholder="העסק שלי" />
+                    <input name="business" value={formData.business} onChange={handleChange} className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-primary outline-none transition-smooth" placeholder="העסק שלי" />
                   </div>
                   <div>
                     <label className="text-sm font-medium mb-1.5 block">איך נוכל לעזור?</label>
-                    <textarea required rows={4} className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-primary outline-none transition-smooth resize-none" placeholder="ספרו לנו קצת על העסק והאתגרים השיווקיים..." />
+                    <textarea required name="message" value={formData.message} onChange={handleChange} rows={4} className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-primary outline-none transition-smooth resize-none" placeholder="ספרו לנו קצת על העסק והאתגרים השיווקיים..." />
                   </div>
                   <button type="submit" className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl gradient-primary text-primary-foreground font-semibold shadow-glow hover:scale-[1.02] transition-smooth">
                     שליחה <Send className="w-4 h-4" />
