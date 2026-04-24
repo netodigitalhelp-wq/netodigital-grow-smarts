@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Mail, Phone, MapPin, Send, CheckCircle2, HelpCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle2, HelpCircle, MessageCircle, Loader2 } from "lucide-react";
 import { useState } from "react";
+import { contact } from "@/lib/contact";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -37,6 +38,8 @@ const faqs = [
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -49,14 +52,32 @@ function ContactPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
+    setError(null);
+    setLoading(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "שגיאה בשליחה");
+      }
+      setSent(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "שגיאה בשליחה");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleReset = () => {
     setFormData({ name: "", phone: "", email: "", business: "", message: "" });
     setSent(false);
+    setError(null);
   };
 
   return (
@@ -73,22 +94,39 @@ function ContactPage() {
           <div className="grid lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             <div className="space-y-4">
               {[
-                { icon: Mail, label: "אימייל", value: "hello@netodigital.co.il" },
-                { icon: Phone, label: "טלפון", value: "03-555-1234" },
-                { icon: MapPin, label: "כתובת", value: "רוטשילד 22, תל אביב" },
-              ].map(({ icon: Icon, label, value }) => (
-                <div key={label} className="p-5 rounded-2xl gradient-card border border-border/50 flex items-center gap-4">
-                  <div className="w-11 h-11 rounded-xl gradient-primary flex items-center justify-center shadow-glow flex-shrink-0">
-                    <Icon className="w-5 h-5 text-primary-foreground" />
+                { icon: Mail, label: "אימייל", value: contact.email, href: contact.emailHref, ltr: true },
+                { icon: Phone, label: "טלפון", value: contact.phoneDisplay, href: contact.phoneHref, ltr: true },
+                { icon: MessageCircle, label: "וואטסאפ", value: "שלחו הודעה", href: contact.whatsappHref, external: true, ltr: false },
+                { icon: MapPin, label: "אזור שירות", value: contact.area, ltr: false },
+              ].map(({ icon: Icon, label, value, href, external, ltr }) => {
+                const inner = (
+                  <>
+                    <div className="w-11 h-11 rounded-xl gradient-primary flex items-center justify-center shadow-glow flex-shrink-0">
+                      <Icon className="w-5 h-5 text-primary-foreground" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-muted-foreground">{label}</div>
+                      <div className="font-semibold" {...(ltr ? { dir: "ltr" as const } : {})}>{value}</div>
+                    </div>
+                  </>
+                );
+                const className = "p-5 rounded-2xl gradient-card border border-border/50 flex items-center gap-4 hover:border-primary/40 transition-smooth";
+                return href ? (
+                  <a
+                    key={label}
+                    href={href}
+                    {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className={className}
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <div key={label} className={className}>
+                    {inner}
                   </div>
-                  <div>
-                    <div className="text-xs text-muted-foreground">{label}</div>
-                    <div className="font-semibold">{value}</div>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
-
             <form
               onSubmit={handleSubmit}
               className="lg:col-span-2 p-8 rounded-2xl gradient-card border border-border/50 space-y-4"
@@ -170,8 +208,21 @@ function ContactPage() {
                     <label className="text-sm font-medium mb-1.5 block">איך נוכל לעזור?</label>
                     <textarea required name="message" value={formData.message} onChange={handleChange} rows={4} className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-primary outline-none transition-smooth resize-none" placeholder="ספרו לנו קצת על העסק והאתגרים השיווקיים..." />
                   </div>
-                  <button type="submit" className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl gradient-primary text-primary-foreground font-semibold shadow-glow hover:scale-[1.02] transition-smooth">
-                    שליחה <Send className="w-4 h-4" />
+                  {error && (
+                    <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/30 text-sm text-destructive text-center">
+                      {error}
+                    </div>
+                  )}
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl gradient-primary text-primary-foreground font-semibold shadow-glow hover:scale-[1.02] transition-smooth disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  >
+                    {loading ? (
+                      <>שולח... <Loader2 className="w-4 h-4 animate-spin" /></>
+                    ) : (
+                      <>שליחה <Send className="w-4 h-4" /></>
+                    )}
                   </button>
                 </>
               )}
