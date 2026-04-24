@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, Phone, MapPin } from "lucide-react";
 import logo from "@/assets/logo-icon.png";
+import { contact } from "@/lib/contact";
 
 export function Footer() {
   return (
@@ -31,9 +32,20 @@ export function Footer() {
         <div>
           <h4 className="font-semibold mb-3 text-sm">צור קשר</h4>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li className="flex items-center gap-2"><Mail className="w-4 h-4" />hello@netodigital.co.il</li>
-            <li className="flex items-center gap-2"><Phone className="w-4 h-4" />03-555-1234</li>
-            <li className="flex items-center gap-2"><MapPin className="w-4 h-4" />תל אביב, ישראל</li>
+            <li>
+              <a href={contact.emailHref} className="flex items-center gap-2 hover:text-foreground transition-smooth">
+                <Mail className="w-4 h-4" />{contact.email}
+              </a>
+            </li>
+            <li>
+              <a href={contact.phoneHref} className="flex items-center gap-2 hover:text-foreground transition-smooth" dir="ltr">
+                <Phone className="w-4 h-4" />{contact.phoneDisplay}
+              </a>
+            </li>
+            <li className="flex items-center gap-2"><MapPin className="w-4 h-4" />{contact.area}</li>
+            <li>
+              <Link to="/privacy" className="hover:text-foreground transition-smooth text-xs">מדיניות פרטיות</Link>
+            </li>
           </ul>
         </div>
       </div>
