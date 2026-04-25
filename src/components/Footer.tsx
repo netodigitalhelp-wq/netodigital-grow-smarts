@@ -12,7 +12,7 @@ export function Footer() {
             <LogoMark className="h-10" />
           </div>
           <p className="text-muted-foreground text-sm max-w-md leading-relaxed">
-            סוכנות AI & Automation לעסקים קטנים. בונים לכם "עובדים דיגיטליים" שמטפלים במכירות, שירות ותוכן — 24/7.
+            סוכנות AI &amp; Automation לעסקים קטנים. בונים לכם „עובדים דיגיטליים” שמטפלים במכירות, שירות ותוכן — 24/7.
           </p>
         </div>
         <div>
@@ -45,7 +45,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-border/50 py-6 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} NetoDigital. כל הזכויות שמורות.
+        © {new Date().getFullYear()} NetoDigital — כל הזכויות שמורות.
       </div>
     </footer>
   );

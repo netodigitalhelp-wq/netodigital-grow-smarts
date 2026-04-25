@@ -52,21 +52,21 @@ const digitalWorkers = [
     icon: MessageSquare,
     title: "סוכן מכירות אוטונומי",
     tag: "Autonomous WhatsApp Agent",
-    desc: "סוכן AI שמנהל שיחות וואטסאפ מקצה לקצה — עונה, מתאם, מקדם הצעה וסוגר עסקה. גם בשלוש לפנות בוקר.",
+    desc: "סוכן AI שמנהל שיחות וואטסאפ מקצה לקצה: עונה, מתאם וסוגר עסקה — גם בלילה.",
     features: ["מענה אנושי תוך שניות", "תיאום פגישות אוטומטי", "סינון לידים חמים בלבד"],
   },
   {
     icon: Sparkles,
     title: "מנהל תוכן מבוסס AI",
     tag: "AI Content Manager",
-    desc: "מנהל תוכן וירטואלי שמייצר פוסטים, סרטונים וגרפיקה בקול ובסגנון של המותג שלך — בקצב שאתה לא יכול לעמוד בו לבד.",
+    desc: "מייצר פוסטים, סרטונים וגרפיקה בסגנון המותג שלך — בקצב שאי אפשר להשיג לבד.",
     features: ["פוסטים שבועיים אוטומטיים", "וידאו ותמונות AI", "תזמון חכם לפי הקהל"],
   },
   {
     icon: Workflow,
     title: "אופטימיזציית לידים חכמה",
     tag: "Smart Lead Optimization",
-    desc: "מנוע AI שמדרג, מנתב ומחמם לידים מפייסבוק וגוגל ישירות למערכת המכירות שלך — בלי שאף ליד יפול בין הכיסאות.",
+    desc: "מדרג, מנתב ומחמם לידים מפייסבוק וגוגל ישירות ל-CRM — בלי לאבד אף ליד.",
     features: ["סנכרון מודעות → CRM", "דירוג ותעדוף לידים חכם", "פולואפים אוטומטיים"],
   },
 ];
@@ -227,7 +227,7 @@ function Index() {
         {/* Digital Workers */}
         <section id="solutions" className="container mx-auto px-5 sm:px-6 py-16 md:py-20 scroll-mt-24">
           <Reveal className="text-center max-w-2xl mx-auto mb-12">
-            <div className="text-xs sm:text-sm font-bold text-accent mb-3 tracking-wider uppercase">Our Digital Workers</div>
+            <div className="text-xs sm:text-sm font-bold text-accent mb-3 tracking-wider uppercase">מערך העובדים הדיגיטליים</div>
             <h2 className="text-3xl md:text-5xl font-bold mb-4 text-metallic leading-tight">
               העובדים שלא לוקחים יום חופש,<br/>לא דורשים העלאה — ולא ישנים.
             </h2>
@@ -297,8 +297,8 @@ function Index() {
         {/* Iconic Benefits — interactive expand on hover/tap */}
         <section className="container mx-auto px-5 sm:px-6 py-12 md:py-16">
           <Reveal className="text-center max-w-2xl mx-auto mb-10">
-            <h2 className="text-2xl md:text-4xl font-bold text-metallic mb-3">למה דווקא איתנו?</h2>
-            <p className="text-muted-foreground text-sm md:text-base">העברו עם הסמן או לחצו כדי לחשוף.</p>
+              <h2 className="text-2xl md:text-4xl font-bold text-metallic mb-3">למה דווקא איתנו?</h2>
+            <p className="text-muted-foreground text-sm md:text-base">רחפו עם הסמן או הקליקו לחשיפה.</p>
           </Reveal>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
             {benefits.map(({ icon: Icon, title, desc }, i) => (
@@ -441,7 +441,7 @@ function Index() {
                         : "border border-border bg-background hover:border-accent/50 hover:bg-secondary"
                     }`}
                   >
-                    בקש הצעת מחיר <ArrowLeft className="w-4 h-4" />
+                    קבלו הצעת מחיר <ArrowLeft className="w-4 h-4" />
                   </a>
                 </Magnetic>
               </div>
@@ -461,7 +461,7 @@ function Index() {
                 <div>
                   <h3 className="text-xl md:text-2xl font-bold mb-3 text-foreground">איך המחירים שלנו כל כך משתלמים?</h3>
                   <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-                    בזכות שימוש בכלי אוטומציה מתקדמים ורזים, אנחנו מצמצמים את עלויות הפיתוח המסורתיות ומעבירים את החיסכון ישירות אליכם. המטרה שלנו היא להנגיש את מהפכת ה-AI לכל עסק קטן בישראל, ללא חסמי כניסה.
+                    בזכות שימוש בכלי אוטומציה מתקדמים ורזים, אנחנו מצמצמים את עלויות הפיתוח המסורתיות ומעבירים את החיסכון ישירות אליכם. המטרה שלנו: להנגיש את מהפכת ה-AI לכל עסק קטן בישראל, ללא חסמי כניסה.
                   </p>
                 </div>
               </div>
@@ -510,9 +510,9 @@ function Index() {
         <section className="container mx-auto px-5 sm:px-6 py-16 md:py-20">
           <Reveal className="text-center p-10 md:p-16 rounded-3xl glass-lux pulse-glow border border-accent/30 shadow-elegant">
             <Bot className="w-12 h-12 text-accent mx-auto mb-4" />
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-metallic">מוכן לתת ל-AI לעבוד בשבילך?</h2>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-metallic">מוכנים לתת ל-AI לעבוד בשבילכם?</h2>
             <p className="text-muted-foreground text-base md:text-lg mb-8 max-w-xl mx-auto">
-              דבר איתנו עכשיו בוואטסאפ ותקבל מענה תוך דקות — וגישה למבצע ההשקה לפני שהוא נסגר.
+              דברו איתנו בוואטסאפ עכשיו, קבלו מענה תוך דקות — וגישה למבצע ההשקה לפני סגירתו.
             </p>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4">
               <Magnetic strength={0.3} className="magnetic-cta">
@@ -522,7 +522,7 @@ function Index() {
                   rel="noopener noreferrer"
                   className="shimmer inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl gradient-cta text-accent-foreground font-bold shadow-glow-cta cta-breathe hover:scale-105 transition-smooth"
                 >
-                  <Zap className="w-4 h-4" /> דבר איתנו בוואטסאפ
+                  <Zap className="w-4 h-4" /> דברו איתנו בוואטסאפ
                 </a>
               </Magnetic>
               <Magnetic strength={0.25}>
@@ -561,17 +561,17 @@ function AuditForm() {
     setError(null);
     const val = answers[current.id]?.trim() ?? "";
     if (current.type !== "contact" && !val) {
-      setError("נא לבחור או למלא תשובה לפני המשך");
+          setError("נא לבחור או להשלים תשובה לפני שממשיכים.");
       return;
     }
     if (current.type === "contact") {
       if (!val) {
-        setError("נא להזין את שמך");
+            setError("נא להזין את שמכם המלא.");
         return;
       }
       const cleanPhone = phone.replace(/\s/g, "");
       if (!PHONE_REGEX.test(cleanPhone)) {
-        setError("מספר טלפון לא תקין");
+            setError("מספר טלפון לא תקין.");
         return;
       }
       submitForm();
