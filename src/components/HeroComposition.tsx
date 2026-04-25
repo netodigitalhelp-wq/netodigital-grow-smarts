@@ -18,6 +18,7 @@ export function HeroComposition({ className }: { className?: string }) {
     useRef<HTMLVideoElement>(null),
   ];
   const [revealed, setRevealed] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   // Set playbackRate ONCE per video after metadata loads, then detach handler.
   useEffect(() => {
@@ -65,6 +66,26 @@ export function HeroComposition({ className }: { className?: string }) {
     return () => io.disconnect();
   }, []);
 
+  // Scroll-driven dissolve: opacity + blur on AI entity (debounced via rAF)
+  useEffect(() => {
+    let raf = 0;
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      raf = requestAnimationFrame(() => {
+        setScrollY(window.scrollY);
+        ticking = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
   // Throttled + lerped parallax: rAF loop, lerp 0.1 for buttery motion.
   useEffect(() => {
     const el = wrap.current;
@@ -90,8 +111,9 @@ export function HeroComposition({ className }: { className?: string }) {
       const r = el.getBoundingClientRect();
       const cx = (e.clientX - r.left) / r.width - 0.5;
       const cy = (e.clientY - r.top) / r.height - 0.5;
-      targetX = cx * 30;
-      targetY = cy * 30;
+      // Inverse parallax — shift opposite to cursor (max ~15px)
+      targetX = -cx * 15;
+      targetY = -cy * 15;
       if (!running) {
         running = true;
         raf = requestAnimationFrame(tick);
@@ -104,9 +126,9 @@ export function HeroComposition({ className }: { className?: string }) {
     };
   }, []);
 
-  // Feathered double mask: hard center → soft halo → fully transparent before edges
+  // Anti-rectangle radial mask — edges mathematically transparent
   const featherMask =
-    "radial-gradient(circle at 50% 50%, black 20%, rgba(0,0,0,0.9) 50%, transparent 90%)";
+    "radial-gradient(circle at center, black 40%, rgba(0,0,0,0.8) 65%, transparent 100%)";
   const maskStyle = {
     WebkitMaskImage: featherMask,
     maskImage: featherMask,
@@ -216,9 +238,10 @@ export function HeroComposition({ className }: { className?: string }) {
               objectFit: "cover",
               objectPosition: "center",
               zIndex: 10,
-              mixBlendMode: "plus-lighter",
+              mixBlendMode: "screen",
+              opacity: Math.max(0, 1 - scrollY / 700),
               filter:
-                "url(#hero-sharpen) contrast(1.15) brightness(1.1) saturate(1.1) drop-shadow(0 0 5px rgba(0,255,255,0.2)) drop-shadow(0 0 15px rgba(0, 255, 255, 0.4))",
+                `url(#hero-sharpen) contrast(1.15) brightness(1.1) saturate(1.1) drop-shadow(0 0 5px rgba(0,255,255,0.2)) drop-shadow(0 0 15px rgba(0, 255, 255, 0.4)) blur(${Math.min(8, scrollY / 100)}px)`,
               transform: "translate3d(0,0,0)",
               backfaceVisibility: "hidden",
               ...maskStyle,
@@ -238,7 +261,7 @@ export function HeroComposition({ className }: { className?: string }) {
               height: "110%",
               objectFit: "cover",
               zIndex: 15,
-              mixBlendMode: "plus-lighter",
+              mixBlendMode: "screen",
               opacity: 0.18,
               filter:
                 "url(#hero-sharpen) contrast(1.15) brightness(1.1) saturate(1.1)",
