@@ -7,6 +7,7 @@ import { AIOrb } from "@/components/AIOrb";
 import { Reveal } from "@/components/Reveal";
 import { Magnetic } from "@/components/Magnetic";
 import { HeroComposition } from "@/components/HeroComposition";
+import { LazyMount } from "@/components/LazyMount";
 import { contact } from "@/lib/contact";
 import {
   ArrowLeft,
