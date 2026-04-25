@@ -182,9 +182,9 @@ function Index() {
           <HeroComposition />
           <AIOrb className="opacity-40 mix-blend-screen" />
 
-          <div className="container relative mx-auto px-5 sm:px-6 pt-20 pb-24 md:pt-28 md:pb-32 max-w-7xl w-full">
-            {/* Right-anchored content column (~50% width on md+) */}
-            <div className="md:w-1/2 md:ml-auto md:mr-0 text-right">
+          <div className="container relative mx-auto px-5 sm:px-6 pt-20 pb-24 md:pt-28 md:pb-32 max-w-7xl w-full" style={{ zIndex: 30 }}>
+            {/* Right-anchored content column (~50% width on md+) — z-30 protected from asset overlap */}
+            <div className="relative md:w-1/2 md:ml-auto md:mr-0 text-right" style={{ zIndex: 30 }}>
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass text-xs sm:text-sm font-semibold mb-7 text-accent animate-blur-in">
                 <Brain className="w-4 h-4" />
                 סוכנות AI Automation מנוהלת לעסקים קטנים
