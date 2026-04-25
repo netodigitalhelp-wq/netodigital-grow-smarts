@@ -19,12 +19,50 @@ export function HeroComposition({ className }: { className?: string }) {
   ];
   const [revealed, setRevealed] = useState(false);
 
+  // Set playbackRate ONCE per video after metadata loads, then detach handler.
   useEffect(() => {
+    const cleanups: Array<() => void> = [];
     videoRefs.forEach((r) => {
-      if (r.current) r.current.playbackRate = 0.5;
+      const v = r.current;
+      if (!v) return;
+      const apply = () => {
+        v.playbackRate = 0.5;
+        v.removeEventListener("loadedmetadata", apply);
+      };
+      if (v.readyState >= 1) {
+        v.playbackRate = 0.5;
+      } else {
+        v.addEventListener("loadedmetadata", apply, { once: true });
+        cleanups.push(() => v.removeEventListener("loadedmetadata", apply));
+      }
     });
     const t = setTimeout(() => setRevealed(true), 60);
-    return () => clearTimeout(t);
+    return () => {
+      clearTimeout(t);
+      cleanups.forEach((fn) => fn());
+    };
+  }, []);
+
+  // Pause videos when hero scrolls out of view; resume on re-entry.
+  useEffect(() => {
+    const el = wrap.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        videoRefs.forEach((r) => {
+          const v = r.current;
+          if (!v) return;
+          if (entry.isIntersecting) {
+            void v.play().catch(() => {});
+          } else {
+            v.pause();
+          }
+        });
+      },
+      { threshold: 0.01 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
   }, []);
 
   useEffect(() => {
@@ -33,16 +71,29 @@ export function HeroComposition({ className }: { className?: string }) {
     if (!el || !s) return;
     if (window.matchMedia("(pointer: coarse)").matches) return;
     let tx = 0, ty = 0;
+    let raf = 0;
+    let last = 0;
+    const FRAME = 1000 / 60; // debounce to 60fps
+    const apply = () => {
+      raf = 0;
+      s.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
+    };
     const onMove = (e: PointerEvent) => {
+      const now = performance.now();
       const r = el.getBoundingClientRect();
       const cx = (e.clientX - r.left) / r.width - 0.5;
       const cy = (e.clientY - r.top) / r.height - 0.5;
       tx = cx * 30;
       ty = cy * 30;
-      s.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
+      if (raf || now - last < FRAME) return;
+      last = now;
+      raf = requestAnimationFrame(apply);
     };
     window.addEventListener("pointermove", onMove, { passive: true });
-    return () => window.removeEventListener("pointermove", onMove);
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   // Feathered double mask: hard center → soft halo → fully transparent before edges
@@ -95,7 +146,8 @@ export function HeroComposition({ className }: { className?: string }) {
           transition: "opacity 3000ms ease-out, transform 1500ms cubic-bezier(0.25, 0.1, 0.25, 1.0)",
           // Tiny anti-alias blur smooths particle pixel edges
           filter: "blur(0.5px)",
-          willChange: "transform, opacity, filter",
+          willChange: "transform, opacity",
+          transform: "translateZ(0)",
         }}
       >
         {/* Aspect-locked container with cyan ambient glow + inset black bleed */}
@@ -105,7 +157,6 @@ export function HeroComposition({ className }: { className?: string }) {
             backgroundColor: "#000000",
             boxShadow:
               "inset 0 0 150px 100px rgba(0, 0, 0, 1), 0 0 100px rgba(6, 182, 212, 0.2)",
-            willChange: "transform, opacity, filter",
           }}
         >
           {/* Volumetric light bleed behind the AI entity */}
@@ -123,7 +174,7 @@ export function HeroComposition({ className }: { className?: string }) {
           <video
             ref={videoRefs[0]}
             src={heroBgVideo}
-            autoPlay loop muted playsInline
+            autoPlay loop muted playsInline preload="metadata"
             style={{
               position: "absolute",
               inset: 0,
@@ -143,7 +194,7 @@ export function HeroComposition({ className }: { className?: string }) {
           <video
             ref={videoRefs[1]}
             src={heroEntityVideo}
-            autoPlay loop muted playsInline
+            autoPlay loop muted playsInline preload="auto"
             style={{
               position: "absolute",
               inset: 0,
@@ -163,7 +214,7 @@ export function HeroComposition({ className }: { className?: string }) {
           <video
             ref={videoRefs[2]}
             src={heroOverlayVideo}
-            autoPlay loop muted playsInline
+            autoPlay loop muted playsInline preload="metadata"
             style={{
               position: "absolute",
               top: "-5%",
