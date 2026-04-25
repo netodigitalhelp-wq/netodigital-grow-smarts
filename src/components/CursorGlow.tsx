@@ -11,6 +11,7 @@ export function CursorGlow() {
     const el = ref.current;
     if (!el) return;
     let raf = 0;
+    let running = false;
     let x = window.innerWidth / 2;
     let y = window.innerHeight / 2;
     let tx = x;
@@ -20,17 +21,25 @@ export function CursorGlow() {
       x += (tx - x) * 0.18;
       y += (ty - y) * 0.18;
       el.style.transform = `translate3d(${x - 280}px, ${y - 280}px, 0)`;
+      if (Math.abs(tx - x) < 0.3 && Math.abs(ty - y) < 0.3) {
+        running = false;
+        raf = 0;
+        return;
+      }
       raf = requestAnimationFrame(tick);
     };
-    tick();
 
     const onMove = (e: PointerEvent) => {
       tx = e.clientX;
       ty = e.clientY;
+      if (!running) {
+        running = true;
+        raf = requestAnimationFrame(tick);
+      }
     };
     window.addEventListener("pointermove", onMove, { passive: true });
     return () => {
-      cancelAnimationFrame(raf);
+      if (raf) cancelAnimationFrame(raf);
       window.removeEventListener("pointermove", onMove);
     };
   }, []);
