@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import heroBgVideo from "@/assets/hero-bg.mp4";
 import heroEntityVideo from "@/assets/hero-entity.mp4";
 import heroOverlayVideo from "@/assets/hero-overlay.mp4";
