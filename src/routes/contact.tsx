@@ -46,6 +46,7 @@ function ContactPage() {
     email: "",
     business: "",
     message: "",
+    company_website: "", // honeypot — must stay empty
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -55,6 +56,23 @@ function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+
+    // Bot honeypot — silently drop
+    if (formData.company_website) {
+      setSent(true);
+      return;
+    }
+
+    // Lightweight regex validation (mirrors server-side schema)
+    const nameOk = /^[\p{L}\s'’\-.]{2,100}$/u.test(formData.name.trim());
+    const phoneOk = /^[\d+\-\s()]{7,20}$/.test(formData.phone.trim());
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(formData.email.trim());
+    const messageOk = formData.message.trim().length >= 2 && formData.message.length <= 2000;
+    if (!nameOk) return setError("שם לא תקין");
+    if (!phoneOk) return setError("טלפון לא תקין");
+    if (!emailOk) return setError("אימייל לא תקין");
+    if (!messageOk) return setError("הודעה לא תקינה");
+
     setLoading(true);
     try {
       const res = await fetch("/api/contact", {
@@ -75,7 +93,7 @@ function ContactPage() {
   };
 
   const handleReset = () => {
-    setFormData({ name: "", phone: "", email: "", business: "", message: "" });
+    setFormData({ name: "", phone: "", email: "", business: "", message: "", company_website: "" });
     setSent(false);
     setError(null);
   };
@@ -207,6 +225,20 @@ function ContactPage() {
                   <div>
                     <label className="text-sm font-medium mb-1.5 block">איך נוכל לעזור?</label>
                     <textarea required name="message" value={formData.message} onChange={handleChange} rows={4} className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-primary outline-none transition-smooth resize-none" placeholder="ספרו לנו קצת על העסק והאתגרים השיווקיים..." />
+                  </div>
+                  {/* Honeypot — hidden from real users, catches bots */}
+                  <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
+                    <label>
+                      Company website (leave blank)
+                      <input
+                        type="text"
+                        name="company_website"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={formData.company_website}
+                        onChange={handleChange}
+                      />
+                    </label>
                   </div>
                   {error && (
                     <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/30 text-sm text-destructive text-center">
