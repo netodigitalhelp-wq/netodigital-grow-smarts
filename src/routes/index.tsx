@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { UrgencyBanner } from "@/components/UrgencyBanner";
+import { AIOrb } from "@/components/AIOrb";
 import { contact } from "@/lib/contact";
 import {
   ArrowLeft,
@@ -43,24 +44,24 @@ export const Route = createFileRoute("/")({
 const digitalWorkers = [
   {
     icon: MessageSquare,
-    title: "נציג מכירות 24/7",
-    tag: "AI WhatsApp Bot",
-    desc: "בוט וואטסאפ חכם שעונה ללקוחות מיידית, מתאם פגישות וסוגר עסקאות — גם בשלוש לפנות בוקר.",
+    title: "סוכן מכירות אוטונומי",
+    tag: "Autonomous WhatsApp Agent",
+    desc: "סוכן AI שמנהל שיחות וואטסאפ מקצה לקצה — עונה, מתאם, מקדם הצעה וסוגר עסקה. גם בשלוש לפנות בוקר.",
     features: ["מענה אנושי תוך שניות", "תיאום פגישות אוטומטי", "סינון לידים חמים בלבד"],
   },
   {
     icon: Sparkles,
-    title: "מנהל תוכן אוטונומי",
-    tag: "AI Content Engine",
-    desc: "מערכת AI שמייצרת פוסטים, סרטונים וגרפיקה בהתאמה אישית למותג שלך — בקצב שאתה לא יכול לעמוד בו לבד.",
+    title: "מנהל תוכן מבוסס AI",
+    tag: "AI Content Manager",
+    desc: "מנהל תוכן וירטואלי שמייצר פוסטים, סרטונים וגרפיקה בקול ובסגנון של המותג שלך — בקצב שאתה לא יכול לעמוד בו לבד.",
     features: ["פוסטים שבועיים אוטומטיים", "וידאו ותמונות AI", "תזמון חכם לפי הקהל"],
   },
   {
     icon: Workflow,
-    title: "מנוע צמיחה לידים",
-    tag: "Lead Growth Automation",
-    desc: "אוטומציה שמחברת בין הפייסבוק/גוגל ישירות למערכת המכירות שלך — בלי שאף ליד יפול בין הכיסאות.",
-    features: ["סנכרון מודעות → CRM", "פולואפים אוטומטיים", "דשבורד ROI בזמן אמת"],
+    title: "אופטימיזציית לידים חכמה",
+    tag: "Smart Lead Optimization",
+    desc: "מנוע AI שמדרג, מנתב ומחמם לידים מפייסבוק וגוגל ישירות למערכת המכירות שלך — בלי שאף ליד יפול בין הכיסאות.",
+    features: ["סנכרון מודעות → CRM", "דירוג ותעדוף לידים חכם", "פולואפים אוטומטיים"],
   },
 ];
 
