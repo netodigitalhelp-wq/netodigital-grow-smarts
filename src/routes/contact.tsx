@@ -248,7 +248,7 @@ function ContactPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl gradient-primary text-primary-foreground font-semibold shadow-glow hover:scale-[1.02] transition-smooth disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    className="tactile photon w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl gradient-primary text-primary-foreground font-semibold shadow-glow hover:scale-[1.02] transition-smooth disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
                   >
                     {loading ? (
                       <>שולח… <Loader2 className="w-4 h-4 animate-spin" /></>
