@@ -392,8 +392,23 @@
 /* Magnetic wrapper transition is set inline. This adds a subtle outer glow on hover. */
 .magnetic-cta:hover { filter: drop-shadow(0 0 18px oklch(0.84 0.16 220 / 0.55)); }
 
+/* Hero orb — soft continuous pulse (scale + glow) */
+@keyframes orb-soft-pulse {
+  0%, 100% { filter: drop-shadow(0 0 24px oklch(0.55 0.27 295 / 0.55)) drop-shadow(0 0 40px oklch(0.84 0.16 220 / 0.35)); }
+  50%      { filter: drop-shadow(0 0 36px oklch(0.55 0.27 295 / 0.85)) drop-shadow(0 0 60px oklch(0.84 0.16 220 / 0.55)); }
+}
+.animate-orb-soft-pulse { animation: orb-soft-pulse 4.5s ease-in-out infinite; }
+
+/* Hero figure — slow vertical float (composed with JS translate via CSS var fallback) */
+@keyframes figure-float {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -14px; }
+}
+.animate-figure-float { animation: figure-float 7s ease-in-out infinite; }
+
 /* Honor reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   .animate-breathe, .animate-orb-rotate, .cta-breathe, .animate-blur-in,
-  .animate-wa-ping, .shimmer::after, .logo-orb, .logo-shine::after { animation: none !important; }
+  .animate-wa-ping, .shimmer::after, .logo-orb, .logo-shine::after,
+  .animate-orb-soft-pulse, .animate-figure-float { animation: none !important; }
 }

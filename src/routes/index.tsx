@@ -6,7 +6,7 @@ import { UrgencyBanner } from "@/components/UrgencyBanner";
 import { AIOrb } from "@/components/AIOrb";
 import { Reveal } from "@/components/Reveal";
 import { Magnetic } from "@/components/Magnetic";
-import { HeroParticleImage } from "@/components/HeroParticleImage";
+import { HeroComposition } from "@/components/HeroComposition";
 import { contact } from "@/lib/contact";
 import {
   ArrowLeft,
@@ -177,27 +177,25 @@ function Index() {
       <UrgencyBanner />
       <Header />
       <main className="flex-1">
-        {/* Hero */}
-        <section className="relative overflow-hidden min-h-[88vh] flex items-center" dir="rtl">
-          {/* Particle-reveal hero image (full-bleed, left-anchored) */}
-          <HeroParticleImage />
-          {/* Soft AI Orb glow behind text on the right (subtle, no clipping) */}
-          <AIOrb className="opacity-60 mix-blend-screen" />
+        {/* Hero — Layered: bg → orb → AI figure (left), RTL copy (right) */}
+        <section className="relative overflow-hidden min-h-[92vh] flex items-center" dir="rtl">
+          <HeroComposition />
+          <AIOrb className="opacity-40 mix-blend-screen" />
 
           <div className="container relative mx-auto px-5 sm:px-6 pt-20 pb-24 md:pt-28 md:pb-32 max-w-7xl w-full">
-            {/* Right-aligned content column */}
-            <div className="md:max-w-xl md:ml-auto md:mr-0 text-right">
+            {/* Right-anchored content column (~50% width on md+) */}
+            <div className="md:w-1/2 md:ml-auto md:mr-0 text-right">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass text-xs sm:text-sm font-semibold mb-7 text-accent animate-blur-in">
                 <Brain className="w-4 h-4" />
                 סוכנות AI Automation מנוהלת לעסקים קטנים
               </div>
               <h1 className="text-[2.1rem] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] mb-6 animate-blur-in text-metallic" style={{ animationDelay: "120ms" }}>
-                בונים לעסק שלך
-                <span className="block text-gradient mt-1">מוח דיגיטלי</span>
-                <span className="block mt-2 text-metallic">אוטומציה ו-AI</span>
+                העתיד כבר כאן:
+                <span className="block text-gradient mt-1">פתרונות AI מתקדמים</span>
+                <span className="block mt-2 text-metallic">לעסק שלך</span>
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl mb-9 leading-relaxed animate-blur-in" style={{ animationDelay: "260ms" }}>
-                בונים עבורך <span className="text-foreground font-semibold">"עובדים דיגיטליים"</span> מבוססי AI שמטפלים במכירות, שירות ותוכן — 24/7.
+                אנחנו בונים לכם <span className="text-foreground font-semibold">"עובדים דיגיטליים"</span> שמטפלים במכירות, שירות ותוכן — 24/7. טכנולוגיה שהופכת לתוצאות.
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-3 sm:gap-4 animate-blur-in" style={{ animationDelay: "400ms" }}>
                 <Magnetic strength={0.3} className="magnetic-cta">
@@ -205,7 +203,7 @@ function Index() {
                     href="#audit"
                     className="shimmer inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl gradient-cta text-accent-foreground font-bold text-base cta-breathe hover:scale-[1.03] transition-smooth"
                   >
-                    בדוק התאמה (2 דקות) <ArrowLeft className="w-4 h-4" />
+                    מתחילים אבחון AI עכשיו <ArrowLeft className="w-4 h-4" />
                   </a>
                 </Magnetic>
                 <Magnetic strength={0.25}>
