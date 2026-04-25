@@ -47,7 +47,7 @@ export function HeroComposition({ className }: { className?: string }) {
 
   // Feathered double mask: hard center → soft halo → fully transparent before edges
   const featherMask =
-    "radial-gradient(circle at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0.8) 50%, transparent 90%)";
+    "radial-gradient(circle at 50% 50%, black 20%, rgba(0,0,0,0.9) 50%, transparent 90%)";
   const maskStyle = {
     WebkitMaskImage: featherMask,
     maskImage: featherMask,
@@ -56,12 +56,20 @@ export function HeroComposition({ className }: { className?: string }) {
     background: "transparent",
   };
 
+  // Tiny SVG noise data URI for cinematic grain
+  const grainDataUri =
+    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.9'/></svg>\")";
+
   return (
     <div
       ref={wrap}
       aria-hidden="true"
       className={cn("absolute inset-0 z-0 overflow-hidden pointer-events-none", className)}
-      style={{ backgroundColor: "#000000" }}
+      style={{
+        backgroundColor: "#000000",
+        imageRendering: "high-quality" as React.CSSProperties["imageRendering"],
+        WebkitFontSmoothing: "antialiased",
+      } as React.CSSProperties}
     >
       {/* SVG defs: sharpen + animated grain */}
       <svg aria-hidden="true" focusable="false" width="0" height="0" style={{ position: "absolute", width: 0, height: 0 }}>
@@ -87,6 +95,7 @@ export function HeroComposition({ className }: { className?: string }) {
           transition: "opacity 3000ms ease-out, transform 1500ms cubic-bezier(0.25, 0.1, 0.25, 1.0)",
           // Tiny anti-alias blur smooths particle pixel edges
           filter: "blur(0.5px)",
+          willChange: "transform, opacity, filter",
         }}
       >
         {/* Aspect-locked container with cyan ambient glow + inset black bleed */}
@@ -96,8 +105,20 @@ export function HeroComposition({ className }: { className?: string }) {
             backgroundColor: "#000000",
             boxShadow:
               "inset 0 0 150px 100px rgba(0, 0, 0, 1), 0 0 100px rgba(6, 182, 212, 0.2)",
+            willChange: "transform, opacity, filter",
           }}
         >
+          {/* Volumetric light bleed behind the AI entity */}
+          <div
+            className="absolute inset-0"
+            style={{
+              zIndex: 4,
+              background:
+                "radial-gradient(circle at 50% 55%, rgba(6, 182, 212, 0.15) 0%, transparent 70%)",
+              pointerEvents: "none",
+            }}
+          />
+
           {/* Layer 1 — Background fluid atmosphere */}
           <video
             ref={videoRefs[0]}
@@ -112,7 +133,8 @@ export function HeroComposition({ className }: { className?: string }) {
               zIndex: 5,
               opacity: 0.3,
               mixBlendMode: "plus-lighter",
-              filter: "url(#hero-sharpen) contrast(1.1) brightness(1.05) saturate(1.1)",
+              filter:
+                "url(#hero-sharpen) contrast(1.15) brightness(1.1) saturate(1.1) drop-shadow(0 0 5px rgba(0,255,255,0.2))",
               ...maskStyle,
             }}
           />
@@ -132,7 +154,7 @@ export function HeroComposition({ className }: { className?: string }) {
               zIndex: 10,
               mixBlendMode: "plus-lighter",
               filter:
-                "url(#hero-sharpen) contrast(1.15) brightness(1.1) saturate(1.15) drop-shadow(0 0 15px rgba(0, 255, 255, 0.4))",
+                "url(#hero-sharpen) contrast(1.15) brightness(1.1) saturate(1.1) drop-shadow(0 0 5px rgba(0,255,255,0.2)) drop-shadow(0 0 15px rgba(0, 255, 255, 0.4))",
               ...maskStyle,
             }}
           />
@@ -152,19 +174,33 @@ export function HeroComposition({ className }: { className?: string }) {
               zIndex: 15,
               mixBlendMode: "plus-lighter",
               opacity: 0.25,
-              filter: "url(#hero-sharpen) contrast(1.1) brightness(1.05) saturate(1.1) blur(15px)",
+              filter:
+                "url(#hero-sharpen) contrast(1.15) brightness(1.1) saturate(1.1) drop-shadow(0 0 5px rgba(0,255,255,0.2)) blur(15px)",
               pointerEvents: "none",
               ...maskStyle,
             }}
           />
 
-          {/* Animated film grain */}
+          {/* Animated SVG film grain (existing) */}
           <div
             className="absolute inset-0"
             style={{
               zIndex: 20,
               opacity: 0.03,
               filter: "url(#hero-grain)",
+              mixBlendMode: "overlay",
+              pointerEvents: "none",
+            }}
+          />
+
+          {/* Cinematic noise texture — Netflix/Apple grain trick */}
+          <div
+            className="absolute inset-0"
+            style={{
+              zIndex: 21,
+              backgroundImage: grainDataUri,
+              backgroundRepeat: "repeat",
+              opacity: 0.04,
               mixBlendMode: "overlay",
               pointerEvents: "none",
             }}
