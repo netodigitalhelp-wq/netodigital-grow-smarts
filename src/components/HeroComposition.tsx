@@ -41,9 +41,10 @@ export function HeroComposition({ className }: { className?: string }) {
     const tick = () => {
       x += (tx - x) * 0.08;
       y += (ty - y) * 0.08;
-      // Preserve translateY(-50%) for vertical centering, layer translation on top.
-      o.style.transform = `translate(${x}px, calc(-50% + ${y}px))`;
-      f.style.transform = `translate(${x * 0.55}px, calc(-50% + ${y * 0.55}px))`;
+      // Complimentary parallax: figure leads (0.02 ≈ full ±20px), orb trails (0.01 ≈ ±10px).
+      // Both move in the same direction so the orb reads as a steady energy source behind the figure.
+      o.style.transform = `translate(${x * 0.5}px, calc(-50% + ${y * 0.5}px))`;
+      f.style.transform = `translate(${x}px, calc(-50% + ${y}px))`;
       raf = requestAnimationFrame(tick);
     };
     tick();
@@ -90,6 +91,25 @@ export function HeroComposition({ className }: { className?: string }) {
         }}
       />
 
+      {/* Solid-black backplate behind assets — guarantees `screen` blend drops the
+          checkered gray pixels of image_2 / image_0 to pure transparency. */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          left: "0%",
+          top: "0%",
+          width: "55%",
+          height: "100%",
+          zIndex: 8,
+          background: "#000000",
+          maskImage:
+            "radial-gradient(ellipse 70% 70% at 30% 50%, #000 55%, transparent 100%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 70% 70% at 30% 50%, #000 55%, transparent 100%)",
+        }}
+      />
+
       {/* Layer 1 — Orb (forced absolute, ALWAYS visible) */}
       <img
         ref={orb}
@@ -106,9 +126,10 @@ export function HeroComposition({ className }: { className?: string }) {
           width: "45%",
           maxWidth: "500px",
           height: "auto",
-          mixBlendMode: "color-dodge",
+          opacity: 1,
+          mixBlendMode: "screen",
           filter:
-            "drop-shadow(0 0 36px oklch(0.55 0.27 295 / 0.65)) drop-shadow(0 0 60px oklch(0.84 0.16 220 / 0.4))",
+            "contrast(1.1) brightness(1.1) drop-shadow(0 0 36px oklch(0.55 0.27 295 / 0.65)) drop-shadow(0 0 60px oklch(0.84 0.16 220 / 0.4))",
         }}
       />
 
@@ -123,7 +144,9 @@ export function HeroComposition({ className }: { className?: string }) {
           zIndex: 20,
           width: "40%",
           maxWidth: "500px",
+          opacity: 1,
           mixBlendMode: "screen",
+          filter: "contrast(1.1) brightness(1.1)",
         }}
       >
         <div className="relative w-full animate-figure-float">
