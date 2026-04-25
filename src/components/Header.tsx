@@ -40,7 +40,7 @@ export function Header() {
         </nav>
         <Link
           to="/contact"
-          className="hidden md:inline-flex items-center px-5 py-2 text-sm font-semibold gradient-primary text-primary-foreground rounded-lg shadow-glow hover:scale-105 transition-smooth"
+          className="hidden md:inline-flex items-center px-5 py-2 text-sm font-bold gradient-cta text-accent-foreground rounded-lg cta-breathe hover:scale-105 transition-smooth"
         >
           התחל עכשיו
         </Link>
@@ -71,7 +71,7 @@ export function Header() {
             <Link
               to="/contact"
               onClick={() => setOpen(false)}
-              className="mt-2 inline-flex items-center justify-center px-5 py-3 text-base font-semibold gradient-primary text-primary-foreground rounded-lg shadow-glow"
+              className="mt-2 inline-flex items-center justify-center px-5 py-3 text-base font-bold gradient-cta text-accent-foreground rounded-lg cta-breathe"
             >
               התחל עכשיו
             </Link>

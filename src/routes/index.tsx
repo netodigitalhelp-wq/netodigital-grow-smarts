@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { UrgencyBanner } from "@/components/UrgencyBanner";
+import { AIOrb } from "@/components/AIOrb";
 import { contact } from "@/lib/contact";
 import {
   ArrowLeft,
@@ -43,24 +44,24 @@ export const Route = createFileRoute("/")({
 const digitalWorkers = [
   {
     icon: MessageSquare,
-    title: "נציג מכירות 24/7",
-    tag: "AI WhatsApp Bot",
-    desc: "בוט וואטסאפ חכם שעונה ללקוחות מיידית, מתאם פגישות וסוגר עסקאות — גם בשלוש לפנות בוקר.",
+    title: "סוכן מכירות אוטונומי",
+    tag: "Autonomous WhatsApp Agent",
+    desc: "סוכן AI שמנהל שיחות וואטסאפ מקצה לקצה — עונה, מתאם, מקדם הצעה וסוגר עסקה. גם בשלוש לפנות בוקר.",
     features: ["מענה אנושי תוך שניות", "תיאום פגישות אוטומטי", "סינון לידים חמים בלבד"],
   },
   {
     icon: Sparkles,
-    title: "מנהל תוכן אוטונומי",
-    tag: "AI Content Engine",
-    desc: "מערכת AI שמייצרת פוסטים, סרטונים וגרפיקה בהתאמה אישית למותג שלך — בקצב שאתה לא יכול לעמוד בו לבד.",
+    title: "מנהל תוכן מבוסס AI",
+    tag: "AI Content Manager",
+    desc: "מנהל תוכן וירטואלי שמייצר פוסטים, סרטונים וגרפיקה בקול ובסגנון של המותג שלך — בקצב שאתה לא יכול לעמוד בו לבד.",
     features: ["פוסטים שבועיים אוטומטיים", "וידאו ותמונות AI", "תזמון חכם לפי הקהל"],
   },
   {
     icon: Workflow,
-    title: "מנוע צמיחה לידים",
-    tag: "Lead Growth Automation",
-    desc: "אוטומציה שמחברת בין הפייסבוק/גוגל ישירות למערכת המכירות שלך — בלי שאף ליד יפול בין הכיסאות.",
-    features: ["סנכרון מודעות → CRM", "פולואפים אוטומטיים", "דשבורד ROI בזמן אמת"],
+    title: "אופטימיזציית לידים חכמה",
+    tag: "Smart Lead Optimization",
+    desc: "מנוע AI שמדרג, מנתב ומחמם לידים מפייסבוק וגוגל ישירות למערכת המכירות שלך — בלי שאף ליד יפול בין הכיסאות.",
+    features: ["סנכרון מודעות → CRM", "דירוג ותעדוף לידים חכם", "פולואפים אוטומטיים"],
   },
 ];
 
@@ -167,39 +168,53 @@ function Index() {
         {/* Hero */}
         <section className="relative overflow-hidden">
           <div className="absolute inset-0 -z-10 gradient-hero" />
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,oklch(0.55_0.27_295/0.25),transparent_70%)]" />
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_80%_60%,oklch(0.9_0.22_175/0.10),transparent_60%)]" />
+          {/* Subtle grid noise */}
+          <div
+            className="absolute inset-0 -z-10 opacity-[0.06]"
+            style={{
+              backgroundImage:
+                "linear-gradient(oklch(0.84 0.16 220 / 0.6) 1px, transparent 1px), linear-gradient(90deg, oklch(0.84 0.16 220 / 0.6) 1px, transparent 1px)",
+              backgroundSize: "60px 60px",
+              maskImage: "radial-gradient(ellipse at 50% 30%, black, transparent 70%)",
+            }}
+          />
 
-          <div className="container mx-auto px-5 sm:px-6 pt-14 pb-20 md:pt-20 md:pb-28 text-center max-w-5xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-accent/40 bg-accent/10 text-xs sm:text-sm font-semibold mb-7 text-accent">
-              <Brain className="w-4 h-4" />
-              סוכנות AI Automation מנוהלת לעסקים קטנים
-            </div>
-            <h1 className="text-[2.1rem] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] mb-6 text-foreground">
-              הופכים את העסק שלך <span className="text-gradient">לאוטומטי</span>
-              <span className="block mt-2">— ומשאירים את המתחרים מאחור</span>
-            </h1>
-            <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-9 leading-relaxed">
-              אנחנו בונים עבורך <span className="text-foreground font-semibold">"עובדים דיגיטליים"</span> מבוססי AI שמטפלים במכירות, שירות לקוחות ותוכן — בזמן שאתה מתפנה למה שחשוב באמת.
-            </p>
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4">
-              <a
-                href="#audit"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl gradient-cta text-accent-foreground font-bold text-base shadow-glow-cta hover:scale-[1.03] transition-smooth"
-              >
-                בדוק התאמה לאוטומציה (2 דקות) <ArrowLeft className="w-4 h-4" />
-              </a>
-              <a
-                href="#pricing"
-                className="inline-flex items-center justify-center px-7 py-4 rounded-xl border border-border bg-card/60 backdrop-blur font-semibold hover:bg-card transition-smooth"
-              >
-                צפה בחבילות
-              </a>
-            </div>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-muted-foreground">
-              <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-accent" /> 0₪ הקמה (לזמן מוגבל)</div>
-              <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-accent" /> ללא חוזי שנה</div>
-              <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-accent" /> תוצאות תוך 14 יום</div>
+          <div className="container relative mx-auto px-5 sm:px-6 pt-16 pb-24 md:pt-24 md:pb-32 text-center max-w-5xl">
+            {/* AI Orb sits behind the headline */}
+            <AIOrb className="top-0 -translate-y-4 sm:translate-y-0" />
+
+            <div className="relative">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass text-xs sm:text-sm font-semibold mb-7 text-accent animate-blur-in">
+                <Brain className="w-4 h-4" />
+                סוכנות AI Automation מנוהלת לעסקים קטנים
+              </div>
+              <h1 className="text-[2.1rem] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] mb-6 text-foreground animate-blur-in" style={{ animationDelay: "120ms" }}>
+                בונים לעסק שלך <br/>
+                <span className="text-gradient">מוח דיגיטלי:</span>
+                <span className="block mt-2">אוטומציה ו-AI</span>
+              </h1>
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-9 leading-relaxed animate-blur-in" style={{ animationDelay: "260ms" }}>
+                אנחנו בונים עבורך <span className="text-foreground font-semibold">"עובדים דיגיטליים"</span> מבוססי AI שמטפלים במכירות, שירות לקוחות ותוכן — בזמן שאתה מתפנה למה שחשוב באמת.
+              </p>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 animate-blur-in" style={{ animationDelay: "400ms" }}>
+                <a
+                  href="#audit"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl gradient-cta text-accent-foreground font-bold text-base cta-breathe hover:scale-[1.03] transition-smooth"
+                >
+                  בדוק התאמה לאוטומציה (2 דקות) <ArrowLeft className="w-4 h-4" />
+                </a>
+                <a
+                  href="#pricing"
+                  className="inline-flex items-center justify-center px-7 py-4 rounded-xl glass font-semibold hover:bg-card/70 transition-smooth"
+                >
+                  צפה בחבילות
+                </a>
+              </div>
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-muted-foreground">
+                <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-accent" /> 0₪ הקמה (לזמן מוגבל)</div>
+                <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-accent" /> ללא חוזי שנה</div>
+                <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-accent" /> תוצאות תוך 14 יום</div>
+              </div>
             </div>
           </div>
         </section>
@@ -215,7 +230,7 @@ function Index() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             {digitalWorkers.map(({ icon: Icon, title, tag, desc, features }) => (
-              <div key={title} className="group p-7 rounded-2xl bg-card border border-border hover:border-primary/60 hover:shadow-elegant transition-smooth hover:-translate-y-1">
+              <div key={title} className="tilt-card group p-7 rounded-2xl glass">
                 <div className="flex items-center justify-between mb-5">
                   <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-glow group-hover:scale-110 transition-smooth">
                     <Icon className="w-6 h-6 text-primary-foreground" />
@@ -238,7 +253,8 @@ function Index() {
         </section>
 
         {/* Managed Service Model */}
-        <section className="py-16 md:py-20 bg-card/30 border-y border-border/60">
+        <section className="py-16 md:py-20 border-y border-border/40 relative">
+          <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_50%,oklch(0.55_0.27_295/0.08),transparent_70%)]" />
           <div className="container mx-auto px-5 sm:px-6">
             <div className="text-center max-w-2xl mx-auto mb-12">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-bold mb-4">
@@ -249,7 +265,7 @@ function Index() {
             </div>
             <div className="grid md:grid-cols-3 gap-5 md:gap-6">
               {managedSteps.map(({ icon: Icon, title, desc }, i) => (
-                <div key={title} className="relative p-7 rounded-2xl bg-background border border-border hover:border-accent/40 transition-smooth">
+                <div key={title} className="relative p-7 rounded-2xl glass hover:border-accent/40 transition-smooth">
                   <div className="absolute top-5 left-5 text-5xl font-extrabold text-accent/10 leading-none select-none">0{i + 1}</div>
                   <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5 relative">
                     <Icon className="w-6 h-6 text-accent" />
@@ -306,15 +322,17 @@ function Index() {
             {tiers.map((tier) => (
               <div
                 key={tier.name}
-                className={`relative p-7 md:p-8 rounded-2xl border transition-smooth flex flex-col ${
+                className={`relative p-7 md:p-8 rounded-2xl glass transition-smooth flex flex-col ${
                   tier.highlighted
-                    ? "bg-card border-accent shadow-elegant md:scale-[1.04]"
-                    : "bg-card border-border hover:border-primary/40 hover:shadow-card"
+                    ? "!border-accent/70 shadow-elegant md:scale-[1.04] ring-1 ring-accent/30"
+                    : "hover:!border-primary/40 hover:shadow-card"
                 }`}
               >
                 {tier.highlighted && (
-                  <div className="absolute -top-3 right-1/2 translate-x-1/2 inline-flex items-center gap-1 px-3 py-1 rounded-full gradient-cta text-accent-foreground text-xs font-bold shadow-glow-cta whitespace-nowrap">
-                    <Star className="w-3 h-3" /> הכי פופולרי
+                  <div className="absolute -top-3 right-1/2 translate-x-1/2 flex items-center gap-1.5 whitespace-nowrap">
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full gradient-cta text-accent-foreground text-xs font-extrabold shadow-glow-cta">
+                      <Star className="w-3 h-3" /> Founder's Special
+                    </span>
                   </div>
                 )}
                 <div className="mb-5">
@@ -365,7 +383,7 @@ function Index() {
 
           {/* Why so affordable? */}
           <div className="mt-14 max-w-3xl mx-auto" dir="rtl">
-            <div className="rounded-2xl border border-border bg-card/50 p-7 md:p-9 text-right">
+            <div className="rounded-2xl glass p-7 md:p-9 text-right">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-glow flex-shrink-0">
                   <Cpu className="w-6 h-6 text-primary-foreground" />
@@ -433,7 +451,7 @@ function Index() {
               >
                 <Zap className="w-4 h-4" /> דבר איתנו בוואטסאפ
               </a>
-              <Link to="/contact" className="inline-flex items-center justify-center px-8 py-4 rounded-xl border border-border bg-card font-semibold hover:bg-secondary transition-smooth">
+              <Link to="/contact" className="inline-flex items-center justify-center px-8 py-4 rounded-xl glass font-semibold hover:bg-card/70 transition-smooth">
                 לכל דרכי התקשורת
               </Link>
             </div>
@@ -515,7 +533,7 @@ function AuditForm() {
 
   if (submitted) {
     return (
-      <div className="bg-card rounded-2xl border border-border p-8 md:p-10 shadow-card text-center">
+      <div className="rounded-2xl glass-strong p-8 md:p-10 shadow-card text-center">
         <div className="w-16 h-16 rounded-full gradient-cta flex items-center justify-center mx-auto mb-4 shadow-glow-cta">
           <CheckCircle2 className="w-8 h-8 text-accent-foreground" />
         </div>
@@ -533,7 +551,7 @@ function AuditForm() {
   }
 
   return (
-    <div className="bg-card rounded-2xl border border-border p-6 md:p-8 shadow-elegant">
+    <div className="rounded-2xl glass-strong p-6 md:p-8 shadow-elegant">
       {/* Progress */}
       <div className="mb-6">
         <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">

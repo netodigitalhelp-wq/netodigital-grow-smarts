@@ -1,6 +1,7 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { CookieBanner } from "@/components/CookieBanner";
+import { ScrollGlow } from "@/components/ScrollGlow";
 
 import appCss from "../styles.css?url";
 
@@ -122,6 +123,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   return (
     <>
+      <ScrollGlow />
       <Outlet />
       <WhatsAppButton />
       <CookieBanner />
