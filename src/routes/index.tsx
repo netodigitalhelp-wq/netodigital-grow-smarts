@@ -461,11 +461,11 @@ function Index() {
         {/* AI Audit form */}
         <section id="audit" className="container mx-auto px-5 sm:px-6 py-16 md:py-20 scroll-mt-24">
           <div className="grid lg:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
-            <div>
+            <Reveal>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full gradient-cta text-accent-foreground text-xs font-bold mb-4 shadow-glow-cta">
                 <Rocket className="w-3.5 h-3.5" /> AI Audit · חינם
               </div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight text-foreground">
+              <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight text-metallic">
                 בדוק התאמה <br/>
                 <span className="text-gradient">לאוטומציה ב-2 דקות</span>
               </h2>
@@ -488,16 +488,18 @@ function Index() {
               <div className="hidden lg:flex items-center gap-2 mt-8 text-xs text-muted-foreground">
                 <Clock3 className="w-4 h-4 text-accent" /> זמן מילוי ממוצע: 1:47 דקות
               </div>
-            </div>
-            <AuditForm />
+            </Reveal>
+            <Reveal delay={150}>
+              <AuditForm />
+            </Reveal>
           </div>
         </section>
 
         {/* Final CTA */}
         <section className="container mx-auto px-5 sm:px-6 py-16 md:py-20">
-          <div className="text-center p-10 md:p-16 rounded-3xl gradient-hero border border-accent/30 shadow-elegant">
+          <Reveal className="text-center p-10 md:p-16 rounded-3xl glass-lux pulse-glow border border-accent/30 shadow-elegant">
             <Bot className="w-12 h-12 text-accent mx-auto mb-4" />
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">מוכן לתת ל-AI לעבוד בשבילך?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-metallic">מוכן לתת ל-AI לעבוד בשבילך?</h2>
             <p className="text-muted-foreground text-base md:text-lg mb-8 max-w-xl mx-auto">
               דבר איתנו עכשיו בוואטסאפ ותקבל מענה תוך דקות — וגישה למבצע ההשקה לפני שהוא נסגר.
             </p>
@@ -506,15 +508,15 @@ function Index() {
                 href={contact.whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl gradient-cta text-accent-foreground font-bold shadow-glow-cta hover:scale-105 transition-smooth"
+                className="shimmer inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl gradient-cta text-accent-foreground font-bold shadow-glow-cta cta-breathe hover:scale-105 transition-smooth"
               >
                 <Zap className="w-4 h-4" /> דבר איתנו בוואטסאפ
               </a>
-              <Link to="/contact" className="inline-flex items-center justify-center px-8 py-4 rounded-xl glass font-semibold hover:bg-card/70 transition-smooth">
+              <Link to="/contact" className="pulse-glow inline-flex items-center justify-center px-8 py-4 rounded-xl glass-lux font-semibold hover:bg-card/70 transition-smooth">
                 לכל דרכי התקשורת
               </Link>
             </div>
-          </div>
+          </Reveal>
         </section>
       </main>
       <Footer />
