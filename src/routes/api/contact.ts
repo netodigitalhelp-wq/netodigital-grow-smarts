@@ -3,11 +3,12 @@ import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { z } from "zod";
 
 const ContactSchema = z.object({
-  name: z.string().min(1).max(120),
-  phone: z.string().min(7).max(30),
-  email: z.string().email().max(200),
-  business: z.string().max(200).optional().default(""),
-  message: z.string().min(2).max(2000),
+  name: z.string().trim().min(2).max(100).regex(/^[\p{L}\s'’\-.]+$/u, "invalid name"),
+  phone: z.string().trim().min(7).max(20).regex(/^[\d+\-\s()]+$/, "invalid phone"),
+  email: z.string().trim().email().max(200),
+  business: z.string().trim().max(200).optional().default(""),
+  message: z.string().trim().min(2).max(2000),
+  company_website: z.string().max(0).optional().default(""), // honeypot
 });
 
 export const Route = createFileRoute("/api/contact")({
@@ -19,6 +20,10 @@ export const Route = createFileRoute("/api/contact")({
           const parsed = ContactSchema.safeParse(body);
           if (!parsed.success) {
             return Response.json({ error: "פרטים לא תקינים" }, { status: 400 });
+          }
+          // Honeypot tripped — silently accept, do not store
+          if (parsed.data.company_website) {
+            return Response.json({ ok: true });
           }
           const { error } = await supabaseAdmin
             .from("contact_submissions")

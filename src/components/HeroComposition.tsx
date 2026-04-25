@@ -19,9 +19,21 @@ export function HeroComposition({ className }: { className?: string }) {
   ];
   const [revealed, setRevealed] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile viewport once + on resize (debounced)
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   // Set playbackRate ONCE per video after metadata loads, then detach handler.
+  // Desktop only — mobile keeps native 1.0 to save GPU cycles.
   useEffect(() => {
+    if (isMobile) return;
     const cleanups: Array<() => void> = [];
     videoRefs.forEach((r) => {
       const v = r.current;
@@ -42,7 +54,14 @@ export function HeroComposition({ className }: { className?: string }) {
       clearTimeout(t);
       cleanups.forEach((fn) => fn());
     };
-  }, []);
+  }, [isMobile]);
+
+  // Mobile: still trigger reveal even though playbackRate logic is skipped.
+  useEffect(() => {
+    if (!isMobile) return;
+    const t = setTimeout(() => setRevealed(true), 60);
+    return () => clearTimeout(t);
+  }, [isMobile]);
 
   // Pause videos when hero scrolls out of view; resume on re-entry.
   useEffect(() => {
@@ -153,6 +172,7 @@ export function HeroComposition({ className }: { className?: string }) {
         isolation: "isolate",
         transform: "translate3d(0,0,0)",
         backfaceVisibility: "hidden",
+        contain: "layout paint",
       } as React.CSSProperties}
     >
       {/* SVG defs: sharpen + animated grain */}
@@ -204,8 +224,8 @@ export function HeroComposition({ className }: { className?: string }) {
             }}
           />
 
-          {/* Layer 1 — Background fluid atmosphere */}
-          <video
+          {/* Layer 1 — Background fluid atmosphere (desktop only) */}
+          {!isMobile && <video
             ref={videoRefs[0]}
             src={heroBgVideo}
             autoPlay loop muted playsInline preload="metadata"
@@ -223,7 +243,7 @@ export function HeroComposition({ className }: { className?: string }) {
               backfaceVisibility: "hidden",
               ...maskStyle,
             }}
-          />
+          />}
 
           {/* Layer 2 — Main AI entity */}
           <video
@@ -249,7 +269,7 @@ export function HeroComposition({ className }: { className?: string }) {
           />
 
           {/* Layer 3 — Detail texture overlay */}
-          <video
+          {!isMobile && <video
             ref={videoRefs[2]}
             src={heroOverlayVideo}
             autoPlay loop muted playsInline preload="metadata"
@@ -270,7 +290,7 @@ export function HeroComposition({ className }: { className?: string }) {
               backfaceVisibility: "hidden",
               ...maskStyle,
             }}
-          />
+          />}
 
           {/* Animated SVG film grain (existing) */}
           <div
