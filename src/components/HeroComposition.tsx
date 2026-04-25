@@ -20,6 +20,7 @@ export function HeroComposition({ className }: { className?: string }) {
   const [revealed, setRevealed] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [lowPower, setLowPower] = useState(false);
 
   // Detect mobile viewport once + on resize (debounced)
   useEffect(() => {
@@ -28,6 +29,22 @@ export function HeroComposition({ className }: { className?: string }) {
     update();
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
+  }, []);
+
+  // Detect low-power devices: <4GB RAM, <=4 logical cores, or save-data preference
+  useEffect(() => {
+    type NavExt = Navigator & {
+      deviceMemory?: number;
+      hardwareConcurrency?: number;
+      connection?: { saveData?: boolean; effectiveType?: string };
+    };
+    const nav = navigator as NavExt;
+    const lowMem = typeof nav.deviceMemory === "number" && nav.deviceMemory < 4;
+    const fewCores = typeof nav.hardwareConcurrency === "number" && nav.hardwareConcurrency <= 4;
+    const saveData = nav.connection?.saveData === true;
+    const slowNet = nav.connection?.effectiveType === "2g" || nav.connection?.effectiveType === "slow-2g";
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setLowPower(lowMem || fewCores || saveData || slowNet || reducedMotion);
   }, []);
 
   // Set playbackRate ONCE per video after metadata loads, then detach handler.
@@ -224,8 +241,8 @@ export function HeroComposition({ className }: { className?: string }) {
             }}
           />
 
-          {/* Layer 1 — Background fluid atmosphere (desktop only) */}
-          {!isMobile && <video
+          {/* Layer 1 — Background fluid atmosphere (desktop + non-low-power only) */}
+          {!isMobile && !lowPower && <video
             ref={videoRefs[0]}
             src={heroBgVideo}
             autoPlay loop muted playsInline preload="metadata"
@@ -269,7 +286,7 @@ export function HeroComposition({ className }: { className?: string }) {
           />
 
           {/* Layer 3 — Detail texture overlay */}
-          {!isMobile && <video
+          {!isMobile && !lowPower && <video
             ref={videoRefs[2]}
             src={heroOverlayVideo}
             autoPlay loop muted playsInline preload="metadata"
