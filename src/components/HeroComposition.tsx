@@ -5,14 +5,16 @@ import heroFigure from "@/assets/hero-figure.png";
 import { cn } from "@/lib/utils";
 
 /**
- * Layered hero composition.
- *  Layer 0: hero-bg.png — full-bleed background.
- *  Layer 1: hero-orb.png — left-anchored, mouse-follow + soft pulse.
- *  Layer 2: hero-figure.png — over orb, glitch reveal then continuous floating.
+ * Layered hero composition — forced absolute positioning.
+ *  Layer 0: hero-bg.png — full-bleed background (z-index 0).
+ *  Layer 1: hero-orb.png — left-anchored, mouse-follow ±20px (z-index 10).
+ *  Layer 2: hero-figure.png — over orb, glitch reveal then floating (z-index 20).
+ *  Right-side fade veil sits at z-index 5 so it darkens the bg but stays BEHIND
+ *  the orb + figure — the assets must remain fully visible.
  */
 export function HeroComposition({ className }: { className?: string }) {
   const wrap = useRef<HTMLDivElement>(null);
-  const orb = useRef<HTMLDivElement>(null);
+  const orb = useRef<HTMLImageElement>(null);
   const figure = useRef<HTMLDivElement>(null);
   const [revealed, setRevealed] = useState(false);
 
@@ -33,14 +35,15 @@ export function HeroComposition({ className }: { className?: string }) {
       const r = el.getBoundingClientRect();
       const cx = (e.clientX - r.left) / r.width - 0.5;
       const cy = (e.clientY - r.top) / r.height - 0.5;
-      tx = cx * 36;
-      ty = cy * 28;
+      tx = cx * 40; // ±20px
+      ty = cy * 40;
     };
     const tick = () => {
-      x += (tx - x) * 0.07;
-      y += (ty - y) * 0.07;
-      o.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-      f.style.transform = `translate3d(${x * 0.55}px, ${y * 0.55}px, 0)`;
+      x += (tx - x) * 0.08;
+      y += (ty - y) * 0.08;
+      // Preserve translateY(-50%) for vertical centering, layer translation on top.
+      o.style.transform = `translate(${x}px, calc(-50% + ${y}px))`;
+      f.style.transform = `translate(${x * 0.55}px, calc(-50% + ${y * 0.55}px))`;
       raf = requestAnimationFrame(tick);
     };
     tick();
@@ -59,8 +62,9 @@ export function HeroComposition({ className }: { className?: string }) {
     >
       {/* Layer 0 — full-bleed background */}
       <div
-        className="absolute inset-0 z-0"
+        className="absolute inset-0"
         style={{
+          zIndex: 0,
           backgroundImage: `url(${heroBg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -68,65 +72,76 @@ export function HeroComposition({ className }: { className?: string }) {
         }}
       />
 
-      {/* Layer 1 — Orb (left), mouse-follow + soft pulse */}
+      {/* Right-side dark veil — sits BEHIND assets so they remain crisp */}
       <div
-        className="absolute top-1/2 -translate-y-1/2 left-[5%] sm:left-[8%] flex items-center justify-center pointer-events-none"
-        style={{ zIndex: 10 }}
-      >
-        <div
-          ref={orb}
-          className="relative will-change-transform animate-orb-soft-pulse"
-          style={{ transition: "transform 0.1s linear" }}
-        >
-          {/* Glow halo behind orb */}
-          <div
-            className="absolute inset-0 -z-10 rounded-full blur-3xl opacity-70"
-            style={{
-              background:
-                "radial-gradient(circle, oklch(0.55 0.27 295 / 0.65), oklch(0.84 0.16 220 / 0.35) 50%, transparent 75%)",
-              transform: "scale(1.1)",
-            }}
-          />
-          <img
-            src={heroOrb}
-            alt=""
-            draggable={false}
-            className="block w-[220px] sm:w-[300px] md:w-[380px] lg:w-[460px] h-auto select-none"
-          />
-        </div>
-      </div>
+        className="absolute inset-0"
+        style={{
+          zIndex: 5,
+          background:
+            "linear-gradient(to left, oklch(0.10 0.025 260) 0%, oklch(0.10 0.025 260 / 0.78) 40%, oklch(0.10 0.025 260 / 0.20) 72%, transparent 100%)",
+        }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          zIndex: 5,
+          background:
+            "linear-gradient(to bottom, oklch(0.10 0.025 260 / 0.45), transparent 25%, transparent 75%, oklch(0.10 0.025 260 / 0.7))",
+        }}
+      />
 
-      {/* Layer 2 — AI Figure over orb, glitch reveal + floating */}
+      {/* Layer 1 — Orb (forced absolute, ALWAYS visible) */}
+      <img
+        ref={orb}
+        src={heroOrb}
+        alt=""
+        draggable={false}
+        className="animate-orb-soft-pulse select-none"
+        style={{
+          position: "absolute",
+          left: "8%",
+          top: "50%",
+          transform: "translateY(-50%)",
+          zIndex: 10,
+          width: "38%",
+          maxWidth: "460px",
+          height: "auto",
+          filter:
+            "drop-shadow(0 0 36px oklch(0.55 0.27 295 / 0.65)) drop-shadow(0 0 60px oklch(0.84 0.16 220 / 0.4))",
+        }}
+      />
+
+      {/* Layer 2 — AI Figure stack (reveal + glitch + float) */}
       <div
-        className="absolute top-1/2 -translate-y-1/2 left-[5%] sm:left-[8%] flex items-center justify-center pointer-events-none"
-        style={{ zIndex: 20 }}
+        ref={figure}
+        className="animate-figure-float"
+        style={{
+          position: "absolute",
+          left: "8%",
+          top: "50%",
+          transform: "translateY(-50%)",
+          zIndex: 20,
+          width: "40%",
+          maxWidth: "500px",
+        }}
       >
-        <div
-          ref={figure}
-          className={cn(
-            "relative will-change-transform animate-figure-float",
-            revealed ? "" : "",
-          )}
-          style={{ transition: "transform 0.1s linear" }}
-        >
-          {/* Base figure */}
+        <div className="relative w-full">
           <img
             src={heroFigure}
             alt=""
             draggable={false}
             className={cn(
-              "block w-[240px] sm:w-[320px] md:w-[400px] lg:w-[500px] h-auto select-none",
-              "transition-[opacity,filter] duration-[1600ms] ease-out",
-              revealed ? "opacity-100 blur-0" : "opacity-0 blur-[18px]",
+              "block w-full h-auto select-none transition-[opacity,filter,transform] duration-[1200ms] ease-out",
+              revealed ? "opacity-100 blur-0 scale-100" : "opacity-0 blur-[14px] scale-90",
             )}
           />
-          {/* Glitch RGB split layers — only visible during reveal */}
+          {/* Glitch RGB split layers — visible only during reveal */}
           <img
             src={heroFigure}
             alt=""
             aria-hidden="true"
             className={cn(
-              "absolute inset-0 w-full h-full pointer-events-none mix-blend-screen transition-opacity duration-[1400ms]",
+              "absolute inset-0 w-full h-full pointer-events-none mix-blend-screen transition-opacity duration-[1200ms]",
               revealed ? "opacity-0" : "opacity-70",
             )}
             style={{ filter: "hue-rotate(90deg) blur(4px)", transform: "translate(5px, -2px)" }}
@@ -136,15 +151,15 @@ export function HeroComposition({ className }: { className?: string }) {
             alt=""
             aria-hidden="true"
             className={cn(
-              "absolute inset-0 w-full h-full pointer-events-none mix-blend-screen transition-opacity duration-[1400ms]",
+              "absolute inset-0 w-full h-full pointer-events-none mix-blend-screen transition-opacity duration-[1200ms]",
               revealed ? "opacity-0" : "opacity-60",
             )}
             style={{ filter: "hue-rotate(-90deg) blur(4px)", transform: "translate(-5px, 2px)" }}
           />
-          {/* Particle scan lines during reveal */}
+          {/* Scan lines during reveal */}
           <div
             className={cn(
-              "absolute inset-0 pointer-events-none transition-opacity duration-[1400ms]",
+              "absolute inset-0 pointer-events-none transition-opacity duration-[1200ms]",
               revealed ? "opacity-0" : "opacity-90",
             )}
             style={{
@@ -154,28 +169,6 @@ export function HeroComposition({ className }: { className?: string }) {
             }}
           />
         </div>
-      </div>
-
-      {/* Right-side fade so RTL text stays readable */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ zIndex: 25 }}
-      >
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(to left, oklch(0.10 0.025 260) 0%, oklch(0.10 0.025 260 / 0.82) 38%, oklch(0.10 0.025 260 / 0.25) 70%, transparent 100%)",
-        }}
-      />
-      {/* Top/bottom subtle fade for depth */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(to bottom, oklch(0.10 0.025 260 / 0.45), transparent 25%, transparent 75%, oklch(0.10 0.025 260 / 0.7))",
-        }}
-      />
       </div>
     </div>
   );
