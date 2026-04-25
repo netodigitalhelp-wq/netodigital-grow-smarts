@@ -25,24 +25,24 @@ export function Header() {
 
   return (
     <header
-      className={`sticky top-[36px] sm:top-[40px] z-50 transition-all duration-500 ${
+      className={`sticky top-[36px] sm:top-[40px] z-50 transition-all duration-500 overflow-visible ${
         scrolled
           ? "backdrop-blur-2xl bg-background/60 border-b border-accent/25 shadow-[0_8px_32px_-12px_oklch(0_0_0/0.6)]"
           : "bg-transparent border-b border-transparent"
       }`}
     >
       <div
-        className={`container mx-auto px-6 flex items-center justify-between transition-all duration-500 ${
+        className={`container mx-auto px-6 flex items-center justify-between overflow-visible transition-all duration-500 ${
           scrolled ? "h-14" : "h-16 md:h-20"
         }`}
       >
         {/* Morphing logo: full crystal logo → circular N-orb favicon when scrolled */}
-        <Link to="/" aria-label="NetoDigital" className="relative flex items-center group">
+        <Link to="/" aria-label="NetoDigital" className="relative flex items-center group" style={{ overflow: "visible" }}>
           <span
             className={`relative inline-block transition-all duration-500 ${
               scrolled
                 ? "w-10 h-10 opacity-0 scale-75"
-                : "h-16 md:h-24 w-auto opacity-100 scale-100 -mb-8 md:-mb-12"
+                : "h-[80px] md:h-[110px] w-auto opacity-100 scale-100 -mb-10 md:-mb-16"
             }`}
             style={{ transformOrigin: "right center" }}
           >
