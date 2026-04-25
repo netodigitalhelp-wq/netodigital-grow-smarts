@@ -189,12 +189,12 @@ function Index() {
                 <Brain className="w-4 h-4" />
                 סוכנות AI Automation מנוהלת לעסקים קטנים
               </div>
-              <h1 className="text-[2.1rem] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] mb-6 animate-blur-in text-metallic" style={{ animationDelay: "120ms" }}>
+              <h1 className="text-[2.1rem] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] mb-6 animate-blur-in text-metallic" style={{ animationDelay: "120ms", letterSpacing: "-0.02em" }}>
                 העתיד כבר כאן:
                 <span className="block text-gradient mt-1">פתרונות AI מתקדמים</span>
                 <span className="block mt-2 text-metallic">לעסק שלך</span>
               </h1>
-              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl mb-9 leading-relaxed animate-blur-in" style={{ animationDelay: "260ms" }}>
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl mb-9 leading-relaxed animate-blur-in" style={{ animationDelay: "260ms", letterSpacing: "-0.02em" }}>
                 אנחנו בונים לכם <span className="text-foreground font-semibold">"עובדים דיגיטליים"</span> שמטפלים במכירות, שירות ותוכן — 24/7. טכנולוגיה שהופכת לתוצאות.
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-3 sm:gap-4 animate-blur-in" style={{ animationDelay: "400ms" }}>

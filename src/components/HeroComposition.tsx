@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import heroBgVideo from "@/assets/hero-bg.mp4";
 import heroEntityVideo from "@/assets/hero-entity.mp4";
 import heroOverlayVideo from "@/assets/hero-overlay.mp4";
@@ -14,31 +14,38 @@ import { cn } from "@/lib/utils";
 export function HeroComposition({ className }: { className?: string }) {
   const wrap = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
+  const videoRefs = [
+    useRef<HTMLVideoElement>(null),
+    useRef<HTMLVideoElement>(null),
+    useRef<HTMLVideoElement>(null),
+  ];
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    // Set all videos to half-speed for cinematic feel
+    videoRefs.forEach((r) => {
+      if (r.current) r.current.playbackRate = 0.5;
+    });
+    const t = setTimeout(() => setRevealed(true), 60);
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     const el = wrap.current;
     const s = stage.current;
     if (!el || !s) return;
     if (window.matchMedia("(pointer: coarse)").matches) return;
-    let raf = 0;
-    let tx = 0, ty = 0, x = 0, y = 0;
+    let tx = 0, ty = 0;
     const onMove = (e: PointerEvent) => {
       const r = el.getBoundingClientRect();
       const cx = (e.clientX - r.left) / r.width - 0.5;
       const cy = (e.clientY - r.top) / r.height - 0.5;
       tx = cx * 30; // ±15px
       ty = cy * 30;
+      s.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
     };
-    const tick = () => {
-      x += (tx - x) * 0.08;
-      y += (ty - y) * 0.08;
-      s.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-      raf = requestAnimationFrame(tick);
-    };
-    tick();
     window.addEventListener("pointermove", onMove, { passive: true });
     return () => {
-      cancelAnimationFrame(raf);
       window.removeEventListener("pointermove", onMove);
     };
   }, []);
@@ -49,9 +56,18 @@ export function HeroComposition({ className }: { className?: string }) {
       aria-hidden="true"
       className={cn("absolute inset-0 z-0 overflow-hidden pointer-events-none", className)}
     >
-      <div ref={stage} className="absolute inset-0 will-change-transform">
+      <div
+        ref={stage}
+        className="absolute inset-0 will-change-transform"
+        style={{
+          opacity: revealed ? 1 : 0,
+          transition:
+            "opacity 3000ms ease-out, transform 1500ms cubic-bezier(0.25, 0.1, 0.25, 1.0)",
+        }}
+      >
         {/* Layer 1 — Background fluid atmosphere */}
         <video
+          ref={videoRefs[0]}
           src={heroBgVideo}
           autoPlay
           loop
@@ -64,13 +80,14 @@ export function HeroComposition({ className }: { className?: string }) {
             height: "100%",
             objectFit: "cover",
             zIndex: 5,
-            opacity: 0.4,
+            opacity: 0.3,
             mixBlendMode: "color-dodge",
           }}
         />
 
         {/* Layer 2 — Main AI entity (metamorphosis) */}
         <video
+          ref={videoRefs[1]}
           src={heroEntityVideo}
           autoPlay
           loop
@@ -95,6 +112,7 @@ export function HeroComposition({ className }: { className?: string }) {
 
         {/* Layer 3 — Detail & texture overlay */}
         <video
+          ref={videoRefs[2]}
           src={heroOverlayVideo}
           autoPlay
           loop
@@ -110,7 +128,7 @@ export function HeroComposition({ className }: { className?: string }) {
             zIndex: 15,
             mixBlendMode: "screen",
             opacity: 0.25,
-            filter: "blur(8px)",
+            filter: "blur(15px)",
             pointerEvents: "none",
           }}
         />
