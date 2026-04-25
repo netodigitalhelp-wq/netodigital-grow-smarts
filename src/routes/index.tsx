@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { UrgencyBanner } from "@/components/UrgencyBanner";
 import { AIOrb } from "@/components/AIOrb";
+import { Reveal } from "@/components/Reveal";
 import { contact } from "@/lib/contact";
 import {
   ArrowLeft,
@@ -25,6 +26,9 @@ import {
   Rocket,
   Flame,
   Cpu,
+  HandCoins,
+  FileX2,
+  Eye,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -69,6 +73,12 @@ const managedSteps = [
   { icon: Server, title: "אנחנו מנהלים את התשתית", desc: "שרתים, מודלי AI, אינטגרציות, ניטור — הכל מטופל בצד שלנו. אתה לא צריך לדעת מה זה API." },
   { icon: ShieldCheck, title: "אתה מקבל שקט תעשייתי", desc: "מערכת שעובדת 24/7, מנוטרת, מגובה ומאובטחת. אם משהו נופל — אנחנו יודעים לפניך." },
   { icon: Wallet, title: "מודל מנוי חודשי משתלם", desc: "תשלום קבוע וצפוי. ללא עלויות הקמה (לזמן מוגבל), ללא הפתעות, ללא חוזי שנה." },
+];
+
+const benefits = [
+  { icon: Eye, title: "שקיפות מלאה", desc: "דשבורד חי, דוחות חודשיים, גישה לכל נתון. בלי ערפל, בלי הפתעות." },
+  { icon: FileX2, title: "ללא חוזי שנה", desc: "מנוי חודשי גמיש. לא מתאים? עוצרים בכל רגע, בלי קנסות." },
+  { icon: HandCoins, title: "ROI מוכח", desc: "תוצאות מדידות תוך 14 יום. אם לא חוסכים לך זמן — אתה לא משלם." },
 ];
 
 const tiers = [
@@ -188,10 +198,10 @@ function Index() {
                 <Brain className="w-4 h-4" />
                 סוכנות AI Automation מנוהלת לעסקים קטנים
               </div>
-              <h1 className="text-[2.1rem] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] mb-6 text-foreground animate-blur-in" style={{ animationDelay: "120ms" }}>
+              <h1 className="text-[2.1rem] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] mb-6 animate-blur-in text-metallic" style={{ animationDelay: "120ms" }}>
                 בונים לעסק שלך <br/>
                 <span className="text-gradient">מוח דיגיטלי:</span>
-                <span className="block mt-2">אוטומציה ו-AI</span>
+                <span className="block mt-2 text-metallic">אוטומציה ו-AI</span>
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-9 leading-relaxed animate-blur-in" style={{ animationDelay: "260ms" }}>
                 אנחנו בונים עבורך <span className="text-foreground font-semibold">"עובדים דיגיטליים"</span> מבוססי AI שמטפלים במכירות, שירות לקוחות ותוכן — בזמן שאתה מתפנה למה שחשוב באמת.
@@ -199,13 +209,13 @@ function Index() {
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 animate-blur-in" style={{ animationDelay: "400ms" }}>
                 <a
                   href="#audit"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl gradient-cta text-accent-foreground font-bold text-base cta-breathe hover:scale-[1.03] transition-smooth"
+                  className="shimmer inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl gradient-cta text-accent-foreground font-bold text-base cta-breathe hover:scale-[1.03] transition-smooth"
                 >
                   בדוק התאמה לאוטומציה (2 דקות) <ArrowLeft className="w-4 h-4" />
                 </a>
                 <a
                   href="#pricing"
-                  className="inline-flex items-center justify-center px-7 py-4 rounded-xl glass font-semibold hover:bg-card/70 transition-smooth"
+                  className="pulse-glow inline-flex items-center justify-center px-7 py-4 rounded-xl glass-lux font-semibold hover:bg-card/70 transition-smooth"
                 >
                   צפה בחבילות
                 </a>
@@ -221,16 +231,39 @@ function Index() {
 
         {/* Digital Workers */}
         <section id="solutions" className="container mx-auto px-5 sm:px-6 py-16 md:py-20 scroll-mt-24">
-          <div className="text-center max-w-2xl mx-auto mb-12">
+          <Reveal className="text-center max-w-2xl mx-auto mb-12">
             <div className="text-xs sm:text-sm font-bold text-accent mb-3 tracking-wider uppercase">Our Digital Workers</div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground leading-tight">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-metallic leading-tight">
               העובדים שלא לוקחים יום חופש,<br/>לא דורשים העלאה — ולא ישנים.
             </h2>
             <p className="text-muted-foreground text-base md:text-lg">3 מערכות AI שעובדות בשבילך מסביב לשעון.</p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+          </Reveal>
+          {/* Mobile: horizontal snap slider · Desktop: grid */}
+          <div className="md:hidden -mx-5 px-5 snap-row flex gap-4 overflow-x-auto pb-4" dir="rtl">
             {digitalWorkers.map(({ icon: Icon, title, tag, desc, features }) => (
-              <div key={title} className="tilt-card group p-7 rounded-2xl glass">
+              <div key={title} className="snap-item flex-shrink-0 w-[85%] p-6 rounded-2xl glass-lux pulse-glow">
+                <div className="flex items-center justify-between mb-5">
+                  <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-glow">
+                    <Icon className="w-6 h-6 text-primary-foreground" />
+                  </div>
+                  <span className="text-[10px] font-mono text-accent bg-accent/10 px-2.5 py-1 rounded-md">{tag}</span>
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-foreground">{title}</h3>
+                <p className="text-muted-foreground leading-relaxed mb-5 text-sm">{desc}</p>
+                <ul className="space-y-2">
+                  {features.map((f) => (
+                    <li key={f} className="flex items-start gap-2 text-sm">
+                      <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+            {digitalWorkers.map(({ icon: Icon, title, tag, desc, features }, i) => (
+              <Reveal key={title} delay={i * 120} className="tilt-card pulse-glow group p-7 rounded-2xl glass-lux">
                 <div className="flex items-center justify-between mb-5">
                   <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-glow group-hover:scale-110 transition-smooth">
                     <Icon className="w-6 h-6 text-primary-foreground" />
@@ -247,7 +280,33 @@ function Index() {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        {/* Iconic Benefits — interactive expand on hover/tap */}
+        <section className="container mx-auto px-5 sm:px-6 py-12 md:py-16">
+          <Reveal className="text-center max-w-2xl mx-auto mb-10">
+            <h2 className="text-2xl md:text-4xl font-bold text-metallic mb-3">למה דווקא איתנו?</h2>
+            <p className="text-muted-foreground text-sm md:text-base">העברו עם הסמן או לחצו כדי לחשוף.</p>
+          </Reveal>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            {benefits.map(({ icon: Icon, title, desc }, i) => (
+              <Reveal key={title} delay={i * 100}>
+                <details className="group rounded-2xl glass-lux pulse-glow open:shadow-glow open:[&_summary_.chev]:rotate-180">
+                  <summary className="cursor-pointer list-none p-6 flex items-center gap-4 select-none">
+                    <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-glow flex-shrink-0 transition-transform duration-500 group-hover:scale-110 group-open:scale-110">
+                      <Icon className="w-6 h-6 text-primary-foreground" />
+                    </div>
+                    <span className="text-base md:text-lg font-bold text-foreground flex-1">{title}</span>
+                    <span className="chev text-accent text-xl transition-transform duration-300">＋</span>
+                  </summary>
+                  <div className="px-6 pb-6 -mt-2 text-sm text-muted-foreground leading-relaxed animate-in fade-in slide-in-from-top-1 duration-300">
+                    {desc}
+                  </div>
+                </details>
+              </Reveal>
             ))}
           </div>
         </section>
@@ -256,23 +315,23 @@ function Index() {
         <section className="py-16 md:py-20 border-y border-border/40 relative">
           <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_50%,oklch(0.55_0.27_295/0.08),transparent_70%)]" />
           <div className="container mx-auto px-5 sm:px-6">
-            <div className="text-center max-w-2xl mx-auto mb-12">
+            <Reveal className="text-center max-w-2xl mx-auto mb-12">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-bold mb-4">
                 <ShieldCheck className="w-3.5 h-3.5" /> Managed Service Model
               </div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">איך זה עובד?</h2>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4 text-metallic">איך זה עובד?</h2>
               <p className="text-muted-foreground text-base md:text-lg">שירות מנוהל מקצה לקצה — בלי שתצטרך להבין שום דבר טכני.</p>
-            </div>
+            </Reveal>
             <div className="grid md:grid-cols-3 gap-5 md:gap-6">
               {managedSteps.map(({ icon: Icon, title, desc }, i) => (
-                <div key={title} className="relative p-7 rounded-2xl glass hover:border-accent/40 transition-smooth">
+                <Reveal key={title} delay={i * 120} className="relative p-7 rounded-2xl glass-lux pulse-glow hover:border-accent/40 transition-smooth">
                   <div className="absolute top-5 left-5 text-5xl font-extrabold text-accent/10 leading-none select-none">0{i + 1}</div>
                   <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5 relative">
                     <Icon className="w-6 h-6 text-accent" />
                   </div>
                   <h3 className="text-lg font-bold mb-2 text-foreground relative">{title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed relative">{desc}</p>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -280,15 +339,15 @@ function Index() {
 
         {/* Pricing */}
         <section id="pricing" className="container mx-auto px-5 sm:px-6 py-16 md:py-20 scroll-mt-24">
-          <div className="text-center max-w-2xl mx-auto mb-10">
+          <Reveal className="text-center max-w-2xl mx-auto mb-10">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full gradient-cta text-accent-foreground text-xs font-extrabold mb-4 shadow-glow-cta">
               <Sparkles className="w-3.5 h-3.5" /> Founders Launch — 0₪ הקמה
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">חבילות ומחירים</h2>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-metallic">חבילות ומחירים</h2>
             <p className="text-muted-foreground text-base md:text-lg">
               מנוי חודשי שקוף, ללא חוזי שנה. כל החבילות כוללות ריטיינר חודשי מוזל לתחזוקה שוטפת.
             </p>
-          </div>
+          </Reveal>
 
           {/* Limited spots counter */}
           <div className="max-w-3xl mx-auto mb-10">
