@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/logo-icon.png";
 
 const links = [
   { to: "/", label: "בית" },
@@ -16,13 +15,10 @@ export function Header() {
     <header className="sticky top-[36px] sm:top-[40px] z-50 backdrop-blur-xl bg-background/80 border-b border-border/50">
       <div className="container mx-auto px-6 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 group">
-          <img
-            src={logo}
-            alt="NetoDigital - צמיחה לעסקים קטנים"
-            className="h-10 w-10 object-contain group-hover:scale-110 transition-smooth"
-          />
-          <span className="text-xl font-bold tracking-tight">
-            Neto<span className="text-gradient">Digital</span>
+          <span className="relative flex items-center gap-1.5 text-xl font-bold tracking-tight">
+            <span className="text-foreground">Neto</span>
+            <span className="text-foreground">Digital</span>
+            <span aria-hidden="true" className="logo-orb absolute -top-1 -left-2 w-2.5 h-2.5 rounded-full" />
           </span>
         </Link>
         <nav className="hidden md:flex items-center gap-1">
