@@ -95,27 +95,7 @@ export function HeroComposition({ className }: { className?: string }) {
         }}
       />
 
-      {/* Solid-black backplate behind assets — guarantees `screen` blend drops the
-          black background pixels of the orb/figure to pure transparency. Covers the
-          entire left half so neither asset ever lands on a non-black surface. */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          left: "0%",
-          top: "0%",
-          width: "60%",
-          height: "100%",
-          zIndex: 8,
-          background: "#000000",
-          maskImage:
-            "radial-gradient(ellipse 80% 85% at 30% 50%, #000 70%, transparent 100%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 80% 85% at 30% 50%, #000 70%, transparent 100%)",
-        }}
-      />
-
-      {/* Layer 1 — Orb (forced absolute, ALWAYS visible) */}
+      {/* Layer 1 — Orb (blurred, behind figure) */}
       <img
         ref={orb}
         src={heroOrb}
@@ -124,34 +104,37 @@ export function HeroComposition({ className }: { className?: string }) {
         className="animate-orb-soft-pulse select-none"
         style={{
           position: "absolute",
-          left: "5%",
-          top: "50%",
-          transform: "translateY(-50%) scale(1.2)",
-          zIndex: 10,
-          width: "45%",
-          maxWidth: "500px",
+          left: "-5%",
+          top: "20%",
+          transform: "translateY(0) scale(1)",
+          zIndex: 5,
+          width: "40%",
+          maxWidth: "550px",
           height: "auto",
-          opacity: 0.8,
+          opacity: 0.5,
           mixBlendMode: "screen",
           filter:
-            "brightness(1.1) contrast(1.1) drop-shadow(0 0 36px oklch(0.55 0.27 295 / 0.65)) drop-shadow(0 0 60px oklch(0.84 0.16 220 / 0.4))",
+            "blur(5px) brightness(1.15) contrast(1.1) drop-shadow(0 0 36px oklch(0.55 0.27 295 / 0.55)) drop-shadow(0 0 60px oklch(0.84 0.16 220 / 0.35))",
         }}
       />
 
-      {/* Layer 2 — AI Figure stack (reveal + glitch + float) */}
+      {/* Layer 2 — Holographic AI Figure (anchored bottom-left) */}
       <div
         ref={figure}
         style={{
           position: "absolute",
-          left: "5%",
-          top: "50%",
-          transform: "translateY(-50%) scale(1)",
-          zIndex: 20,
-          width: "40%",
-          maxWidth: "500px",
-          opacity: 1,
+          left: "0",
+          bottom: "0",
+          top: "auto",
+          transform: "translate(0,0) scale(1)",
+          zIndex: 10,
+          width: "55%",
+          maxWidth: "750px",
+          opacity: 0.75,
+          background: "transparent",
           mixBlendMode: "screen",
-          filter: "brightness(1.1) contrast(1.1)",
+          filter:
+            "brightness(1.1) contrast(1.1) drop-shadow(0 0 20px rgba(0, 255, 255, 0.3))",
         }}
       >
         <div className="relative w-full animate-figure-float">
