@@ -164,6 +164,9 @@
     direction: rtl;
     text-align: right;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -171,6 +174,7 @@
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.2;
+    -webkit-font-smoothing: antialiased;
   }
 
   /* Form controls inherit RTL alignment by default */
@@ -499,5 +503,57 @@
       0 0 50px oklch(0.91 0.16 195 / 0.30),
       0 0 90px oklch(0.50 0.30 295 / 0.35),
       0 25px 50px -12px oklch(0 0 0 / 0.7);
+  }
+}
+
+/* ============ Tactile Digital Feedback (instant press + photon glow) ============ */
+@layer utilities {
+  /* Apply to any clickable element (button / a) for instant mousedown response */
+  .tactile {
+    position: relative;
+    transition:
+      transform 90ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 200ms ease,
+      filter 200ms ease;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  .tactile:active {
+    transform: scale(0.96) translateZ(0);
+    transition-duration: 60ms;
+  }
+
+  /* Photon Glow — radial cyan→violet flash from button center on press */
+  .photon::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      circle at center,
+      oklch(0.91 0.16 195 / 0.55) 0%,
+      oklch(0.50 0.30 295 / 0.35) 35%,
+      transparent 70%
+    );
+    opacity: 0;
+    transform: scale(0.6);
+    pointer-events: none;
+    transition: opacity 220ms ease-out, transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    mix-blend-mode: screen;
+    z-index: 0;
+  }
+  .photon:active::before {
+    opacity: 1;
+    transform: scale(1.05);
+    transition-duration: 90ms;
+  }
+  .photon > * { position: relative; z-index: 1; }
+
+  /* Glass Ripple — Bento card hover: subtle brightness/saturation lift */
+  .glass-ripple {
+    transition: filter 280ms ease, transform 280ms ease;
+  }
+  .glass-ripple:hover {
+    filter: brightness(1.12) saturate(1.1);
   }
 }

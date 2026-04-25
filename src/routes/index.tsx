@@ -202,7 +202,7 @@ function Index() {
                 <Magnetic strength={0.3} className="magnetic-cta">
                   <a
                     href="#audit"
-                    className="shimmer inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl gradient-cta text-accent-foreground font-bold text-base cta-breathe hover:scale-[1.03] transition-smooth"
+                    className="shimmer tactile photon inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl gradient-cta text-accent-foreground font-bold text-base cta-breathe hover:scale-[1.03] transition-smooth"
                   >
                     מתחילים אבחון AI עכשיו <ArrowLeft className="w-4 h-4" />
                   </a>
@@ -210,7 +210,7 @@ function Index() {
                 <Magnetic strength={0.25}>
                   <a
                     href="#pricing"
-                    className="pulse-glow inline-flex items-center justify-center px-7 py-4 rounded-xl glass-lux font-semibold hover:bg-card/70 transition-smooth"
+                    className="pulse-glow tactile inline-flex items-center justify-center px-7 py-4 rounded-xl glass-lux font-semibold hover:bg-card/70 transition-smooth"
                   >
                     צפה בחבילות
                   </a>
@@ -269,7 +269,7 @@ function Index() {
               return (
                 <Reveal key={title} delay={i * 120} className={bento}>
                   <Magnetic strength={0.12} as="div" className="block w-full h-full">
-                    <div className="bento-card group h-full p-7 rounded-3xl glass-lux relative overflow-hidden">
+                    <div className="bento-card glass-ripple group h-full p-7 rounded-3xl glass-lux relative overflow-hidden">
                       <div className="bento-card__border" aria-hidden="true" />
                       <div className="relative flex items-center justify-between mb-5">
                         <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-glow group-hover:scale-110 transition-smooth">
@@ -437,7 +437,7 @@ function Index() {
                 <Magnetic strength={0.25} className={tier.highlighted ? "magnetic-cta" : ""}>
                   <a
                     href="#audit"
-                    className={`inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold transition-smooth ${
+                    className={`tactile photon inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold transition-smooth ${
                       tier.highlighted
                         ? "gradient-cta text-accent-foreground shadow-glow-cta hover:scale-105"
                         : "border border-border bg-background hover:border-accent/50 hover:bg-secondary"
@@ -525,13 +525,13 @@ function Index() {
                   href={contact.whatsappHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="shimmer inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl gradient-cta text-accent-foreground font-bold shadow-glow-cta cta-breathe hover:scale-105 transition-smooth"
+                  className="shimmer tactile photon inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl gradient-cta text-accent-foreground font-bold shadow-glow-cta cta-breathe hover:scale-105 transition-smooth"
                 >
                   <Zap className="w-4 h-4" /> דברו איתנו בוואטסאפ
                 </a>
               </Magnetic>
               <Magnetic strength={0.25}>
-                <Link to="/contact" className="pulse-glow inline-flex items-center justify-center px-8 py-4 rounded-xl glass-lux font-semibold hover:bg-card/70 transition-smooth">
+                <Link to="/contact" className="pulse-glow tactile inline-flex items-center justify-center px-8 py-4 rounded-xl glass-lux font-semibold hover:bg-card/70 transition-smooth">
                   לכל דרכי התקשורת
                 </Link>
               </Magnetic>

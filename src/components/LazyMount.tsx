@@ -18,9 +18,24 @@ export function LazyMount({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [shown, setShown] = useState(false);
+  // Render children during SSR + initial hydration so server/client trees match.
+  // After mount, switch to lazy mode and let IntersectionObserver re-mount on visibility.
+  const [hydrated, setHydrated] = useState(false);
+  const [shown, setShown] = useState(true);
 
   useEffect(() => {
+    if (!hydrated) {
+      setHydrated(true);
+      // Decide visibility post-hydration: keep mounted if already in/near view, otherwise unmount until IO triggers.
+      const el = ref.current;
+      if (el && typeof IntersectionObserver !== "undefined") {
+        const rect = el.getBoundingClientRect();
+        const margin = parseInt(rootMargin, 10) || 200;
+        const inView = rect.top < window.innerHeight + margin && rect.bottom > -margin;
+        if (!inView) setShown(false);
+      }
+      return;
+    }
     if (shown) return;
     const el = ref.current;
     if (!el || typeof IntersectionObserver === "undefined") {
@@ -38,7 +53,7 @@ export function LazyMount({
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [shown, rootMargin]);
+  }, [hydrated, shown, rootMargin]);
 
   return (
     <div ref={ref} className={className} style={!shown && minHeight ? { minHeight } : undefined}>
