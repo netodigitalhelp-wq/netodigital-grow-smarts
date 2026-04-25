@@ -13,7 +13,7 @@ const links = [
 export function Header() {
   const [open, setOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border/50">
+    <header className="sticky top-[36px] sm:top-[40px] z-50 backdrop-blur-xl bg-background/80 border-b border-border/50">
       <div className="container mx-auto px-6 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 group">
           <img
