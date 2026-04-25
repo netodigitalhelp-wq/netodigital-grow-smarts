@@ -216,7 +216,7 @@ function ContactPage() {
                   </div>
                   <div>
                     <label className="text-sm font-medium mb-1.5 block">אימייל</label>
-                    <input required type="email" name="email" value={formData.email} onChange={handleChange} className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-primary outline-none transition-smooth" placeholder="you@example.com" />
+                    <input required type="email" name="email" value={formData.email} onChange={handleChange} className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:border-primary outline-none transition-smooth" placeholder="name@example.com" dir="ltr" />
                   </div>
                   <div>
                     <label className="text-sm font-medium mb-1.5 block">שם העסק</label>

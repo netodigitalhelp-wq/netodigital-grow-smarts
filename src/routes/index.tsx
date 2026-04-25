@@ -474,7 +474,7 @@ function Index() {
           <div className="grid lg:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
             <Reveal>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full gradient-cta text-accent-foreground text-xs font-bold mb-4 shadow-glow-cta">
-                <Rocket className="w-3.5 h-3.5" /> AI Audit · חינם
+                <Rocket className="w-3.5 h-3.5" /> אבחון AI · חינם
               </div>
               <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight text-metallic">
                 בדוק התאמה <br/>
@@ -711,7 +711,7 @@ function AuditForm() {
               maxLength={MAX_TEXT}
               value={email}
               onChange={(e) => { setError(null); setEmail(sanitize(e.target.value, MAX_TEXT)); }}
-              placeholder="email@example.com (אופציונלי)"
+              placeholder="האימייל שלך (אופציונלי)"
               className="w-full px-4 py-4 rounded-xl bg-input border border-border text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30 transition-smooth text-base"
             />
           </div>
@@ -743,7 +743,7 @@ function AuditForm() {
           {step === total - 1 ? (
             <>
               <Send className="w-4 h-4" />
-              שלח את ה-Audit
+              שלח את האבחון
             </>
           ) : (
             <>
