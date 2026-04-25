@@ -68,10 +68,10 @@ function ContactPage() {
     const phoneOk = /^[\d+\-\s()]{7,20}$/.test(formData.phone.trim());
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(formData.email.trim());
     const messageOk = formData.message.trim().length >= 2 && formData.message.length <= 2000;
-    if (!nameOk) return setError("שם לא תקין");
-    if (!phoneOk) return setError("טלפון לא תקין");
-    if (!emailOk) return setError("אימייל לא תקין");
-    if (!messageOk) return setError("הודעה לא תקינה");
+    if (!nameOk) return setError("שם לא תקין — נא להזין שם מלא בעברית או באנגלית.");
+    if (!phoneOk) return setError("מספר טלפון לא תקין — בדקו שהזנתם את המספר במלואו.");
+    if (!emailOk) return setError("כתובת אימייל לא תקינה — נא לוודא שהיא בפורמט name@example.com.");
+    if (!messageOk) return setError("ההודעה קצרה מדי או ארוכה מדי — בין 2 ל-2,000 תווים.");
 
     setLoading(true);
     try {
@@ -82,7 +82,7 @@ function ContactPage() {
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "שגיאה בשליחה");
+        throw new Error(data.error || "אירעה שגיאה בשליחה. נסו שוב או פנו אלינו בוואטסאפ.");
       }
       setSent(true);
     } catch (err) {
@@ -105,7 +105,7 @@ function ContactPage() {
         <section className="container mx-auto px-6 pt-20 pb-12 text-center max-w-3xl">
           <div className="text-sm font-semibold text-primary mb-3">בואו נדבר</div>
           <h1 className="text-5xl md:text-6xl font-bold mb-6">מתחילים <span className="text-gradient">מהיום</span></h1>
-          <p className="text-lg text-muted-foreground">השאירו פרטים ונחזור אליכם תוך 24 שעות עם הצעה ראשונית.</p>
+          <p className="text-lg text-muted-foreground">השאירו פרטים — ונחזור אליכם תוך 24 שעות עם הצעה ראשונית מותאמת.</p>
         </section>
 
         <section className="container mx-auto px-6 pb-24">
@@ -251,9 +251,9 @@ function ContactPage() {
                     className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl gradient-primary text-primary-foreground font-semibold shadow-glow hover:scale-[1.02] transition-smooth disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
                   >
                     {loading ? (
-                      <>שולח... <Loader2 className="w-4 h-4 animate-spin" /></>
+                      <>שולח… <Loader2 className="w-4 h-4 animate-spin" /></>
                     ) : (
-                      <>שליחה <Send className="w-4 h-4" /></>
+                      <>שליחת פנייה <Send className="w-4 h-4" /></>
                     )}
                   </button>
                 </>
