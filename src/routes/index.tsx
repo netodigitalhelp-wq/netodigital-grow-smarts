@@ -347,7 +347,8 @@ function Index() {
           </div>
         </section>
 
-        {/* Pricing */}
+        {/* Pricing — lazy-mounted 200px before viewport */}
+        <LazyMount rootMargin="200px" minHeight={900}>
         <section id="pricing" className="container mx-auto px-5 sm:px-6 py-16 md:py-20 scroll-mt-24">
           <Reveal className="text-center max-w-2xl mx-auto mb-10">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full gradient-cta text-accent-foreground text-xs font-extrabold mb-4 shadow-glow-cta">
@@ -469,8 +470,10 @@ function Index() {
             </div>
           </div>
         </section>
+        </LazyMount>
 
-        {/* AI Audit form */}
+        {/* AI Audit form — lazy-mounted 200px before viewport */}
+        <LazyMount rootMargin="200px" minHeight={700}>
         <section id="audit" className="container mx-auto px-5 sm:px-6 py-16 md:py-20 scroll-mt-24">
           <div className="grid lg:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
             <Reveal>
