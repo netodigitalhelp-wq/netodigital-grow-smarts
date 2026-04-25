@@ -91,7 +91,7 @@ export function Header() {
         <Magnetic strength={0.28} as="span" className="hidden md:inline-block">
           <Link
             to="/contact"
-            className="inline-flex items-center px-5 py-2 text-sm font-bold gradient-cta text-accent-foreground rounded-lg cta-breathe hover:scale-105 transition-smooth"
+            className="tactile photon inline-flex items-center px-5 py-2 text-sm font-bold gradient-cta text-accent-foreground rounded-lg cta-breathe hover:scale-105 transition-smooth"
           >
             התחל עכשיו
           </Link>
@@ -123,7 +123,7 @@ export function Header() {
             <Link
               to="/contact"
               onClick={() => setOpen(false)}
-              className="mt-2 inline-flex items-center justify-center px-5 py-3 text-base font-bold gradient-cta text-accent-foreground rounded-lg cta-breathe"
+              className="tactile photon mt-2 inline-flex items-center justify-center px-5 py-3 text-base font-bold gradient-cta text-accent-foreground rounded-lg cta-breathe"
             >
               התחל עכשיו
             </Link>
