@@ -383,7 +383,7 @@ function Index() {
 
           {/* Why so affordable? */}
           <div className="mt-14 max-w-3xl mx-auto" dir="rtl">
-            <div className="rounded-2xl border border-border bg-card/50 p-7 md:p-9 text-right">
+            <div className="rounded-2xl glass p-7 md:p-9 text-right">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-glow flex-shrink-0">
                   <Cpu className="w-6 h-6 text-primary-foreground" />
@@ -451,7 +451,7 @@ function Index() {
               >
                 <Zap className="w-4 h-4" /> דבר איתנו בוואטסאפ
               </a>
-              <Link to="/contact" className="inline-flex items-center justify-center px-8 py-4 rounded-xl border border-border bg-card font-semibold hover:bg-secondary transition-smooth">
+              <Link to="/contact" className="inline-flex items-center justify-center px-8 py-4 rounded-xl glass font-semibold hover:bg-card/70 transition-smooth">
                 לכל דרכי התקשורת
               </Link>
             </div>
@@ -533,7 +533,7 @@ function AuditForm() {
 
   if (submitted) {
     return (
-      <div className="bg-card rounded-2xl border border-border p-8 md:p-10 shadow-card text-center">
+      <div className="rounded-2xl glass-strong p-8 md:p-10 shadow-card text-center">
         <div className="w-16 h-16 rounded-full gradient-cta flex items-center justify-center mx-auto mb-4 shadow-glow-cta">
           <CheckCircle2 className="w-8 h-8 text-accent-foreground" />
         </div>
@@ -551,7 +551,7 @@ function AuditForm() {
   }
 
   return (
-    <div className="bg-card rounded-2xl border border-border p-6 md:p-8 shadow-elegant">
+    <div className="rounded-2xl glass-strong p-6 md:p-8 shadow-elegant">
       {/* Progress */}
       <div className="mb-6">
         <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
