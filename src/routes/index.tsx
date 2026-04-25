@@ -256,31 +256,41 @@ function Index() {
               </div>
             ))}
           </div>
-          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-            {digitalWorkers.map(({ icon: Icon, title, tag, desc, features }, i) => (
-              <Reveal key={title} delay={i * 120}>
-                <Magnetic strength={0.12} as="div" className="block w-full h-full">
-                  <div className="tilt-card pulse-glow group p-7 rounded-2xl glass-lux">
-                    <div className="flex items-center justify-between mb-5">
-                  <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-glow group-hover:scale-110 transition-smooth">
-                    <Icon className="w-6 h-6 text-primary-foreground" />
-                  </div>
-                  <span className="text-[10px] sm:text-xs font-mono text-accent bg-accent/10 px-2.5 py-1 rounded-md">{tag}</span>
-                </div>
-                <h3 className="text-xl font-bold mb-2 text-foreground">{title}</h3>
-                <p className="text-muted-foreground leading-relaxed mb-5">{desc}</p>
-                <ul className="space-y-2">
-                  {features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                    </ul>
-                  </div>
-                </Magnetic>
-              </Reveal>
-            ))}
+          {/* Asymmetric Bento — first card spans 2 cols on lg, others are tall */}
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 gap-5 md:gap-6 lg:auto-rows-fr">
+            {digitalWorkers.map(({ icon: Icon, title, tag, desc, features }, i) => {
+              const bento =
+                i === 0
+                  ? "lg:col-span-2 lg:row-span-1"
+                  : i === 1
+                    ? "lg:col-span-1 lg:row-span-2"
+                    : "lg:col-span-2 lg:row-span-1";
+              return (
+                <Reveal key={title} delay={i * 120} className={bento}>
+                  <Magnetic strength={0.12} as="div" className="block w-full h-full">
+                    <div className="bento-card group h-full p-7 rounded-3xl glass-lux relative overflow-hidden">
+                      <div className="bento-card__border" aria-hidden="true" />
+                      <div className="relative flex items-center justify-between mb-5">
+                        <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-glow group-hover:scale-110 transition-smooth">
+                          <Icon className="w-6 h-6 text-primary-foreground" />
+                        </div>
+                        <span className="text-[10px] sm:text-xs font-mono text-accent bg-accent/10 px-2.5 py-1 rounded-md">{tag}</span>
+                      </div>
+                      <h3 className="relative text-xl font-bold mb-2 text-foreground">{title}</h3>
+                      <p className="relative text-muted-foreground leading-relaxed mb-5">{desc}</p>
+                      <ul className="relative space-y-2">
+                        {features.map((f) => (
+                          <li key={f} className="flex items-start gap-2 text-sm">
+                            <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                            <span>{f}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </Magnetic>
+                </Reveal>
+              );
+            })}
           </div>
         </section>
 
@@ -376,11 +386,11 @@ function Index() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5 md:gap-6 items-stretch max-w-6xl mx-auto">
+          <div className="pricing-spotlight grid md:grid-cols-3 gap-5 md:gap-6 items-stretch max-w-6xl mx-auto">
             {tiers.map((tier) => (
               <div
                 key={tier.name}
-                className={`relative p-7 md:p-8 rounded-2xl glass transition-smooth flex flex-col ${
+                className={`pricing-card relative p-7 md:p-8 rounded-2xl glass transition-smooth flex flex-col ${
                   tier.highlighted
                     ? "!border-accent/70 shadow-elegant md:scale-[1.04] ring-1 ring-accent/30"
                     : "hover:!border-primary/40 hover:shadow-card"

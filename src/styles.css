@@ -414,3 +414,74 @@
   .animate-wa-ping, .shimmer::after, .logo-orb, .logo-shine::after,
   .animate-orb-soft-pulse, .animate-figure-float { animation: none !important; }
 }
+
+/* ============ Bento card — animated cyan/violet gradient border on hover ============ */
+@layer utilities {
+  .bento-card {
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease;
+    will-change: transform;
+  }
+  .bento-card__border {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      oklch(0.91 0.16 195 / 0) 0%,
+      oklch(0.91 0.16 195 / 0) 40%,
+      oklch(0.50 0.30 295 / 0) 60%,
+      oklch(0.50 0.30 295 / 0) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    transition: background 0.6s ease, opacity 0.6s ease;
+    opacity: 0;
+  }
+  .bento-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 0 0 1px oklch(0.91 0.16 195 / 0.25),
+      0 0 60px oklch(0.91 0.16 195 / 0.18),
+      0 0 100px oklch(0.50 0.30 295 / 0.22),
+      0 25px 50px -12px oklch(0 0 0 / 0.6);
+  }
+  .bento-card:hover .bento-card__border {
+    opacity: 1;
+    background: linear-gradient(
+      135deg,
+      oklch(0.91 0.16 195 / 0.85) 0%,
+      oklch(0.91 0.16 195 / 0.30) 40%,
+      oklch(0.50 0.30 295 / 0.30) 60%,
+      oklch(0.50 0.30 295 / 0.85) 100%
+    );
+  }
+
+  /* ============ Pricing Spotlight — hover focuses a card, dims siblings ============ */
+  .pricing-card {
+    transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 0.4s ease,
+                filter 0.4s ease,
+                box-shadow 0.5s ease,
+                border-color 0.5s ease;
+  }
+  .pricing-spotlight:hover .pricing-card {
+    opacity: 0.55;
+    filter: saturate(0.7) blur(0.3px);
+  }
+  .pricing-spotlight .pricing-card:hover {
+    opacity: 1;
+    filter: none;
+    transform: translateY(-4px) scale(1.02);
+    border-color: oklch(0.91 0.16 195 / 0.7) !important;
+    box-shadow:
+      0 0 0 1px oklch(0.91 0.16 195 / 0.35),
+      0 0 50px oklch(0.91 0.16 195 / 0.30),
+      0 0 90px oklch(0.50 0.30 295 / 0.35),
+      0 25px 50px -12px oklch(0 0 0 / 0.7);
+  }
+}
