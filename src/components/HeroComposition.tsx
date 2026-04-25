@@ -241,8 +241,8 @@ export function HeroComposition({ className }: { className?: string }) {
             }}
           />
 
-          {/* Layer 1 — Background fluid atmosphere (desktop only) */}
-          {!isMobile && <video
+          {/* Layer 1 — Background fluid atmosphere (desktop + non-low-power only) */}
+          {!isMobile && !lowPower && <video
             ref={videoRefs[0]}
             src={heroBgVideo}
             autoPlay loop muted playsInline preload="metadata"
@@ -286,7 +286,7 @@ export function HeroComposition({ className }: { className?: string }) {
           />
 
           {/* Layer 3 — Detail texture overlay */}
-          {!isMobile && <video
+          {!isMobile && !lowPower && <video
             ref={videoRefs[2]}
             src={heroOverlayVideo}
             autoPlay loop muted playsInline preload="metadata"
