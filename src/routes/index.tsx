@@ -420,16 +420,18 @@ function Index() {
                     </li>
                   ))}
                 </ul>
-                <a
-                  href="#audit"
-                  className={`inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold transition-smooth ${
-                    tier.highlighted
-                      ? "gradient-cta text-accent-foreground shadow-glow-cta hover:scale-105"
-                      : "border border-border bg-background hover:border-accent/50 hover:bg-secondary"
-                  }`}
-                >
-                  בקש הצעת מחיר <ArrowLeft className="w-4 h-4" />
-                </a>
+                <Magnetic strength={0.25} className={tier.highlighted ? "magnetic-cta" : ""}>
+                  <a
+                    href="#audit"
+                    className={`inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold transition-smooth ${
+                      tier.highlighted
+                        ? "gradient-cta text-accent-foreground shadow-glow-cta hover:scale-105"
+                        : "border border-border bg-background hover:border-accent/50 hover:bg-secondary"
+                    }`}
+                  >
+                    בקש הצעת מחיר <ArrowLeft className="w-4 h-4" />
+                  </a>
+                </Magnetic>
               </div>
             ))}
           </div>
@@ -501,17 +503,21 @@ function Index() {
               דבר איתנו עכשיו בוואטסאפ ותקבל מענה תוך דקות — וגישה למבצע ההשקה לפני שהוא נסגר.
             </p>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4">
-              <a
-                href={contact.whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="shimmer inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl gradient-cta text-accent-foreground font-bold shadow-glow-cta cta-breathe hover:scale-105 transition-smooth"
-              >
-                <Zap className="w-4 h-4" /> דבר איתנו בוואטסאפ
-              </a>
-              <Link to="/contact" className="pulse-glow inline-flex items-center justify-center px-8 py-4 rounded-xl glass-lux font-semibold hover:bg-card/70 transition-smooth">
-                לכל דרכי התקשורת
-              </Link>
+              <Magnetic strength={0.3} className="magnetic-cta">
+                <a
+                  href={contact.whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shimmer inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl gradient-cta text-accent-foreground font-bold shadow-glow-cta cta-breathe hover:scale-105 transition-smooth"
+                >
+                  <Zap className="w-4 h-4" /> דבר איתנו בוואטסאפ
+                </a>
+              </Magnetic>
+              <Magnetic strength={0.25}>
+                <Link to="/contact" className="pulse-glow inline-flex items-center justify-center px-8 py-4 rounded-xl glass-lux font-semibold hover:bg-card/70 transition-smooth">
+                  לכל דרכי התקשורת
+                </Link>
+              </Magnetic>
             </div>
           </Reveal>
         </section>
