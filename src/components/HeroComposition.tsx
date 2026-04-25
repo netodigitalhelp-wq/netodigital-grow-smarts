@@ -99,13 +99,14 @@ export function HeroComposition({ className }: { className?: string }) {
         className="animate-orb-soft-pulse select-none"
         style={{
           position: "absolute",
-          left: "8%",
+          left: "5%",
           top: "50%",
           transform: "translateY(-50%)",
           zIndex: 10,
-          width: "38%",
-          maxWidth: "460px",
+          width: "45%",
+          maxWidth: "500px",
           height: "auto",
+          mixBlendMode: "color-dodge",
           filter:
             "drop-shadow(0 0 36px oklch(0.55 0.27 295 / 0.65)) drop-shadow(0 0 60px oklch(0.84 0.16 220 / 0.4))",
         }}
@@ -116,12 +117,13 @@ export function HeroComposition({ className }: { className?: string }) {
         ref={figure}
         style={{
           position: "absolute",
-          left: "8%",
+          left: "5%",
           top: "50%",
           transform: "translateY(-50%)",
           zIndex: 20,
           width: "40%",
           maxWidth: "500px",
+          mixBlendMode: "screen",
         }}
       >
         <div className="relative w-full animate-figure-float">
