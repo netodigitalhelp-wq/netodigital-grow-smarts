@@ -22,6 +22,8 @@ import {
   AlertCircle,
   Clock3,
   Rocket,
+  Flame,
+  Cpu,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -271,6 +273,35 @@ function Index() {
               מנוי חודשי שקוף, ללא חוזי שנה. כל החבילות כוללות ריטיינר חודשי מוזל לתחזוקה שוטפת.
             </p>
           </div>
+
+          {/* Limited spots counter */}
+          <div className="max-w-3xl mx-auto mb-10">
+            <div className="relative overflow-hidden rounded-2xl border-2 border-accent/60 bg-gradient-to-l from-accent/15 via-accent/5 to-transparent p-5 md:p-6 shadow-glow-cta">
+              <div className="absolute -top-8 -left-8 w-32 h-32 rounded-full bg-accent/20 blur-3xl" />
+              <div className="relative flex items-center gap-4 flex-wrap justify-center sm:justify-between text-center sm:text-right">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full gradient-cta flex items-center justify-center shadow-glow-cta flex-shrink-0">
+                    <Flame className="w-6 h-6 text-accent-foreground animate-pulse" />
+                  </div>
+                  <div>
+                    <div className="text-base sm:text-lg font-extrabold text-foreground leading-tight">
+                      מבצע השקה: <span className="text-gradient-cta">0₪ עלות הקמה</span>
+                    </div>
+                    <div className="text-xs sm:text-sm text-muted-foreground mt-0.5">
+                      תקף עד שיתפסו כל המקומות
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-background/80 backdrop-blur border border-accent/40">
+                  <span className="text-3xl font-extrabold text-gradient-cta leading-none">3</span>
+                  <span className="text-xs sm:text-sm font-bold text-foreground leading-tight">
+                    מקומות<br/>אחרונים
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="grid md:grid-cols-3 gap-5 md:gap-6 items-stretch max-w-6xl mx-auto">
             {tiers.map((tier) => (
               <div
@@ -291,13 +322,18 @@ function Index() {
                   <p className="text-sm text-accent font-semibold leading-relaxed mb-2">{tier.highlight}</p>
                   <p className="text-sm text-muted-foreground leading-relaxed">{tier.desc}</p>
                 </div>
-                <div className="mb-6 pb-6 border-b border-border">
-                  <div className="flex items-baseline gap-2 mb-2">
-                    <span className="text-base text-muted-foreground line-through">{tier.setupOriginal}</span>
-                    <span className="text-2xl font-extrabold text-gradient-cta">0₪</span>
-                    <span className="text-xs text-muted-foreground">הקמה</span>
+                <div className="mb-6 pb-6 border-b border-border text-right" dir="rtl">
+                  <div className="text-xs font-semibold text-muted-foreground mb-1.5">עלות הקמה חד-פעמית</div>
+                  <div className="flex items-baseline gap-3 mb-4 flex-wrap">
+                    <span className="text-4xl sm:text-5xl font-black text-gradient-cta leading-none drop-shadow-[0_0_18px_oklch(0.9_0.22_175/0.4)]">
+                      0₪
+                    </span>
+                    <span className="text-lg text-muted-foreground/70 line-through decoration-2 decoration-muted-foreground/50">
+                      {tier.setupOriginal}
+                    </span>
                   </div>
-                  <div className="flex items-baseline gap-2">
+                  <div className="text-xs font-semibold text-muted-foreground mb-1.5">ריטיינר חודשי</div>
+                  <div className="flex items-baseline gap-1.5">
                     <span className="text-3xl font-extrabold text-foreground">{tier.monthly}</span>
                     <span className="text-sm text-muted-foreground">/ חודש</span>
                   </div>
@@ -323,9 +359,26 @@ function Index() {
               </div>
             ))}
           </div>
-          <p className="mt-8 text-center text-xs text-muted-foreground max-w-xl mx-auto">
-            * המחיר 0₪ הקמה תקף ל-10 העסקים הראשונים בלבד במסגרת מבצע ההשקה. לאחר מכן עלות ההקמה הרגילה תחזור בתוקף.
+          <p className="mt-8 text-center text-xs md:text-sm text-muted-foreground max-w-2xl mx-auto leading-relaxed italic" dir="rtl">
+            * עלות ההקמה מסובסדת ל-10 הלקוחות הראשונים בלבד. המחיר החודשי כולל תחזוקה, שרתים ועדכוני AI שוטפים.
           </p>
+
+          {/* Why so affordable? */}
+          <div className="mt-14 max-w-3xl mx-auto" dir="rtl">
+            <div className="rounded-2xl border border-border bg-card/50 p-7 md:p-9 text-right">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-glow flex-shrink-0">
+                  <Cpu className="w-6 h-6 text-primary-foreground" />
+                </div>
+                <div>
+                  <h3 className="text-xl md:text-2xl font-bold mb-3 text-foreground">איך המחירים שלנו כל כך משתלמים?</h3>
+                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                    בזכות שימוש בכלי אוטומציה מתקדמים ורזים, אנחנו מצמצמים את עלויות הפיתוח המסורתיות ומעבירים את החיסכון ישירות אליכם. המטרה שלנו היא להנגיש את מהפכת ה-AI לכל עסק קטן בישראל, ללא חסמי כניסה.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* AI Audit form */}
