@@ -2,6 +2,8 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { CookieBanner } from "@/components/CookieBanner";
 import { ScrollGlow } from "@/components/ScrollGlow";
+import { CursorGlow } from "@/components/CursorGlow";
+import { StarsParallax } from "@/components/StarsParallax";
 
 import appCss from "../styles.css?url";
 
@@ -123,7 +125,9 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   return (
     <>
+      <StarsParallax />
       <ScrollGlow />
+      <CursorGlow />
       <Outlet />
       <WhatsAppButton />
       <CookieBanner />
