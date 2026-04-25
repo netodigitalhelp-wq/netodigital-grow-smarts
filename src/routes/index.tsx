@@ -71,8 +71,8 @@ const managedSteps = [
 const tiers = [
   {
     name: "Starter",
-    monthly: "150₪",
-    setupOriginal: "950₪",
+    monthly: "149₪",
+    setupOriginal: "949₪",
     highlight: "אוטומציה בסיסית של תוכן ושיווק",
     desc: "לעסק שרוצה להתחיל לחסוך זמן על תוכן ונוכחות דיגיטלית.",
     features: [
@@ -85,8 +85,8 @@ const tiers = [
   },
   {
     name: "Business",
-    monthly: "250₪",
-    setupOriginal: "1,600₪",
+    monthly: "249₪",
+    setupOriginal: "1,599₪",
     highlight: "נציג AI חכם בוואטסאפ",
     desc: "לעסק שמקבל הרבה פניות ורוצה לסגור יותר עסקאות אוטומטית.",
     features: [
@@ -100,8 +100,8 @@ const tiers = [
   },
   {
     name: "Premium",
-    monthly: "450₪",
-    setupOriginal: "3,200₪",
+    monthly: "449₪",
+    setupOriginal: "3,199₪",
     highlight: "מערכת הפעלה עסקית מלאה",
     desc: "לעסק שרוצה לתפעל את כל תהליך המכירה והשירות באוטומציה.",
     features: [
