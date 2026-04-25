@@ -509,6 +509,7 @@ function Index() {
             </Reveal>
           </div>
         </section>
+        </LazyMount>
 
         {/* Final CTA */}
         <section className="container mx-auto px-5 sm:px-6 py-16 md:py-20">
