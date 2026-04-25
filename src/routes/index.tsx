@@ -230,7 +230,7 @@ function Index() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             {digitalWorkers.map(({ icon: Icon, title, tag, desc, features }) => (
-              <div key={title} className="group p-7 rounded-2xl bg-card border border-border hover:border-primary/60 hover:shadow-elegant transition-smooth hover:-translate-y-1">
+              <div key={title} className="tilt-card group p-7 rounded-2xl glass">
                 <div className="flex items-center justify-between mb-5">
                   <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-glow group-hover:scale-110 transition-smooth">
                     <Icon className="w-6 h-6 text-primary-foreground" />
@@ -253,7 +253,8 @@ function Index() {
         </section>
 
         {/* Managed Service Model */}
-        <section className="py-16 md:py-20 bg-card/30 border-y border-border/60">
+        <section className="py-16 md:py-20 border-y border-border/40 relative">
+          <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_50%,oklch(0.55_0.27_295/0.08),transparent_70%)]" />
           <div className="container mx-auto px-5 sm:px-6">
             <div className="text-center max-w-2xl mx-auto mb-12">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-bold mb-4">
@@ -264,7 +265,7 @@ function Index() {
             </div>
             <div className="grid md:grid-cols-3 gap-5 md:gap-6">
               {managedSteps.map(({ icon: Icon, title, desc }, i) => (
-                <div key={title} className="relative p-7 rounded-2xl bg-background border border-border hover:border-accent/40 transition-smooth">
+                <div key={title} className="relative p-7 rounded-2xl glass hover:border-accent/40 transition-smooth">
                   <div className="absolute top-5 left-5 text-5xl font-extrabold text-accent/10 leading-none select-none">0{i + 1}</div>
                   <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5 relative">
                     <Icon className="w-6 h-6 text-accent" />
