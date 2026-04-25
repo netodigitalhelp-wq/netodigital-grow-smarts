@@ -612,7 +612,7 @@ function AuditForm() {
   }
 
   return (
-    <div className="rounded-2xl glass-strong p-6 md:p-8 shadow-elegant">
+    <div className="rounded-2xl glass-lux pulse-glow p-6 md:p-8 shadow-elegant">
       {/* Progress */}
       <div className="mb-6">
         <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
@@ -621,7 +621,7 @@ function AuditForm() {
         </div>
         <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
           <div
-            className="h-full gradient-cta transition-all duration-500 ease-out"
+            className="h-full gradient-cta shadow-glow-cta transition-all duration-500 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -723,7 +723,7 @@ function AuditForm() {
         <button
           type="button"
           onClick={next}
-          className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl gradient-cta text-accent-foreground font-bold shadow-glow-cta hover:scale-105 transition-smooth"
+          className="shimmer inline-flex items-center gap-2 px-6 py-3.5 rounded-xl gradient-cta text-accent-foreground font-bold shadow-glow-cta cta-breathe hover:scale-105 transition-smooth"
         >
           {step === total - 1 ? (
             <>
