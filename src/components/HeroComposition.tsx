@@ -224,8 +224,8 @@ export function HeroComposition({ className }: { className?: string }) {
             }}
           />
 
-          {/* Layer 1 — Background fluid atmosphere */}
-          <video
+          {/* Layer 1 — Background fluid atmosphere (desktop only) */}
+          {!isMobile && <video
             ref={videoRefs[0]}
             src={heroBgVideo}
             autoPlay loop muted playsInline preload="metadata"
@@ -243,7 +243,7 @@ export function HeroComposition({ className }: { className?: string }) {
               backfaceVisibility: "hidden",
               ...maskStyle,
             }}
-          />
+          />}
 
           {/* Layer 2 — Main AI entity */}
           <video
@@ -269,7 +269,7 @@ export function HeroComposition({ className }: { className?: string }) {
           />
 
           {/* Layer 3 — Detail texture overlay */}
-          <video
+          {!isMobile && <video
             ref={videoRefs[2]}
             src={heroOverlayVideo}
             autoPlay loop muted playsInline preload="metadata"
@@ -290,7 +290,7 @@ export function HeroComposition({ className }: { className?: string }) {
               backfaceVisibility: "hidden",
               ...maskStyle,
             }}
-          />
+          />}
 
           {/* Animated SVG film grain (existing) */}
           <div
