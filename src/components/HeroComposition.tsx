@@ -114,7 +114,6 @@ export function HeroComposition({ className }: { className?: string }) {
       {/* Layer 2 — AI Figure stack (reveal + glitch + float) */}
       <div
         ref={figure}
-        className="animate-figure-float"
         style={{
           position: "absolute",
           left: "8%",
@@ -125,7 +124,7 @@ export function HeroComposition({ className }: { className?: string }) {
           maxWidth: "500px",
         }}
       >
-        <div className="relative w-full">
+        <div className="relative w-full animate-figure-float">
           <img
             src={heroFigure}
             alt=""
