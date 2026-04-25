@@ -322,15 +322,17 @@ function Index() {
             {tiers.map((tier) => (
               <div
                 key={tier.name}
-                className={`relative p-7 md:p-8 rounded-2xl border transition-smooth flex flex-col ${
+                className={`relative p-7 md:p-8 rounded-2xl glass transition-smooth flex flex-col ${
                   tier.highlighted
-                    ? "bg-card border-accent shadow-elegant md:scale-[1.04]"
-                    : "bg-card border-border hover:border-primary/40 hover:shadow-card"
+                    ? "!border-accent/70 shadow-elegant md:scale-[1.04] ring-1 ring-accent/30"
+                    : "hover:!border-primary/40 hover:shadow-card"
                 }`}
               >
                 {tier.highlighted && (
-                  <div className="absolute -top-3 right-1/2 translate-x-1/2 inline-flex items-center gap-1 px-3 py-1 rounded-full gradient-cta text-accent-foreground text-xs font-bold shadow-glow-cta whitespace-nowrap">
-                    <Star className="w-3 h-3" /> הכי פופולרי
+                  <div className="absolute -top-3 right-1/2 translate-x-1/2 flex items-center gap-1.5 whitespace-nowrap">
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full gradient-cta text-accent-foreground text-xs font-extrabold shadow-glow-cta">
+                      <Star className="w-3 h-3" /> Founder's Special
+                    </span>
                   </div>
                 )}
                 <div className="mb-5">
