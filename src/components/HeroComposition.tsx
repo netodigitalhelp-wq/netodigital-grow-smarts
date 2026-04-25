@@ -41,14 +41,14 @@ export function HeroComposition({ className }: { className?: string }) {
     const tick = () => {
       x += (tx - x) * 0.08;
       y += (ty - y) * 0.08;
-      // Complementary parallax — figure 0.03, orb 0.015 (depth).
-      // tx/ty are already ±20px (cx*40), so multiply by 0.75 / 0.375 to land on the requested factors.
-      const fx = x * 0.75; // ≈ ±15px (factor 0.03 of half-viewport range)
-      const fy = y * 0.75;
-      const ox = x * 0.375; // ≈ ±7.5px (factor 0.015)
-      const oy = y * 0.375;
-      o.style.transform = `translate(${ox}px, calc(-50% + ${oy}px)) scale(1.2)`;
-      f.style.transform = `translate(${fx}px, calc(-50% + ${fy}px)) scale(1)`;
+      // Figure: bottom-anchored, subtle parallax (factor 0.02 → ±0.4px of cx*40 → use 0.5 multiplier ≈ ±10px)
+      const fx = x * 0.5;
+      const fy = y * 0.5;
+      // Orb: top-anchored, lighter parallax
+      const ox = x * 0.3;
+      const oy = y * 0.3;
+      o.style.transform = `translate(${ox}px, ${oy}px) scale(1)`;
+      f.style.transform = `translate(${fx}px, ${fy}px) scale(1)`;
       raf = requestAnimationFrame(tick);
     };
     tick();
