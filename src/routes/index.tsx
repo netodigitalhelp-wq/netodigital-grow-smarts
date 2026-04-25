@@ -260,8 +260,10 @@ function Index() {
           </div>
           <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             {digitalWorkers.map(({ icon: Icon, title, tag, desc, features }, i) => (
-              <Reveal key={title} delay={i * 120} className="tilt-card pulse-glow group p-7 rounded-2xl glass-lux">
-                <div className="flex items-center justify-between mb-5">
+              <Reveal key={title} delay={i * 120}>
+                <Magnetic strength={0.12} as="div" className="block w-full h-full">
+                  <div className="tilt-card pulse-glow group p-7 rounded-2xl glass-lux">
+                    <div className="flex items-center justify-between mb-5">
                   <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-glow group-hover:scale-110 transition-smooth">
                     <Icon className="w-6 h-6 text-primary-foreground" />
                   </div>
@@ -276,7 +278,9 @@ function Index() {
                       <span>{f}</span>
                     </li>
                   ))}
-                </ul>
+                    </ul>
+                  </div>
+                </Magnetic>
               </Reveal>
             ))}
           </div>
