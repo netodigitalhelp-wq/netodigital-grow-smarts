@@ -55,11 +55,11 @@ export function HeroComposition({ className }: { className?: string }) {
     <div
       ref={wrap}
       aria-hidden="true"
-      className={cn("absolute inset-0 -z-10 overflow-hidden", className)}
+      className={cn("absolute inset-0 z-0 overflow-hidden pointer-events-none", className)}
     >
       {/* Layer 0 — full-bleed background */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 z-0"
         style={{
           backgroundImage: `url(${heroBg})`,
           backgroundSize: "cover",
@@ -69,7 +69,10 @@ export function HeroComposition({ className }: { className?: string }) {
       />
 
       {/* Layer 1 — Orb (left), mouse-follow + soft pulse */}
-      <div className="absolute inset-y-0 left-0 w-[60%] sm:w-[55%] md:w-[50%] flex items-center justify-center pointer-events-none">
+      <div
+        className="absolute top-1/2 -translate-y-1/2 left-[5%] sm:left-[8%] flex items-center justify-center pointer-events-none"
+        style={{ zIndex: 10 }}
+      >
         <div
           ref={orb}
           className="relative will-change-transform animate-orb-soft-pulse"
@@ -88,13 +91,16 @@ export function HeroComposition({ className }: { className?: string }) {
             src={heroOrb}
             alt=""
             draggable={false}
-            className="block w-[260px] sm:w-[360px] md:w-[460px] lg:w-[520px] h-auto select-none"
+            className="block w-[220px] sm:w-[300px] md:w-[380px] lg:w-[460px] h-auto select-none"
           />
         </div>
       </div>
 
       {/* Layer 2 — AI Figure over orb, glitch reveal + floating */}
-      <div className="absolute inset-y-0 left-0 w-[60%] sm:w-[55%] md:w-[50%] flex items-center justify-center pointer-events-none">
+      <div
+        className="absolute top-1/2 -translate-y-1/2 left-[5%] sm:left-[8%] flex items-center justify-center pointer-events-none"
+        style={{ zIndex: 20 }}
+      >
         <div
           ref={figure}
           className={cn(
@@ -109,7 +115,7 @@ export function HeroComposition({ className }: { className?: string }) {
             alt=""
             draggable={false}
             className={cn(
-              "block w-[280px] sm:w-[380px] md:w-[480px] lg:w-[560px] h-auto select-none",
+              "block w-[240px] sm:w-[320px] md:w-[400px] lg:w-[500px] h-auto select-none",
               "transition-[opacity,filter] duration-[1600ms] ease-out",
               revealed ? "opacity-100 blur-0" : "opacity-0 blur-[18px]",
             )}
@@ -153,6 +159,10 @@ export function HeroComposition({ className }: { className?: string }) {
       {/* Right-side fade so RTL text stays readable */}
       <div
         className="absolute inset-0 pointer-events-none"
+        style={{ zIndex: 25 }}
+      >
+      <div
+        className="absolute inset-0"
         style={{
           background:
             "linear-gradient(to left, oklch(0.10 0.025 260) 0%, oklch(0.10 0.025 260 / 0.82) 38%, oklch(0.10 0.025 260 / 0.25) 70%, transparent 100%)",
@@ -160,12 +170,13 @@ export function HeroComposition({ className }: { className?: string }) {
       />
       {/* Top/bottom subtle fade for depth */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0"
         style={{
           background:
             "linear-gradient(to bottom, oklch(0.10 0.025 260 / 0.45), transparent 25%, transparent 75%, oklch(0.10 0.025 260 / 0.7))",
         }}
       />
+      </div>
     </div>
   );
 }
