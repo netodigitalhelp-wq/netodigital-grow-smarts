@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { LogoMark } from "@/components/LogoMark";
 
 const links = [
   { to: "/", label: "בית" },
@@ -11,15 +12,26 @@ const links = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 100);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-[36px] sm:top-[40px] z-50 backdrop-blur-xl bg-background/80 border-b border-border/50">
+    <header
+      className={`sticky top-[36px] sm:top-[40px] z-50 transition-all duration-500 ${
+        scrolled
+          ? "backdrop-blur-xl bg-background/70 border-b border-accent/20 shadow-[0_8px_32px_-12px_oklch(0_0_0/0.6)]"
+          : "bg-transparent border-b border-transparent"
+      }`}
+    >
       <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 group">
-          <span className="relative flex items-center gap-1.5 text-xl font-bold tracking-tight">
-            <span className="text-foreground">Neto</span>
-            <span className="text-foreground">Digital</span>
-            <span aria-hidden="true" className="logo-orb absolute -top-1 -left-2 w-2.5 h-2.5 rounded-full" />
-          </span>
+        <Link to="/" aria-label="NetoDigital" className="flex items-center group">
+          <LogoMark className="h-9 sm:h-10" />
         </Link>
         <nav className="hidden md:flex items-center gap-1">
           {links.map((l) => (

@@ -5,6 +5,8 @@ import { Footer } from "@/components/Footer";
 import { UrgencyBanner } from "@/components/UrgencyBanner";
 import { AIOrb } from "@/components/AIOrb";
 import { Reveal } from "@/components/Reveal";
+import { Magnetic } from "@/components/Magnetic";
+import { HeroParticleImage } from "@/components/HeroParticleImage";
 import { contact } from "@/lib/contact";
 import {
   ArrowLeft,
@@ -176,52 +178,47 @@ function Index() {
       <Header />
       <main className="flex-1">
         {/* Hero */}
-        <section className="relative overflow-hidden">
-          <div className="absolute inset-0 -z-10 gradient-hero" />
-          {/* Subtle grid noise */}
-          <div
-            className="absolute inset-0 -z-10 opacity-[0.06]"
-            style={{
-              backgroundImage:
-                "linear-gradient(oklch(0.84 0.16 220 / 0.6) 1px, transparent 1px), linear-gradient(90deg, oklch(0.84 0.16 220 / 0.6) 1px, transparent 1px)",
-              backgroundSize: "60px 60px",
-              maskImage: "radial-gradient(ellipse at 50% 30%, black, transparent 70%)",
-            }}
-          />
+        <section className="relative overflow-hidden min-h-[88vh] flex items-center" dir="rtl">
+          {/* Particle-reveal hero image (full-bleed, left-anchored) */}
+          <HeroParticleImage />
+          {/* Soft AI Orb glow behind text on the right (subtle, no clipping) */}
+          <AIOrb className="opacity-60 mix-blend-screen" />
 
-          <div className="container relative mx-auto px-5 sm:px-6 pt-16 pb-24 md:pt-24 md:pb-32 text-center max-w-5xl">
-            {/* AI Orb sits behind the headline */}
-            <AIOrb className="top-0 -translate-y-4 sm:translate-y-0" />
-
-            <div className="relative">
+          <div className="container relative mx-auto px-5 sm:px-6 pt-20 pb-24 md:pt-28 md:pb-32 max-w-7xl w-full">
+            {/* Right-aligned content column */}
+            <div className="md:max-w-xl md:ml-auto md:mr-0 text-right">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass text-xs sm:text-sm font-semibold mb-7 text-accent animate-blur-in">
                 <Brain className="w-4 h-4" />
                 סוכנות AI Automation מנוהלת לעסקים קטנים
               </div>
               <h1 className="text-[2.1rem] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] mb-6 animate-blur-in text-metallic" style={{ animationDelay: "120ms" }}>
-                בונים לעסק שלך <br/>
-                <span className="text-gradient">מוח דיגיטלי:</span>
+                בונים לעסק שלך
+                <span className="block text-gradient mt-1">מוח דיגיטלי</span>
                 <span className="block mt-2 text-metallic">אוטומציה ו-AI</span>
               </h1>
-              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-9 leading-relaxed animate-blur-in" style={{ animationDelay: "260ms" }}>
-                אנחנו בונים עבורך <span className="text-foreground font-semibold">"עובדים דיגיטליים"</span> מבוססי AI שמטפלים במכירות, שירות לקוחות ותוכן — בזמן שאתה מתפנה למה שחשוב באמת.
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl mb-9 leading-relaxed animate-blur-in" style={{ animationDelay: "260ms" }}>
+                בונים עבורך <span className="text-foreground font-semibold">"עובדים דיגיטליים"</span> מבוססי AI שמטפלים במכירות, שירות ותוכן — 24/7.
               </p>
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 animate-blur-in" style={{ animationDelay: "400ms" }}>
-                <a
-                  href="#audit"
-                  className="shimmer inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl gradient-cta text-accent-foreground font-bold text-base cta-breathe hover:scale-[1.03] transition-smooth"
-                >
-                  בדוק התאמה לאוטומציה (2 דקות) <ArrowLeft className="w-4 h-4" />
-                </a>
-                <a
-                  href="#pricing"
-                  className="pulse-glow inline-flex items-center justify-center px-7 py-4 rounded-xl glass-lux font-semibold hover:bg-card/70 transition-smooth"
-                >
-                  צפה בחבילות
-                </a>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-3 sm:gap-4 animate-blur-in" style={{ animationDelay: "400ms" }}>
+                <Magnetic strength={0.3} className="magnetic-cta">
+                  <a
+                    href="#audit"
+                    className="shimmer inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl gradient-cta text-accent-foreground font-bold text-base cta-breathe hover:scale-[1.03] transition-smooth"
+                  >
+                    בדוק התאמה (2 דקות) <ArrowLeft className="w-4 h-4" />
+                  </a>
+                </Magnetic>
+                <Magnetic strength={0.25}>
+                  <a
+                    href="#pricing"
+                    className="pulse-glow inline-flex items-center justify-center px-7 py-4 rounded-xl glass-lux font-semibold hover:bg-card/70 transition-smooth"
+                  >
+                    צפה בחבילות
+                  </a>
+                </Magnetic>
               </div>
-              <div className="mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-muted-foreground">
-                <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-accent" /> 0₪ הקמה (לזמן מוגבל)</div>
+              <div className="mt-10 flex flex-wrap items-center justify-end gap-x-5 gap-y-2 text-xs sm:text-sm text-muted-foreground">
+                <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-accent" /> 0₪ הקמה</div>
                 <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-accent" /> ללא חוזי שנה</div>
                 <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-accent" /> תוצאות תוך 14 יום</div>
               </div>
@@ -423,16 +420,18 @@ function Index() {
                     </li>
                   ))}
                 </ul>
-                <a
-                  href="#audit"
-                  className={`inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold transition-smooth ${
-                    tier.highlighted
-                      ? "gradient-cta text-accent-foreground shadow-glow-cta hover:scale-105"
-                      : "border border-border bg-background hover:border-accent/50 hover:bg-secondary"
-                  }`}
-                >
-                  בקש הצעת מחיר <ArrowLeft className="w-4 h-4" />
-                </a>
+                <Magnetic strength={0.25} className={tier.highlighted ? "magnetic-cta" : ""}>
+                  <a
+                    href="#audit"
+                    className={`inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold transition-smooth ${
+                      tier.highlighted
+                        ? "gradient-cta text-accent-foreground shadow-glow-cta hover:scale-105"
+                        : "border border-border bg-background hover:border-accent/50 hover:bg-secondary"
+                    }`}
+                  >
+                    בקש הצעת מחיר <ArrowLeft className="w-4 h-4" />
+                  </a>
+                </Magnetic>
               </div>
             ))}
           </div>
@@ -504,17 +503,21 @@ function Index() {
               דבר איתנו עכשיו בוואטסאפ ותקבל מענה תוך דקות — וגישה למבצע ההשקה לפני שהוא נסגר.
             </p>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4">
-              <a
-                href={contact.whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="shimmer inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl gradient-cta text-accent-foreground font-bold shadow-glow-cta cta-breathe hover:scale-105 transition-smooth"
-              >
-                <Zap className="w-4 h-4" /> דבר איתנו בוואטסאפ
-              </a>
-              <Link to="/contact" className="pulse-glow inline-flex items-center justify-center px-8 py-4 rounded-xl glass-lux font-semibold hover:bg-card/70 transition-smooth">
-                לכל דרכי התקשורת
-              </Link>
+              <Magnetic strength={0.3} className="magnetic-cta">
+                <a
+                  href={contact.whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shimmer inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl gradient-cta text-accent-foreground font-bold shadow-glow-cta cta-breathe hover:scale-105 transition-smooth"
+                >
+                  <Zap className="w-4 h-4" /> דבר איתנו בוואטסאפ
+                </a>
+              </Magnetic>
+              <Magnetic strength={0.25}>
+                <Link to="/contact" className="pulse-glow inline-flex items-center justify-center px-8 py-4 rounded-xl glass-lux font-semibold hover:bg-card/70 transition-smooth">
+                  לכל דרכי התקשורת
+                </Link>
+              </Magnetic>
             </div>
           </Reveal>
         </section>

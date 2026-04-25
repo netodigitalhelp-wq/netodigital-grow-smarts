@@ -360,8 +360,38 @@
   50%      { transform: scale(1.15); box-shadow: 0 0 20px oklch(0.84 0.16 220 / 0.85), 0 0 38px oklch(0.55 0.27 295 / 0.7); }
 }
 
+/* Logo shine streak — sweeps across the crystal text every 5s */
+.logo-shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.logo-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    oklch(1 0 0 / 0.55) 50%,
+    transparent 65%
+  );
+  transform: translateX(-130%);
+  animation: logo-shine-sweep 5s ease-in-out infinite;
+  mix-blend-mode: overlay;
+}
+@keyframes logo-shine-sweep {
+  0%   { transform: translateX(-130%); }
+  18%  { transform: translateX(130%); }
+  100% { transform: translateX(130%); }
+}
+
+/* Magnetic wrapper transition is set inline. This adds a subtle outer glow on hover. */
+.magnetic-cta:hover { filter: drop-shadow(0 0 18px oklch(0.84 0.16 220 / 0.55)); }
+
 /* Honor reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   .animate-breathe, .animate-orb-rotate, .cta-breathe, .animate-blur-in,
-  .animate-wa-ping, .shimmer::after, .logo-orb { animation: none !important; }
+  .animate-wa-ping, .shimmer::after, .logo-orb, .logo-shine::after { animation: none !important; }
 }

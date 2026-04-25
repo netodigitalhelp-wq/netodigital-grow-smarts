@@ -1,20 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, Phone, MapPin } from "lucide-react";
-import logo from "@/assets/logo-icon.png";
 import { contact } from "@/lib/contact";
+import { LogoMark } from "@/components/LogoMark";
 
 export function Footer() {
   return (
     <footer className="border-t border-border/50 bg-card/30 mt-24">
       <div className="container mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
         <div className="md:col-span-2">
-          <div className="flex items-center gap-2 mb-4">
-            <img
-              src={logo}
-              alt="NetoDigital"
-              className="h-10 w-10 object-contain"
-            />
-            <span className="text-xl font-bold">Neto<span className="text-gradient">Digital</span></span>
+          <div className="mb-4">
+            <LogoMark className="h-10" />
           </div>
           <p className="text-muted-foreground text-sm max-w-md leading-relaxed">
             סוכנות AI & Automation לעסקים קטנים. בונים לכם "עובדים דיגיטליים" שמטפלים במכירות, שירות ותוכן — 24/7.
