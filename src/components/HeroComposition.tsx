@@ -65,29 +65,37 @@ export function HeroComposition({ className }: { className?: string }) {
     return () => io.disconnect();
   }, []);
 
+  // Throttled + lerped parallax: rAF loop, lerp 0.1 for buttery motion.
   useEffect(() => {
     const el = wrap.current;
     const s = stage.current;
     if (!el || !s) return;
     if (window.matchMedia("(pointer: coarse)").matches) return;
-    let tx = 0, ty = 0;
+    let targetX = 0, targetY = 0;
+    let curX = 0, curY = 0;
     let raf = 0;
-    let last = 0;
-    const FRAME = 1000 / 60; // debounce to 60fps
-    const apply = () => {
-      raf = 0;
-      s.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
+    let running = false;
+    const tick = () => {
+      curX += (targetX - curX) * 0.1;
+      curY += (targetY - curY) * 0.1;
+      s.style.transform = `translate3d(${curX.toFixed(2)}px, ${curY.toFixed(2)}px, 0)`;
+      if (Math.abs(targetX - curX) < 0.05 && Math.abs(targetY - curY) < 0.05) {
+        running = false;
+        raf = 0;
+        return;
+      }
+      raf = requestAnimationFrame(tick);
     };
     const onMove = (e: PointerEvent) => {
-      const now = performance.now();
       const r = el.getBoundingClientRect();
       const cx = (e.clientX - r.left) / r.width - 0.5;
       const cy = (e.clientY - r.top) / r.height - 0.5;
-      tx = cx * 30;
-      ty = cy * 30;
-      if (raf || now - last < FRAME) return;
-      last = now;
-      raf = requestAnimationFrame(apply);
+      targetX = cx * 30;
+      targetY = cy * 30;
+      if (!running) {
+        running = true;
+        raf = requestAnimationFrame(tick);
+      }
     };
     window.addEventListener("pointermove", onMove, { passive: true });
     return () => {
@@ -120,6 +128,9 @@ export function HeroComposition({ className }: { className?: string }) {
         backgroundColor: "#000000",
         imageRendering: "high-quality" as React.CSSProperties["imageRendering"],
         WebkitFontSmoothing: "antialiased",
+        isolation: "isolate",
+        transform: "translate3d(0,0,0)",
+        backfaceVisibility: "hidden",
       } as React.CSSProperties}
     >
       {/* SVG defs: sharpen + animated grain */}
@@ -144,10 +155,9 @@ export function HeroComposition({ className }: { className?: string }) {
         style={{
           opacity: revealed ? 1 : 0,
           transition: "opacity 3000ms ease-out, transform 1500ms cubic-bezier(0.25, 0.1, 0.25, 1.0)",
-          // Tiny anti-alias blur smooths particle pixel edges
-          filter: "blur(0.5px)",
           willChange: "transform, opacity",
-          transform: "translateZ(0)",
+          transform: "translate3d(0,0,0)",
+          backfaceVisibility: "hidden",
         }}
       >
         {/* Aspect-locked container with cyan ambient glow + inset black bleed */}
@@ -157,6 +167,8 @@ export function HeroComposition({ className }: { className?: string }) {
             backgroundColor: "#000000",
             boxShadow:
               "inset 0 0 150px 100px rgba(0, 0, 0, 1), 0 0 100px rgba(6, 182, 212, 0.2)",
+            transform: "translate3d(0,0,0)",
+            backfaceVisibility: "hidden",
           }}
         >
           {/* Volumetric light bleed behind the AI entity */}
@@ -183,9 +195,10 @@ export function HeroComposition({ className }: { className?: string }) {
               objectFit: "cover",
               zIndex: 5,
               opacity: 0.3,
-              mixBlendMode: "plus-lighter",
               filter:
                 "url(#hero-sharpen) contrast(1.15) brightness(1.1) saturate(1.1) drop-shadow(0 0 5px rgba(0,255,255,0.2))",
+              transform: "translate3d(0,0,0)",
+              backfaceVisibility: "hidden",
               ...maskStyle,
             }}
           />
@@ -206,6 +219,8 @@ export function HeroComposition({ className }: { className?: string }) {
               mixBlendMode: "plus-lighter",
               filter:
                 "url(#hero-sharpen) contrast(1.15) brightness(1.1) saturate(1.1) drop-shadow(0 0 5px rgba(0,255,255,0.2)) drop-shadow(0 0 15px rgba(0, 255, 255, 0.4))",
+              transform: "translate3d(0,0,0)",
+              backfaceVisibility: "hidden",
               ...maskStyle,
             }}
           />
@@ -224,10 +239,12 @@ export function HeroComposition({ className }: { className?: string }) {
               objectFit: "cover",
               zIndex: 15,
               mixBlendMode: "plus-lighter",
-              opacity: 0.25,
+              opacity: 0.18,
               filter:
-                "url(#hero-sharpen) contrast(1.15) brightness(1.1) saturate(1.1) drop-shadow(0 0 5px rgba(0,255,255,0.2)) blur(15px)",
+                "url(#hero-sharpen) contrast(1.15) brightness(1.1) saturate(1.1)",
               pointerEvents: "none",
+              transform: "translate3d(0,0,0)",
+              backfaceVisibility: "hidden",
               ...maskStyle,
             }}
           />
