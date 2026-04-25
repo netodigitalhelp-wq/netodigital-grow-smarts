@@ -178,7 +178,7 @@ function Index() {
       <Header />
       <main className="flex-1">
         {/* Hero — Layered: bg → orb → AI figure (left), RTL copy (right) */}
-        <section className="relative overflow-hidden min-h-[92vh] flex items-center" dir="rtl">
+        <section className="relative overflow-hidden min-h-[92vh] flex items-center" dir="rtl" style={{ backgroundColor: "#000000" }}>
           <HeroComposition />
           <AIOrb className="opacity-40 mix-blend-screen" />
 

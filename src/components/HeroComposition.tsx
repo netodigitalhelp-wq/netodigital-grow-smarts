@@ -5,11 +5,9 @@ import heroOverlayVideo from "@/assets/hero-overlay.mp4";
 import { cn } from "@/lib/utils";
 
 /**
- * Tri-Layer Video Hero Composition — Luxury Edit
- *  Layer 1: hero-bg.mp4 — fluid atmosphere (color-dodge, 0.3)
- *  Layer 2: hero-entity.mp4 — main AI entity (plus-lighter, radial mask, cyan glow)
- *  Layer 3: hero-overlay.mp4 — detail texture (screen, blur 15px)
- *  + SVG sharpen filter, animated grain, inset vignette, edge-soften masks.
+ * Tri-Layer Video Hero — Seamless Black Integration
+ * Pure #000 base, feathered double-mask, plus-lighter blending,
+ * cyan ambient glow + 0.5px anti-alias blur.
  */
 export function HeroComposition({ className }: { className?: string }) {
   const wrap = useRef<HTMLDivElement>(null);
@@ -47,53 +45,36 @@ export function HeroComposition({ className }: { className?: string }) {
     return () => window.removeEventListener("pointermove", onMove);
   }, []);
 
-  const polishFilter =
-    "url(#hero-sharpen) contrast(1.1) brightness(1.05) saturate(1.1)";
-
-  const edgeMask =
-    "radial-gradient(circle, black 40%, transparent 95%)";
+  // Feathered double mask: hard center → soft halo → fully transparent before edges
+  const featherMask =
+    "radial-gradient(circle at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0.8) 50%, transparent 90%)";
+  const maskStyle = {
+    WebkitMaskImage: featherMask,
+    maskImage: featherMask,
+    WebkitMaskComposite: "source-in" as const,
+    maskComposite: "intersect" as const,
+    background: "transparent",
+  };
 
   return (
     <div
       ref={wrap}
       aria-hidden="true"
       className={cn("absolute inset-0 z-0 overflow-hidden pointer-events-none", className)}
+      style={{ backgroundColor: "#000000" }}
     >
-      {/* Inline SVG defs: sharpen convolution + animated grain turbulence */}
-      <svg
-        aria-hidden="true"
-        focusable="false"
-        width="0"
-        height="0"
-        style={{ position: "absolute", width: 0, height: 0 }}
-      >
+      {/* SVG defs: sharpen + animated grain */}
+      <svg aria-hidden="true" focusable="false" width="0" height="0" style={{ position: "absolute", width: 0, height: 0 }}>
         <defs>
           <filter id="hero-sharpen">
-            <feConvolveMatrix
-              order="3"
-              preserveAlpha="true"
-              kernelMatrix="0 -0.4 0  -0.4 2.6 -0.4  0 -0.4 0"
-            />
+            <feConvolveMatrix order="3" preserveAlpha="true" kernelMatrix="0 -0.4 0  -0.4 2.6 -0.4  0 -0.4 0" />
           </filter>
           <filter id="hero-grain">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.9"
-              numOctaves="2"
-              stitchTiles="stitch"
-            >
-              <animate
-                attributeName="seed"
-                from="1"
-                to="60"
-                dur="8s"
-                repeatCount="indefinite"
-              />
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch">
+              <animate attributeName="seed" from="1" to="60" dur="8s" repeatCount="indefinite" />
             </feTurbulence>
             <feColorMatrix type="saturate" values="0" />
-            <feComponentTransfer>
-              <feFuncA type="linear" slope="1.4" />
-            </feComponentTransfer>
+            <feComponentTransfer><feFuncA type="linear" slope="1.4" /></feComponentTransfer>
           </filter>
         </defs>
       </svg>
@@ -103,26 +84,25 @@ export function HeroComposition({ className }: { className?: string }) {
         className="absolute inset-0 will-change-transform"
         style={{
           opacity: revealed ? 1 : 0,
-          transition:
-            "opacity 3000ms ease-out, transform 1500ms cubic-bezier(0.25, 0.1, 0.25, 1.0)",
+          transition: "opacity 3000ms ease-out, transform 1500ms cubic-bezier(0.25, 0.1, 0.25, 1.0)",
+          // Tiny anti-alias blur smooths particle pixel edges
+          filter: "blur(0.5px)",
         }}
       >
-        {/* Aspect-locked video container — prevents stretching on ultrawide */}
+        {/* Aspect-locked container with cyan ambient glow + inset black bleed */}
         <div
           className="absolute inset-0 overflow-hidden"
           style={{
-            // Inset vignette: hides any visible video box edges
-            boxShadow: "inset 0 0 100px 50px rgba(2, 6, 23, 1)",
+            backgroundColor: "#000000",
+            boxShadow:
+              "inset 0 0 150px 100px rgba(0, 0, 0, 1), 0 0 100px rgba(6, 182, 212, 0.2)",
           }}
         >
           {/* Layer 1 — Background fluid atmosphere */}
           <video
             ref={videoRefs[0]}
             src={heroBgVideo}
-            autoPlay
-            loop
-            muted
-            playsInline
+            autoPlay loop muted playsInline
             style={{
               position: "absolute",
               inset: 0,
@@ -131,21 +111,17 @@ export function HeroComposition({ className }: { className?: string }) {
               objectFit: "cover",
               zIndex: 5,
               opacity: 0.3,
-              mixBlendMode: "color-dodge",
-              filter: polishFilter,
-              WebkitMaskImage: edgeMask,
-              maskImage: edgeMask,
+              mixBlendMode: "plus-lighter",
+              filter: "url(#hero-sharpen) contrast(1.1) brightness(1.05) saturate(1.1)",
+              ...maskStyle,
             }}
           />
 
-          {/* Layer 2 — Main AI entity (metamorphosis) */}
+          {/* Layer 2 — Main AI entity */}
           <video
             ref={videoRefs[1]}
             src={heroEntityVideo}
-            autoPlay
-            loop
-            muted
-            playsInline
+            autoPlay loop muted playsInline
             style={{
               position: "absolute",
               inset: 0,
@@ -157,19 +133,15 @@ export function HeroComposition({ className }: { className?: string }) {
               mixBlendMode: "plus-lighter",
               filter:
                 "url(#hero-sharpen) contrast(1.15) brightness(1.1) saturate(1.15) drop-shadow(0 0 15px rgba(0, 255, 255, 0.4))",
-              WebkitMaskImage: edgeMask,
-              maskImage: edgeMask,
+              ...maskStyle,
             }}
           />
 
-          {/* Layer 3 — Detail & texture overlay */}
+          {/* Layer 3 — Detail texture overlay */}
           <video
             ref={videoRefs[2]}
             src={heroOverlayVideo}
-            autoPlay
-            loop
-            muted
-            playsInline
+            autoPlay loop muted playsInline
             style={{
               position: "absolute",
               top: "-5%",
@@ -178,14 +150,15 @@ export function HeroComposition({ className }: { className?: string }) {
               height: "110%",
               objectFit: "cover",
               zIndex: 15,
-              mixBlendMode: "screen",
+              mixBlendMode: "plus-lighter",
               opacity: 0.25,
-              filter: `${polishFilter} blur(15px)`,
+              filter: "url(#hero-sharpen) contrast(1.1) brightness(1.05) saturate(1.1) blur(15px)",
               pointerEvents: "none",
+              ...maskStyle,
             }}
           />
 
-          {/* Animated film grain — luxury secret */}
+          {/* Animated film grain */}
           <div
             className="absolute inset-0"
             style={{
@@ -198,13 +171,13 @@ export function HeroComposition({ className }: { className?: string }) {
           />
         </div>
 
-        {/* Right-side dark veil — keeps text readable on the right column */}
+        {/* Right-side dark veil — keeps text readable */}
         <div
           className="absolute inset-0"
           style={{
             zIndex: 25,
             background:
-              "linear-gradient(to left, oklch(0.10 0.025 260) 0%, oklch(0.10 0.025 260 / 0.78) 40%, oklch(0.10 0.025 260 / 0.20) 72%, transparent 100%)",
+              "linear-gradient(to left, #000000 0%, rgba(0,0,0,0.78) 40%, rgba(0,0,0,0.20) 72%, transparent 100%)",
           }}
         />
         <div
@@ -212,7 +185,7 @@ export function HeroComposition({ className }: { className?: string }) {
           style={{
             zIndex: 25,
             background:
-              "linear-gradient(to bottom, oklch(0.10 0.025 260 / 0.45), transparent 25%, transparent 75%, oklch(0.10 0.025 260 / 0.7))",
+              "linear-gradient(to bottom, rgba(0,0,0,0.45), transparent 25%, transparent 75%, rgba(0,0,0,0.7))",
           }}
         />
       </div>
