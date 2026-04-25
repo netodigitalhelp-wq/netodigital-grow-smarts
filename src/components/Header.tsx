@@ -44,7 +44,7 @@ export function Header() {
                 ? "w-10 h-10 opacity-0 scale-75"
                 : "h-[80px] md:h-[110px] w-auto opacity-100 scale-100 -mb-10 md:-mb-16"
             }`}
-            style={{ transformOrigin: "right center" }}
+            style={{ transformOrigin: "right center", imageRendering: "-webkit-optimize-contrast" as React.CSSProperties["imageRendering"] }}
           >
             <LogoMark className="h-full" />
           </span>
