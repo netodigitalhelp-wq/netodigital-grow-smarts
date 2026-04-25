@@ -35,6 +35,11 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      {
+        httpEquiv: "Content-Security-Policy",
+        content:
+          "default-src 'self'; img-src 'self' data: https: blob:; media-src 'self' blob: data:; font-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' https: wss:; frame-src https:; object-src 'none'; base-uri 'self'; form-action 'self';",
+      },
       { name: "google-site-verification", content: "YxS976ozqi0hObB1Tu5VmfSdnudaHTmh7kW9UrALeK0" },
       { title: "NetoDigital" },
       { name: "description", content: "NetoDigital — סוכנות AI & Automation לעסקים קטנים. עובדים דיגיטליים שמטפלים במכירות, שירות ותוכן 24/7." },
