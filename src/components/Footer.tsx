@@ -17,7 +17,7 @@ export function Footer() {
             <span className="text-xl font-bold">Neto<span className="text-gradient">Digital</span></span>
           </div>
           <p className="text-muted-foreground text-sm max-w-md leading-relaxed">
-            סוכנות שיווק דיגיטלי המתמחה בעסקים קטנים. אנחנו הופכים נוכחות מקוונת להכנסות אמיתיות.
+            סוכנות AI & Automation לעסקים קטנים. בונים לכם "עובדים דיגיטליים" שמטפלים במכירות, שירות ותוכן — 24/7.
           </p>
         </div>
         <div>

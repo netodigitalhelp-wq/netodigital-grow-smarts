@@ -8,6 +8,6 @@ export const contact = {
   phoneHref: `tel:+972${PHONE.slice(1)}`,
   email: EMAIL,
   emailHref: `mailto:${EMAIL}`,
-  whatsappHref: `https://wa.me/972${PHONE.slice(1)}?text=${encodeURIComponent("שלום, הגעתי מהאתר ואשמח לשמוע פרטים 🙏")}`,
+  whatsappHref: `https://wa.me/972${PHONE.slice(1)}?text=${encodeURIComponent("היי נטו-דיגיטל, מילאתי את השאלון באתר ואשמח להתקדם להקמה ללא עלות.")}`,
   area: "שירות בכל הארץ — אונליין",
 };

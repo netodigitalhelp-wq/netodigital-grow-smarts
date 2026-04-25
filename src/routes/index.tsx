@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { UrgencyBanner } from "@/components/UrgencyBanner";
 import { contact } from "@/lib/contact";
 import {
   ArrowLeft,
@@ -10,152 +11,142 @@ import {
   Bot,
   MessageSquare,
   Workflow,
-  Clock,
-  TrendingDown,
-  AlertCircle,
   CheckCircle2,
-  Rocket,
   Brain,
   Zap,
   Send,
   Star,
-  Cpu,
-  PiggyBank,
-  Gauge,
+  Server,
+  ShieldCheck,
+  Wallet,
+  AlertCircle,
+  Clock3,
+  Rocket,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "NetoDigital — אוטומציה ו-AI לעסקים קטנים | עד 40% פחות מהשוק" },
-      { name: "description", content: "סוכנות AI Automation לעסקים קטנים. שיווק אוטונומי, נציג AI בוואטסאפ ואוטומציית מכירות — במחירים חסרי תקדים, עד 40% פחות מהשוק." },
-      { property: "og:title", content: "NetoDigital — אוטומציה ו-AI במחירים חסרי תקדים" },
-      { property: "og:description", content: "חבילות AI Automation החל מ-150₪ לחודש. שיווק, שירות לקוחות 24/7 ואוטומציית מכירות לעסקים קטנים בישראל." },
+      { title: "NetoDigital — סוכנות AI Automation לעסקים קטנים | 0₪ הקמה" },
+      { name: "description", content: "סוכנות AI & Automation לעסקים קטנים. עובדים דיגיטליים שמטפלים במכירות, שירות לקוחות ותוכן 24/7. מבצע השקה: 0₪ עלות הקמה ל-10 העסקים הראשונים." },
+      { property: "og:title", content: "NetoDigital — Managed AI Automation לעסקים קטנים" },
+      { property: "og:description", content: "בונים לכם 'עובדים דיגיטליים' מבוססי AI. מבצע השקה: 0₪ הקמה ל-10 העסקים הראשונים. ROI מוכח, חיסכון בזמן, צמיחה אוטומטית." },
     ],
   }),
   component: Index,
 });
 
-const painPoints = [
-  { icon: TrendingDown, title: "נמאס לרדוף אחרי לידים?", desc: "לידים שמתפספסים, פולואפים שנשכחים, ולוח שנה ריק יותר ממה שתכננת." },
-  { icon: Clock, title: "מבזבז שעות על פוסטים?", desc: "תוכן לרשתות זה עבודה במשרה מלאה — ועדיין לא רואים את התוצאות." },
-  { icon: AlertCircle, title: "מאבד לקוחות בוואטסאפ?", desc: "הודעות שלא נענות בזמן = לקוחות שעוברים למתחרה. כל יום." },
-];
+// ============ Data ============
 
-const solutions = [
-  {
-    icon: Sparkles,
-    title: "שיווק אוטונומי",
-    tag: "Content & Graphics",
-    desc: "מערכת AI שמייצרת תוכן, גרפיקה וקופי לרשתות החברתיות שלך — בקצב, באיכות ובסגנון של המותג שלך.",
-    features: ["פוסטים שבועיים אוטומטיים", "עיצוב גרפי תואם מותג", "תזמון חכם לפי הקהל"],
-  },
+const digitalWorkers = [
   {
     icon: MessageSquare,
-    title: "שירות לקוחות 24/7",
-    tag: "AI WhatsApp Bots",
-    desc: "בוט חכם בוואטסאפ שעונה ללקוחות מיידית, מתאם פגישות, סוגר עסקאות ומעביר אליך רק את הלידים החמים.",
-    features: ["מענה אנושי תוך שניות", "תיאום פגישות אוטומטי", "סינון לידים חכם"],
+    title: "נציג מכירות 24/7",
+    tag: "AI WhatsApp Bot",
+    desc: "בוט וואטסאפ חכם שעונה ללקוחות מיידית, מתאם פגישות וסוגר עסקאות — גם בשלוש לפנות בוקר.",
+    features: ["מענה אנושי תוך שניות", "תיאום פגישות אוטומטי", "סינון לידים חמים בלבד"],
+  },
+  {
+    icon: Sparkles,
+    title: "מנהל תוכן אוטונומי",
+    tag: "AI Content Engine",
+    desc: "מערכת AI שמייצרת פוסטים, סרטונים וגרפיקה בהתאמה אישית למותג שלך — בקצב שאתה לא יכול לעמוד בו לבד.",
+    features: ["פוסטים שבועיים אוטומטיים", "וידאו ותמונות AI", "תזמון חכם לפי הקהל"],
   },
   {
     icon: Workflow,
-    title: "אופטימיזציה תפעולית",
-    tag: "Workflow Automation",
-    desc: "מחברים בין הכלים שלך — CRM, מיילים, חשבוניות, יומן — כך שכל תהליך פנימי יקרה בלחיצה אחת או בלי שום לחיצה.",
-    features: ["אינטגרציה בין מערכות", "אוטומציה של פולואפים", "דוחות חכמים בזמן אמת"],
+    title: "מנוע צמיחה לידים",
+    tag: "Lead Growth Automation",
+    desc: "אוטומציה שמחברת בין הפייסבוק/גוגל ישירות למערכת המכירות שלך — בלי שאף ליד יפול בין הכיסאות.",
+    features: ["סנכרון מודעות → CRM", "פולואפים אוטומטיים", "דשבורד ROI בזמן אמת"],
   },
+];
+
+const managedSteps = [
+  { icon: Server, title: "אנחנו מנהלים את התשתית", desc: "שרתים, מודלי AI, אינטגרציות, ניטור — הכל מטופל בצד שלנו. אתה לא צריך לדעת מה זה API." },
+  { icon: ShieldCheck, title: "אתה מקבל שקט תעשייתי", desc: "מערכת שעובדת 24/7, מנוטרת, מגובה ומאובטחת. אם משהו נופל — אנחנו יודעים לפניך." },
+  { icon: Wallet, title: "מודל מנוי חודשי משתלם", desc: "תשלום קבוע וצפוי. ללא עלויות הקמה (לזמן מוגבל), ללא הפתעות, ללא חוזי שנה." },
 ];
 
 const tiers = [
   {
     name: "Starter",
-    setup: "950₪",
     monthly: "150₪",
-    highlight: "הפתרון המושלם לשיווק אוטומטי",
-    desc: "לעסק שרוצה להתחיל לחסוך זמן על תוכן ושיווק.",
+    setupOriginal: "950₪",
+    highlight: "אוטומציה בסיסית של תוכן ושיווק",
+    desc: "לעסק שרוצה להתחיל לחסוך זמן על תוכן ונוכחות דיגיטלית.",
     features: [
-      "יצירת תוכן AI ל-2 רשתות",
+      "מנהל תוכן AI ל-2 רשתות",
       "תזמון פוסטים אוטומטי",
       "תבניות גרפיות מותאמות מותג",
-      "תמיכה בצ'אט",
+      "דוח חודשי וביצועים",
     ],
     highlighted: false,
   },
   {
     name: "Business",
-    setup: "1,600₪",
     monthly: "250₪",
-    highlight: "נציג AI חכם בוואטסאפ שלכם",
-    desc: "לעסק שמקבל פניות בוואטסאפ ורוצה לסגור יותר עסקאות.",
+    setupOriginal: "1,600₪",
+    highlight: "נציג AI חכם בוואטסאפ",
+    desc: "לעסק שמקבל הרבה פניות ורוצה לסגור יותר עסקאות אוטומטית.",
     features: [
       "כל מה שכלול ב-Starter",
       "בוט AI מותאם בוואטסאפ",
-      "מענה אוטומטי 24/7",
-      "תיאום פגישות ביומן",
-      "סינון לידים חכם",
+      "מענה אוטומטי 24/7 + תיאום פגישות",
+      "סינון לידים חכם והעברה למוקד",
+      "אופטימיזציה חודשית של הבוט",
     ],
     highlighted: true,
   },
   {
     name: "Premium",
-    setup: "3,200₪",
     monthly: "450₪",
-    highlight: "אוטומציה מלאה של תהליכי המכירה",
-    desc: "לעסק שרוצה מערכת מכירות אוטונומית מקצה לקצה.",
+    setupOriginal: "3,200₪",
+    highlight: "מערכת הפעלה עסקית מלאה",
+    desc: "לעסק שרוצה לתפעל את כל תהליך המכירה והשירות באוטומציה.",
     features: [
       "כל מה שכלול ב-Business",
-      "אינטגרציה מלאה עם CRM",
-      "אוטומציה של פולואפים",
+      "אינטגרציה מלאה עם CRM וכלים פנימיים",
+      "אוטומציה של פולואפים וסקרי שביעות",
       "דשבורד ביצועים בזמן אמת",
-      "אסטרטג בכיר ייעודי",
-      "SLA מענה 4 שעות",
+      "אסטרטג AI ייעודי + SLA 4 שעות",
     ],
     highlighted: false,
   },
 ];
 
-const whyCheaper = [
-  { icon: Cpu, title: "כלי AI רזים", desc: "אנחנו בונים על תשתיות AI מודרניות שעולות פחות מהפתרונות הישנים שסוכנויות גדולות עדיין משתמשות בהן." },
-  { icon: Gauge, title: "תהליכים אוטומטיים", desc: "אנחנו עצמנו עובדים עם אוטומציה — כך שאנחנו צריכים פחות אנשים ופחות שעות כדי לתת לך תוצאה." },
-  { icon: PiggyBank, title: "מעבירים לך את החיסכון", desc: "במקום לגלגל את החיסכון לרווח, אנחנו מורידים את המחיר. ככה אנחנו זוכים בלקוחות מרוצים שנשארים לטווח ארוך." },
-];
+// ============ Audit form definition ============
 
-const auditQuestions = [
+type Q =
+  | { id: string; type: "text"; label: string; placeholder: string }
+  | { id: string; type: "choice"; label: string; options: string[] }
+  | { id: string; type: "contact"; label: string; placeholder: string };
+
+const auditQuestions: Q[] = [
+  { id: "businessType", type: "text", label: "מה תחום העסק שלך?", placeholder: "לדוגמה: קליניקה, חנות אונליין, מאמן אישי, נדל״ן..." },
   {
-    id: "businessType",
-    label: "מה סוג העסק שלך?",
-    placeholder: "לדוגמה: קליניקה, חנות אונליין, מאמן אישי...",
-    type: "text" as const,
+    id: "boringTask",
+    type: "choice",
+    label: "מהי הפעולה הכי משעממת ששורפת לך זמן?",
+    options: ["מענה לוואטסאפ", "יצירת תוכן", "ניהול לידים", "תיאום פגישות"],
   },
   {
-    id: "leadsPerMonth",
-    label: "כמה לידים/פניות אתה מקבל בחודש?",
-    type: "choice" as const,
-    options: ["פחות מ-20", "20-100", "100-500", "מעל 500"],
+    id: "weeklyHours",
+    type: "choice",
+    label: "כמה שעות בשבוע אתה משקיע במשימות ידניות?",
+    options: ["עד 5 שעות", "5–15 שעות", "15+ שעות"],
   },
   {
-    id: "biggestChallenge",
-    label: "מה האתגר הכי גדול שלך כרגע?",
-    placeholder: "לדוגמה: לא מספיק זמן לענות לוואטסאפים...",
-    type: "textarea" as const,
+    id: "channel",
+    type: "choice",
+    label: "איפה הלקוחות שלך נמצאים?",
+    options: ["וואטסאפ", "אינסטגרם", "גוגל", "פייסבוק"],
   },
-  {
-    id: "currentTools",
-    label: "באילו כלים אתה משתמש היום?",
-    placeholder: "לדוגמה: אקסל, וואטסאפ, אינסטגרם...",
-    type: "text" as const,
-  },
-  {
-    id: "name",
-    label: "מעולה! איך נחזור אליך?",
-    placeholder: "השם המלא שלך",
-    type: "contact" as const,
-  },
+  { id: "name", type: "contact", label: "מעולה! איך נחזור אליך?", placeholder: "השם המלא שלך" },
 ];
 
 // --- Validation helpers ---
 const MAX_TEXT = 200;
-const MAX_TEXTAREA = 1000;
 const MAX_PHONE = 20;
 const PHONE_REGEX = /^[0-9+\-\s()]{7,20}$/;
 
@@ -163,88 +154,78 @@ function sanitize(input: string, maxLen: number) {
   return input.replace(/[\u0000-\u001F\u007F<>]/g, "").slice(0, maxLen).trim();
 }
 
+// ============ Component ============
+
 function Index() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <UrgencyBanner />
       <Header />
       <main className="flex-1">
         {/* Hero */}
         <section className="relative overflow-hidden">
           <div className="absolute inset-0 -z-10 gradient-hero" />
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,oklch(0.55_0.24_295/0.12),transparent_70%)]" />
-          <div className="container mx-auto px-6 pt-20 pb-28 text-center max-w-5xl">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-sm font-medium mb-8 text-primary">
+          <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,oklch(0.55_0.27_295/0.25),transparent_70%)]" />
+          <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_80%_60%,oklch(0.9_0.22_175/0.10),transparent_60%)]" />
+
+          <div className="container mx-auto px-5 sm:px-6 pt-14 pb-20 md:pt-20 md:pb-28 text-center max-w-5xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-accent/40 bg-accent/10 text-xs sm:text-sm font-semibold mb-7 text-accent">
               <Brain className="w-4 h-4" />
-              סוכנות AI Automation לעסקים קטנים
+              סוכנות AI Automation מנוהלת לעסקים קטנים
             </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] mb-6 text-foreground">
-              אוטומציה ו-AI <br />
-              לעסקים קטנים <br />
-              <span className="text-gradient">במחירים חסרי תקדים</span>
-              <span className="block text-2xl md:text-3xl font-bold text-muted-foreground mt-4">
-                עד 40% פחות מהשוק
-              </span>
+            <h1 className="text-[2.1rem] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] mb-6 text-foreground">
+              הופכים את העסק שלך <span className="text-gradient">לאוטומטי</span>
+              <span className="block mt-2">— ומשאירים את המתחרים מאחור</span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-              חוסכים לך עשרות שעות בחודש, מטפלים בלידים 24/7 ומגדילים את העסק עם AI מותאם אישית — במחיר שאף סוכנות לא תוכל לתת לך.
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-9 leading-relaxed">
+              אנחנו בונים עבורך <span className="text-foreground font-semibold">"עובדים דיגיטליים"</span> מבוססי AI שמטפלים במכירות, שירות לקוחות ותוכן — בזמן שאתה מתפנה למה שחשוב באמת.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <a href="#audit" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl gradient-primary text-primary-foreground font-semibold shadow-glow hover:scale-105 transition-smooth">
-                AI Audit חינם <ArrowLeft className="w-4 h-4" />
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4">
+              <a
+                href="#audit"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl gradient-cta text-accent-foreground font-bold text-base shadow-glow-cta hover:scale-[1.03] transition-smooth"
+              >
+                בדוק התאמה לאוטומציה (2 דקות) <ArrowLeft className="w-4 h-4" />
               </a>
-              <a href="#pricing" className="inline-flex items-center px-7 py-3.5 rounded-xl border border-border bg-card font-semibold hover:bg-secondary transition-smooth">
-                לחבילות שלנו
+              <a
+                href="#pricing"
+                className="inline-flex items-center justify-center px-7 py-4 rounded-xl border border-border bg-card/60 backdrop-blur font-semibold hover:bg-card transition-smooth"
+              >
+                צפה בחבילות
               </a>
             </div>
-            <div className="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-              <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> ללא התחייבות</div>
-              <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> תוצאות תוך 14 יום</div>
-              <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> מחיר הוגן ושקוף</div>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-muted-foreground">
+              <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-accent" /> 0₪ הקמה (לזמן מוגבל)</div>
+              <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-accent" /> ללא חוזי שנה</div>
+              <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-accent" /> תוצאות תוך 14 יום</div>
             </div>
           </div>
         </section>
 
-        {/* Pain Points */}
-        <section className="container mx-auto px-6 py-20">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <div className="text-sm font-semibold text-accent mb-3">מוכר לך?</div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">העסק שלך עובד עליך — <br/>במקום בשבילך.</h2>
+        {/* Digital Workers */}
+        <section id="solutions" className="container mx-auto px-5 sm:px-6 py-16 md:py-20 scroll-mt-24">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <div className="text-xs sm:text-sm font-bold text-accent mb-3 tracking-wider uppercase">Our Digital Workers</div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground leading-tight">
+              העובדים שלא לוקחים יום חופש,<br/>לא דורשים העלאה — ולא ישנים.
+            </h2>
+            <p className="text-muted-foreground text-base md:text-lg">3 מערכות AI שעובדות בשבילך מסביב לשעון.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {painPoints.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="p-7 rounded-2xl bg-card border border-border hover:border-destructive/40 hover:shadow-card transition-smooth">
-                <div className="w-12 h-12 rounded-xl bg-destructive/10 flex items-center justify-center mb-5">
-                  <Icon className="w-6 h-6 text-destructive" />
-                </div>
-                <h3 className="text-xl font-bold mb-2 text-foreground">{title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Solutions */}
-        <section id="solutions" className="container mx-auto px-6 py-20 scroll-mt-20">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <div className="text-sm font-semibold text-primary mb-3">הפתרון שלנו</div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">3 מערכות AI שעובדות בשבילך 24/7</h2>
-            <p className="text-muted-foreground text-lg">בנויות לעסקים קטנים — מותקנות תוך שבועיים.</p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {solutions.map(({ icon: Icon, title, tag, desc, features }) => (
-              <div key={title} className="group p-7 rounded-2xl bg-card border border-border hover:border-primary/50 hover:shadow-elegant transition-smooth hover:-translate-y-1">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+            {digitalWorkers.map(({ icon: Icon, title, tag, desc, features }) => (
+              <div key={title} className="group p-7 rounded-2xl bg-card border border-border hover:border-primary/60 hover:shadow-elegant transition-smooth hover:-translate-y-1">
                 <div className="flex items-center justify-between mb-5">
                   <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center shadow-glow group-hover:scale-110 transition-smooth">
                     <Icon className="w-6 h-6 text-primary-foreground" />
                   </div>
-                  <span className="text-xs font-mono text-accent bg-accent/10 px-2.5 py-1 rounded-md">{tag}</span>
+                  <span className="text-[10px] sm:text-xs font-mono text-accent bg-accent/10 px-2.5 py-1 rounded-md">{tag}</span>
                 </div>
                 <h3 className="text-xl font-bold mb-2 text-foreground">{title}</h3>
                 <p className="text-muted-foreground leading-relaxed mb-5">{desc}</p>
                 <ul className="space-y-2">
                   {features.map((f) => (
                     <li key={f} className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
                       <span>{f}</span>
                     </li>
                   ))}
@@ -254,24 +235,25 @@ function Index() {
           </div>
         </section>
 
-        {/* Why cheaper - Trust bar */}
-        <section className="py-20 bg-secondary/40 border-y border-border">
-          <div className="container mx-auto px-6">
-            <div className="text-center max-w-2xl mx-auto mb-14">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold mb-4">
-                <PiggyBank className="w-3.5 h-3.5" /> שקיפות מלאה
+        {/* Managed Service Model */}
+        <section className="py-16 md:py-20 bg-card/30 border-y border-border/60">
+          <div className="container mx-auto px-5 sm:px-6">
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-bold mb-4">
+                <ShieldCheck className="w-3.5 h-3.5" /> Managed Service Model
               </div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">למה אנחנו זולים יותר?</h2>
-              <p className="text-muted-foreground text-lg">בלי קסמים. רק טכנולוגיה חכמה ומודל עסקי הוגן.</p>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">איך זה עובד?</h2>
+              <p className="text-muted-foreground text-base md:text-lg">שירות מנוהל מקצה לקצה — בלי שתצטרך להבין שום דבר טכני.</p>
             </div>
-            <div className="grid md:grid-cols-3 gap-6">
-              {whyCheaper.map(({ icon: Icon, title, desc }) => (
-                <div key={title} className="p-7 rounded-2xl bg-background border border-border hover:shadow-card transition-smooth">
-                  <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center mb-5 shadow-glow">
-                    <Icon className="w-6 h-6 text-primary-foreground" />
+            <div className="grid md:grid-cols-3 gap-5 md:gap-6">
+              {managedSteps.map(({ icon: Icon, title, desc }, i) => (
+                <div key={title} className="relative p-7 rounded-2xl bg-background border border-border hover:border-accent/40 transition-smooth">
+                  <div className="absolute top-5 left-5 text-5xl font-extrabold text-accent/10 leading-none select-none">0{i + 1}</div>
+                  <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5 relative">
+                    <Icon className="w-6 h-6 text-accent" />
                   </div>
-                  <h3 className="text-lg font-bold mb-2 text-foreground">{title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+                  <h3 className="text-lg font-bold mb-2 text-foreground relative">{title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed relative">{desc}</p>
                 </div>
               ))}
             </div>
@@ -279,56 +261,61 @@ function Index() {
         </section>
 
         {/* Pricing */}
-        <section id="pricing" className="container mx-auto px-6 py-20 scroll-mt-20">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <div className="text-sm font-semibold text-primary mb-3">חבילות ומחירים</div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">מחירים שקופים. בלי הפתעות.</h2>
-            <p className="text-muted-foreground text-lg">תשלום חד-פעמי להקמה + מנוי חודשי. ללא חוזי שנה.</p>
+        <section id="pricing" className="container mx-auto px-5 sm:px-6 py-16 md:py-20 scroll-mt-24">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full gradient-cta text-accent-foreground text-xs font-extrabold mb-4 shadow-glow-cta">
+              <Sparkles className="w-3.5 h-3.5" /> Founders Launch — 0₪ הקמה
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">חבילות ומחירים</h2>
+            <p className="text-muted-foreground text-base md:text-lg">
+              מנוי חודשי שקוף, ללא חוזי שנה. כל החבילות כוללות ריטיינר חודשי מוזל לתחזוקה שוטפת.
+            </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6 items-stretch max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-5 md:gap-6 items-stretch max-w-6xl mx-auto">
             {tiers.map((tier) => (
               <div
                 key={tier.name}
-                className={`relative p-8 rounded-2xl border transition-smooth flex flex-col ${
+                className={`relative p-7 md:p-8 rounded-2xl border transition-smooth flex flex-col ${
                   tier.highlighted
-                    ? "bg-card border-primary shadow-elegant md:scale-105"
+                    ? "bg-card border-accent shadow-elegant md:scale-[1.04]"
                     : "bg-card border-border hover:border-primary/40 hover:shadow-card"
                 }`}
               >
                 {tier.highlighted && (
-                  <div className="absolute -top-3 right-1/2 translate-x-1/2 inline-flex items-center gap-1 px-3 py-1 rounded-full gradient-primary text-primary-foreground text-xs font-bold shadow-glow">
+                  <div className="absolute -top-3 right-1/2 translate-x-1/2 inline-flex items-center gap-1 px-3 py-1 rounded-full gradient-cta text-accent-foreground text-xs font-bold shadow-glow-cta whitespace-nowrap">
                     <Star className="w-3 h-3" /> הכי פופולרי
                   </div>
                 )}
                 <div className="mb-5">
                   <h3 className="text-2xl font-bold mb-2 text-foreground">חבילת {tier.name}</h3>
-                  <p className="text-sm text-primary font-semibold leading-relaxed mb-2">{tier.highlight}</p>
+                  <p className="text-sm text-accent font-semibold leading-relaxed mb-2">{tier.highlight}</p>
                   <p className="text-sm text-muted-foreground leading-relaxed">{tier.desc}</p>
                 </div>
                 <div className="mb-6 pb-6 border-b border-border">
                   <div className="flex items-baseline gap-2 mb-2">
-                    <span className="text-4xl font-extrabold text-gradient">{tier.setup}</span>
-                    <span className="text-sm text-muted-foreground">הקמה חד-פעמית</span>
+                    <span className="text-base text-muted-foreground line-through">{tier.setupOriginal}</span>
+                    <span className="text-2xl font-extrabold text-gradient-cta">0₪</span>
+                    <span className="text-xs text-muted-foreground">הקמה</span>
                   </div>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-bold text-foreground">{tier.monthly}</span>
+                    <span className="text-3xl font-extrabold text-foreground">{tier.monthly}</span>
                     <span className="text-sm text-muted-foreground">/ חודש</span>
                   </div>
                 </div>
                 <ul className="space-y-3 mb-8 flex-1">
                   {tier.features.map((f) => (
                     <li key={f} className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
                       <span>{f}</span>
                     </li>
                   ))}
                 </ul>
                 <a
                   href="#audit"
-                  className={`inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-smooth ${
+                  className={`inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold transition-smooth ${
                     tier.highlighted
-                      ? "gradient-primary text-primary-foreground shadow-glow hover:scale-105"
-                      : "border border-border bg-background hover:bg-secondary"
+                      ? "gradient-cta text-accent-foreground shadow-glow-cta hover:scale-105"
+                      : "border border-border bg-background hover:border-accent/50 hover:bg-secondary"
                   }`}
                 >
                   בקש הצעת מחיר <ArrowLeft className="w-4 h-4" />
@@ -336,51 +323,64 @@ function Index() {
               </div>
             ))}
           </div>
+          <p className="mt-8 text-center text-xs text-muted-foreground max-w-xl mx-auto">
+            * המחיר 0₪ הקמה תקף ל-10 העסקים הראשונים בלבד במסגרת מבצע ההשקה. לאחר מכן עלות ההקמה הרגילה תחזור בתוקף.
+          </p>
         </section>
 
-        {/* AI Audit - Multi-step form */}
-        <section id="audit" className="container mx-auto px-6 py-20 scroll-mt-20">
+        {/* AI Audit form */}
+        <section id="audit" className="container mx-auto px-5 sm:px-6 py-16 md:py-20 scroll-mt-24">
           <div className="grid lg:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold mb-4">
-                <Rocket className="w-3.5 h-3.5" /> חינם לחלוטין
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full gradient-cta text-accent-foreground text-xs font-bold mb-4 shadow-glow-cta">
+                <Rocket className="w-3.5 h-3.5" /> AI Audit · חינם
               </div>
               <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight text-foreground">
-                AI Audit חינם <br/>
-                <span className="text-gradient">לעסק שלך</span>
+                בדוק התאמה <br/>
+                <span className="text-gradient">לאוטומציה ב-2 דקות</span>
               </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-                ענה על 5 שאלות קצרות (פחות מ-2 דקות) — נחזיר לך תוך 24 שעות ניתוח אישי עם 3 הזדמנויות אוטומציה שיחסכו לך הכי הרבה זמן וכסף.
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-6">
+                ענה על 5 שאלות קצרות. נחזיר אליך תוך 24 שעות עם מפת אוטומציה אישית — בדיוק איפה ה-AI יחסוך לך הכי הרבה זמן וכסף.
               </p>
               <ul className="space-y-2 text-sm">
-                {["ניתוח אישי ע״י אסטרטג בכיר", "3 הזדמנויות AI מותאמות לעסק שלך", "הערכת חיסכון בזמן ובעלויות", "ללא התחייבות, ללא שיחות מכירה"].map((b) => (
+                {[
+                  "ניתוח אישי ע״י אסטרטג AI בכיר",
+                  "3 הזדמנויות אוטומציה מותאמות לעסק שלך",
+                  "הערכת חיסכון בזמן ובעלויות",
+                  "ללא התחייבות. ללא שיחות מכירה.",
+                ].map((b) => (
                   <li key={b} className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0" />
                     <span>{b}</span>
                   </li>
                 ))}
               </ul>
+              <div className="hidden lg:flex items-center gap-2 mt-8 text-xs text-muted-foreground">
+                <Clock3 className="w-4 h-4 text-accent" /> זמן מילוי ממוצע: 1:47 דקות
+              </div>
             </div>
             <AuditForm />
           </div>
         </section>
 
         {/* Final CTA */}
-        <section className="container mx-auto px-6 py-20">
-          <div className="text-center p-12 md:p-16 rounded-3xl gradient-hero border border-primary/20 shadow-elegant">
-            <Bot className="w-12 h-12 text-primary mx-auto mb-4" />
+        <section className="container mx-auto px-5 sm:px-6 py-16 md:py-20">
+          <div className="text-center p-10 md:p-16 rounded-3xl gradient-hero border border-accent/30 shadow-elegant">
+            <Bot className="w-12 h-12 text-accent mx-auto mb-4" />
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">מוכן לתת ל-AI לעבוד בשבילך?</h2>
-            <p className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto">דבר איתנו עכשיו בוואטסאפ — תקבל מענה תוך דקות.</p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <p className="text-muted-foreground text-base md:text-lg mb-8 max-w-xl mx-auto">
+              דבר איתנו עכשיו בוואטסאפ ותקבל מענה תוך דקות — וגישה למבצע ההשקה לפני שהוא נסגר.
+            </p>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4">
               <a
                 href={contact.whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl gradient-primary text-primary-foreground font-semibold shadow-glow hover:scale-105 transition-smooth"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl gradient-cta text-accent-foreground font-bold shadow-glow-cta hover:scale-105 transition-smooth"
               >
-                <Zap className="w-4 h-4" /> דבר איתנו עכשיו
+                <Zap className="w-4 h-4" /> דבר איתנו בוואטסאפ
               </a>
-              <Link to="/contact" className="inline-flex items-center px-8 py-4 rounded-xl border border-border bg-card font-semibold hover:bg-secondary transition-smooth">
+              <Link to="/contact" className="inline-flex items-center justify-center px-8 py-4 rounded-xl border border-border bg-card font-semibold hover:bg-secondary transition-smooth">
                 לכל דרכי התקשורת
               </Link>
             </div>
@@ -397,6 +397,7 @@ function AuditForm() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
@@ -406,15 +407,14 @@ function AuditForm() {
 
   function handleAnswer(value: string) {
     setError(null);
-    const maxLen = current.type === "textarea" ? MAX_TEXTAREA : MAX_TEXT;
-    setAnswers((a) => ({ ...a, [current.id]: sanitize(value, maxLen) }));
+    setAnswers((a) => ({ ...a, [current.id]: sanitize(value, MAX_TEXT) }));
   }
 
   function next() {
     setError(null);
     const val = answers[current.id]?.trim() ?? "";
     if (current.type !== "contact" && !val) {
-      setError("נא למלא תשובה לפני המעבר לשאלה הבאה");
+      setError("נא לבחור או למלא תשובה לפני המשך");
       return;
     }
     if (current.type === "contact") {
@@ -441,16 +441,18 @@ function AuditForm() {
   function submitForm() {
     const safeName = sanitize(answers.name ?? "", MAX_TEXT);
     const safePhone = sanitize(phone, MAX_PHONE);
+    const safeEmail = sanitize(email, MAX_TEXT);
     const lines = [
-      "שלום, אשמח ל-AI Audit חינמי 🙏",
+      "היי נטו-דיגיטל, מילאתי את השאלון באתר ואשמח להתקדם להקמה ללא עלות.",
       "",
       `שם: ${safeName}`,
       `טלפון: ${safePhone}`,
-      `סוג העסק: ${answers.businessType ?? ""}`,
-      `לידים בחודש: ${answers.leadsPerMonth ?? ""}`,
-      `אתגר: ${answers.biggestChallenge ?? ""}`,
-      `כלים נוכחיים: ${answers.currentTools ?? ""}`,
-    ].join("\n");
+      safeEmail ? `מייל: ${safeEmail}` : "",
+      `תחום העסק: ${answers.businessType ?? ""}`,
+      `הפעולה הכי משעממת: ${answers.boringTask ?? ""}`,
+      `שעות שבועיות במשימות ידניות: ${answers.weeklyHours ?? ""}`,
+      `איפה הלקוחות נמצאים: ${answers.channel ?? ""}`,
+    ].filter(Boolean).join("\n");
 
     const phoneNumber = "972525981030";
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(lines)}`;
@@ -461,15 +463,15 @@ function AuditForm() {
   if (submitted) {
     return (
       <div className="bg-card rounded-2xl border border-border p-8 md:p-10 shadow-card text-center">
-        <div className="w-16 h-16 rounded-full gradient-primary flex items-center justify-center mx-auto mb-4 shadow-glow">
-          <CheckCircle2 className="w-8 h-8 text-primary-foreground" />
+        <div className="w-16 h-16 rounded-full gradient-cta flex items-center justify-center mx-auto mb-4 shadow-glow-cta">
+          <CheckCircle2 className="w-8 h-8 text-accent-foreground" />
         </div>
         <h3 className="text-2xl font-bold mb-2 text-foreground">קיבלנו! 🎉</h3>
-        <p className="text-muted-foreground mb-6">פתחנו לך את וואטסאפ — שלח את ההודעה ונחזור אליך תוך 24 שעות עם הניתוח האישי שלך.</p>
+        <p className="text-muted-foreground mb-6">פתחנו לך את וואטסאפ — שלח את ההודעה ונחזור אליך תוך 24 שעות עם מפת האוטומציה האישית שלך.</p>
         <button
           type="button"
-          onClick={() => { setSubmitted(false); setStep(0); setAnswers({}); setPhone(""); }}
-          className="text-sm text-primary hover:underline"
+          onClick={() => { setSubmitted(false); setStep(0); setAnswers({}); setPhone(""); setEmail(""); }}
+          className="text-sm text-accent hover:underline"
         >
           התחל מחדש
         </button>
@@ -487,7 +489,7 @@ function AuditForm() {
         </div>
         <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
           <div
-            className="h-full gradient-primary transition-all duration-500 ease-out"
+            className="h-full gradient-cta transition-all duration-500 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -495,7 +497,7 @@ function AuditForm() {
 
       {/* Question */}
       <div key={current.id} className="animate-in fade-in slide-in-from-bottom-2 duration-300">
-        <label htmlFor={current.id} className="block text-xl md:text-2xl font-bold mb-5 text-foreground leading-snug">
+        <label htmlFor={current.id} className="block text-lg md:text-2xl font-bold mb-5 text-foreground leading-snug">
           {current.label}
         </label>
 
@@ -509,36 +511,23 @@ function AuditForm() {
             onChange={(e) => handleAnswer(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && next()}
             placeholder={current.placeholder}
-            className="w-full px-4 py-3.5 rounded-xl bg-input border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-smooth text-base"
-          />
-        )}
-
-        {current.type === "textarea" && (
-          <textarea
-            id={current.id}
-            rows={4}
-            autoFocus
-            maxLength={MAX_TEXTAREA}
-            value={answers[current.id] ?? ""}
-            onChange={(e) => handleAnswer(e.target.value)}
-            placeholder={current.placeholder}
-            className="w-full px-4 py-3.5 rounded-xl bg-input border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-smooth text-base resize-none"
+            className="w-full px-4 py-4 rounded-xl bg-input border border-border text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30 transition-smooth text-base"
           />
         )}
 
         {current.type === "choice" && (
-          <div className="grid grid-cols-2 gap-3">
-            {current.options?.map((opt) => {
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {current.options.map((opt) => {
               const selected = answers[current.id] === opt;
               return (
                 <button
                   key={opt}
                   type="button"
                   onClick={() => handleAnswer(opt)}
-                  className={`px-4 py-3 rounded-xl border text-sm font-medium transition-smooth ${
+                  className={`px-4 py-4 rounded-xl border text-base font-medium transition-smooth ${
                     selected
-                      ? "border-primary bg-primary/10 text-primary shadow-glow"
-                      : "border-border bg-background hover:border-primary/40 hover:bg-secondary"
+                      ? "border-accent bg-accent/15 text-foreground shadow-glow-cta"
+                      : "border-border bg-background hover:border-accent/40 hover:bg-secondary"
                   }`}
                 >
                   {opt}
@@ -558,7 +547,7 @@ function AuditForm() {
               value={answers[current.id] ?? ""}
               onChange={(e) => handleAnswer(e.target.value)}
               placeholder={current.placeholder}
-              className="w-full px-4 py-3.5 rounded-xl bg-input border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-smooth text-base"
+              className="w-full px-4 py-4 rounded-xl bg-input border border-border text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30 transition-smooth text-base"
             />
             <input
               type="tel"
@@ -567,7 +556,16 @@ function AuditForm() {
               value={phone}
               onChange={(e) => { setError(null); setPhone(sanitize(e.target.value, MAX_PHONE)); }}
               placeholder="052-1234567"
-              className="w-full px-4 py-3.5 rounded-xl bg-input border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-smooth text-base"
+              className="w-full px-4 py-4 rounded-xl bg-input border border-border text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30 transition-smooth text-base"
+            />
+            <input
+              type="email"
+              dir="ltr"
+              maxLength={MAX_TEXT}
+              value={email}
+              onChange={(e) => { setError(null); setEmail(sanitize(e.target.value, MAX_TEXT)); }}
+              placeholder="email@example.com (אופציונלי)"
+              className="w-full px-4 py-4 rounded-xl bg-input border border-border text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30 transition-smooth text-base"
             />
           </div>
         )}
@@ -585,7 +583,7 @@ function AuditForm() {
           type="button"
           onClick={back}
           disabled={step === 0}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed transition-smooth"
+          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed transition-smooth"
         >
           <ArrowRight className="w-4 h-4" />
           חזור
@@ -593,7 +591,7 @@ function AuditForm() {
         <button
           type="button"
           onClick={next}
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl gradient-primary text-primary-foreground font-semibold shadow-glow hover:scale-105 transition-smooth"
+          className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl gradient-cta text-accent-foreground font-bold shadow-glow-cta hover:scale-105 transition-smooth"
         >
           {step === total - 1 ? (
             <>
@@ -610,7 +608,7 @@ function AuditForm() {
       </div>
 
       <p className="mt-4 text-xs text-muted-foreground text-center">
-        המידע שלך מאובטח. לא נשלח לך ספאם.
+        🔒 המידע שלך מאובטח. לא נשלח לך ספאם, אף פעם.
       </p>
     </div>
   );
