@@ -4,6 +4,7 @@ import { CookieBanner } from "@/components/CookieBanner";
 import { ScrollGlow } from "@/components/ScrollGlow";
 import { CursorGlow } from "@/components/CursorGlow";
 import { StarsParallax } from "@/components/StarsParallax";
+import { ParallaxBlobs } from "@/components/ParallaxBlobs";
 
 import appCss from "../styles.css?url";
 
@@ -126,6 +127,7 @@ function RootComponent() {
   return (
     <>
       <StarsParallax />
+      <ParallaxBlobs />
       <ScrollGlow />
       <CursorGlow />
       <Outlet />
