@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { UrgencyBanner } from "@/components/UrgencyBanner";
-import { AIOrb } from "@/components/AIOrb";
 import { Reveal } from "@/components/Reveal";
 import { Magnetic } from "@/components/Magnetic";
 import { LazyMount } from "@/components/LazyMount";
@@ -177,9 +176,18 @@ function Index() {
       <UrgencyBanner />
       <Header />
       <main className="flex-1">
-        {/* Hero — Layered: bg → orb → AI figure (left), RTL copy (right) */}
+        {/* Hero — atomic reset: solid #000, RTL copy, video engine slot */}
         <section className="relative overflow-hidden min-h-[92vh] flex items-center" dir="rtl" style={{ backgroundColor: "#000000" }}>
-          <AIOrb className="opacity-40 mix-blend-screen" />
+          <div
+            id="hero-video-engine"
+            style={{
+              willChange: "transform",
+              maskImage: "radial-gradient(circle, black 50%, transparent 100%)",
+              WebkitMaskImage: "radial-gradient(circle, black 50%, transparent 100%)",
+              position: "absolute",
+              inset: 0,
+            }}
+          />
 
           <div className="container relative mx-auto px-5 sm:px-6 pt-20 pb-24 md:pt-28 md:pb-32 max-w-7xl w-full" style={{ zIndex: 30 }}>
             {/* Right-anchored content column (~50% width on md+) — z-30 protected from asset overlap */}
