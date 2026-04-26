@@ -6,7 +6,6 @@ import { UrgencyBanner } from "@/components/UrgencyBanner";
 import { AIOrb } from "@/components/AIOrb";
 import { Reveal } from "@/components/Reveal";
 import { Magnetic } from "@/components/Magnetic";
-import { HeroComposition } from "@/components/HeroComposition";
 import { LazyMount } from "@/components/LazyMount";
 import { contact } from "@/lib/contact";
 import {
@@ -180,7 +179,6 @@ function Index() {
       <main className="flex-1">
         {/* Hero — Layered: bg → orb → AI figure (left), RTL copy (right) */}
         <section className="relative overflow-hidden min-h-[92vh] flex items-center" dir="rtl" style={{ backgroundColor: "#000000" }}>
-          <HeroComposition />
           <AIOrb className="opacity-40 mix-blend-screen" />
 
           <div className="container relative mx-auto px-5 sm:px-6 pt-20 pb-24 md:pt-28 md:pb-32 max-w-7xl w-full" style={{ zIndex: 30 }}>
