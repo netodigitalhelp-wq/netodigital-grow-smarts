@@ -3,8 +3,6 @@ import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { CookieBanner } from "@/components/CookieBanner";
 import { ScrollGlow } from "@/components/ScrollGlow";
 import { CursorGlow } from "@/components/CursorGlow";
-import { StarsParallax } from "@/components/StarsParallax";
-import { ParallaxBlobs } from "@/components/ParallaxBlobs";
 
 import appCss from "../styles.css?url";
 
@@ -131,8 +129,6 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   return (
     <>
-      <StarsParallax />
-      <ParallaxBlobs />
       <ScrollGlow />
       <CursorGlow />
       <Outlet />
