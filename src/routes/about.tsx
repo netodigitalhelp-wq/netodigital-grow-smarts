@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Heart, Lightbulb, Shield, Users, ArrowLeft, Quote } from "lucide-react";
+import { Shield, Settings, Users, ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -16,10 +16,21 @@ export const Route = createFileRoute("/about")({
 });
 
 const values = [
-  { icon: Heart, title: "תשוקה לתוצאות", desc: "ההצלחה שלכם היא ההצלחה שלנו. אנחנו לא נחים עד שהמספרים מדברים." },
-  { icon: Lightbulb, title: "יצירתיות חכמה", desc: "פתרונות שיווק יצירתיים אבל מבוססי דאטה — לא ניחושים." },
-  { icon: Shield, title: "שקיפות מלאה", desc: "דוחות ברורים, מחירים הוגנים וגישה לכל הנתונים שלכם בכל רגע." },
-  { icon: Users, title: "ליווי אישי", desc: "מנהל לקוח קבוע שמכיר את העסק שלכם לעומק." },
+  {
+    icon: Shield,
+    title: "אמינות מעל הכל",
+    desc: "אנחנו לא מבטיחים דברים שלא נוכל לעמוד בהם. אם לא חוסכים לך זמן תוך 14 יום — אתה לא משלם. פשוט כך.",
+  },
+  {
+    icon: Settings,
+    title: "מומחיות בתוצאות",
+    desc: "אנחנו מתמחים באחד הדבר: לגרום לעסקים קטנים לעבוד חכם יותר עם AI. לא שיווק כללי, לא ייעוץ — אוטומציה שעובדת.",
+  },
+  {
+    icon: Users,
+    title: "שירות אישי אמיתי",
+    desc: "אצלנו אתה לא \"לקוח מספר 50\". יש לך איש קשר ישיר שמכיר את העסק שלך לעומק ועונה תוך שעה.",
+  },
 ];
 
 function AboutPage() {
@@ -28,27 +39,20 @@ function AboutPage() {
       <Header />
       <main className="flex-1">
         <section className="container mx-auto px-6 pt-20 pb-16 text-center max-w-3xl">
-          <div className="text-sm font-semibold text-primary mb-3">הסיפור שלנו</div>
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">סוכנות <span className="text-gradient">חדשה</span>, ניסיון ותיק</h1>
+          <div className="inline-block text-sm font-semibold text-primary mb-4 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10">
+            אודות NetoDigital
+          </div>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+            אנחנו לא סוכנות. <br />
+            <span className="text-gradient">אנחנו שותפים לצמיחה.</span>
+          </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            NetoDigital הוקמה ב-2025 על ידי צוות עם 8+ שנות ניסיון מצטבר בסוכנויות שיווק מובילות בישראל.
-            הקמנו את הסוכנות מתוך תסכול — ראינו עסקים קטנים נהדרים שמשלמים הון לסוכנויות גדולות, ומקבלים יחס של "לקוח 47 מתוך 200".
-            החלטנו לבנות משהו אחר.
+            NetoDigital הוקמה מתוך תסכול אמיתי — ראינו עסקים קטנים מצוינים שמפסידים לידים, מבזבזים זמן על משימות חוזרות, ולא מצליחים לגדול. החלטנו לבנות את הפתרון שהיינו רוצים שיהיה קיים.
           </p>
         </section>
 
-        <section className="container mx-auto px-6 mb-20 max-w-3xl">
-          <div className="p-8 md:p-10 rounded-3xl gradient-card border border-primary/30 relative">
-            <Quote className="absolute top-6 right-6 w-10 h-10 text-primary/20" />
-            <p className="text-lg md:text-xl leading-relaxed text-foreground/90 italic">
-              "אחרי 8+ שנים בסוכנויות הגדולות בארץ, ראינו את אותה תופעה שוב ושוב — עסקים קטנים שמשלמים תקציבים גדולים, מקבלים נציג אחד מתוך 50 לקוחות, ובסוף נשארים בלי תוצאות. NetoDigital הוקמה בדיוק בשביל לפתור את זה — סוכנות בוטיק עם כמות לקוחות מוגבלת, אסטרטג בכיר על כל חשבון, ויחס של שותף לצמיחה."
-            </p>
-            <div className="mt-6 text-sm text-muted-foreground">— הצוות המייסד של NetoDigital</div>
-          </div>
-        </section>
-
         <section className="container mx-auto px-6 mb-20">
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
             {values.map(({ icon: Icon, title, desc }) => (
               <div key={title} className="p-8 rounded-2xl gradient-card border border-border/50">
                 <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center mb-4 shadow-glow">
